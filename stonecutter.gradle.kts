@@ -18,6 +18,7 @@ allprojects {
         maven("https://maven.parchmentmc.org")
     }
 
+    group = "xyz.bluspring.modernnetworking"
     version = mod.version
 
     // KFF doesn't have newer versions of Kotlin in older versions of Forge, so.
