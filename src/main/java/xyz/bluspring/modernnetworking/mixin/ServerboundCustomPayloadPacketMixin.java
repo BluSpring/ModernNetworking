@@ -2,7 +2,11 @@ package xyz.bluspring.modernnetworking.mixin;
 
 //? if >= 1.20.6 {
 /*import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.codec.StreamCodec;*/
+//? }
+
+//? if >= 1.20.2 {
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper;
@@ -16,11 +20,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.bluspring.modernnetworking.api.minecraft.VanillaNetworkRegistry;
 
 import java.util.ArrayList;
-*///?}
+//?}
 
-//? if >= 1.20.6 {
-/*@Mixin(ServerboundCustomPayloadPacket.class)
-*///?}
+//? if >= 1.20.2 {
+@Mixin(ServerboundCustomPayloadPacket.class)
+//?}
 public abstract class ServerboundCustomPayloadPacketMixin {
     //? if >= 1.20.6 {
     /*@Inject(method = "method_56475", at = @At("HEAD"), cancellable = true)
@@ -48,6 +52,19 @@ public abstract class ServerboundCustomPayloadPacketMixin {
                 list.add(new CustomPacketPayload.TypeAndCodec<>((CustomPacketPayload.Type<CustomPayloadWrapper<?>>) type, (StreamCodec<RegistryFriendlyByteBuf, CustomPayloadWrapper<?>>) codec));
             }
         }
+    }*/
+    //?} else if >= 1.20.2 {
+    @Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
+    private static void modernnetworking$readWithRegisteredPacket(ResourceLocation location, FriendlyByteBuf buffer, CallbackInfoReturnable<CustomPacketPayload> cir) {
+        var registry = VanillaNetworkRegistry.get(location.getNamespace());
+
+        if (registry != null) {
+            var definition = registry.getServerboundDefinition(location.getPath());
+
+            if (definition != null) {
+                cir.setReturnValue(new CustomPayloadWrapper<>(definition.getCodec().decode(buffer)));
+            }
+        }
     }
-    *///?}
+    //?}
 }

@@ -2,8 +2,8 @@ package xyz.bluspring.modernnetworking.api.minecraft
 
 //? if >= 1.20.6 {
 /*import io.netty.buffer.ByteBuf
-import net.minecraft.network.codec.StreamCodec*/
-//? }
+import net.minecraft.network.codec.StreamCodec
+*///?}
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.item.ItemStack
@@ -11,15 +11,15 @@ import xyz.bluspring.modernnetworking.api.NetworkCodec
 
 object VanillaCodecs {
     @JvmField
-    val ITEM_STACK = //?if >= 1.20.6 {
-        /*ItemStack.STREAM_CODEC.toNetworkCodec()*/
-    //? } else {
+    val ITEM_STACK = //? if >= 1.20.6 {
+        /*ItemStack.STREAM_CODEC.toNetworkCodec()
+    *///?} else {
         NetworkCodec<ItemStack, FriendlyByteBuf>({ buf, value ->
             buf.writeItem(value)
         }, { buf ->
             buf.readItem()
         })
-    //? }
+    //?}
 
     @JvmField
     val COMPOUND_TAG = NetworkCodec<CompoundTag, FriendlyByteBuf>({ buf, value ->
@@ -40,6 +40,6 @@ object VanillaCodecs {
         }, { buf ->
             this.decode(buf)
         })
-    }*/
-    //? }
+    }
+    *///?}
 }

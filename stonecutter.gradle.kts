@@ -9,7 +9,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.5" apply false
 }
 
-stonecutter active "1.18.2" /* [SC] DO NOT EDIT */
+stonecutter active "1.20.4" /* [SC] DO NOT EDIT */
 stonecutter.automaticPlatformConstants = true
 
 allprojects {

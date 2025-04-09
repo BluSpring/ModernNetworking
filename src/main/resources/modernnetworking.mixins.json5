@@ -4,10 +4,10 @@
     "package": "xyz.bluspring.modernnetworking.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-        //? if >= 1.20.6 {
-        /*"ServerboundCustomPayloadPacketMixin",
+        //? if >= 1.20.2 {
+        "ServerboundCustomPayloadPacketMixin",
         "ClientboundCustomPayloadPacketMixin",
-        *///?}
+        //?}
         "ServerGamePacketListenerImplMixin"
     ],
     "client": [

@@ -1,29 +1,31 @@
 package xyz.bluspring.modernnetworking.api.minecraft
 
-//? if >= 1.20.6 {
-/*import io.netty.buffer.ByteBuf
+//? if >= 1.20.2 {
+import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import xyz.bluspring.modernnetworking.ModernNetworking
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper
-*///?}
+import xyz.bluspring.modernnetworking.api.NetworkPacket
+import xyz.bluspring.modernnetworking.api.PacketDefinition
+//?}
 import org.jetbrains.annotations.ApiStatus
 import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
 
 class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNetworkRegistry<VanillaClientContext, VanillaServerContext>(namespace) {
-    //? if >= 1.20.6 {
-    /*@ApiStatus.Internal val clientTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
+    //? if >= 1.20.2 {
+    @ApiStatus.Internal val clientTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
     @ApiStatus.Internal val clientCodecs = mutableMapOf<String, StreamCodec<*, CustomPayloadWrapper<*>>>()
 
     @ApiStatus.Internal val serverTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
     @ApiStatus.Internal val serverCodecs = mutableMapOf<String, StreamCodec<*, CustomPayloadWrapper<*>>>()
 
     override fun <T : NetworkPacket, B : ByteBuf> registerClientbound(
-        id: String,
-        codec: NetworkCodec<T, in B>,
-        existing: PacketDefinition<T, B>?
+        existing: PacketDefinition<T, B>
     ): PacketDefinition<T, B> {
-        val definition = super.registerClientbound(id, codec, existing)
+        val definition = super.registerClientbound(existing)
+        val namespace = definition.namespace
+        val id = definition.id
 
         val type = CustomPacketPayload.Type<CustomPayloadWrapper<T>>(ModernNetworking.id(namespace, id))
         clientTypes[id] = type
@@ -37,11 +39,11 @@ class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNe
     }
 
     override fun <T : NetworkPacket, B : ByteBuf> registerServerbound(
-        id: String,
-        codec: NetworkCodec<T, in B>,
-        existing: PacketDefinition<T, B>?
+        existing: PacketDefinition<T, B>
     ): PacketDefinition<T, B> {
-        val definition = super.registerServerbound(id, codec, existing)
+        val definition = super.registerServerbound(existing)
+        val namespace = definition.namespace
+        val id = definition.id
 
         val type = CustomPacketPayload.Type<CustomPayloadWrapper<T>>(ModernNetworking.id(namespace, id))
         serverTypes[id] = type
@@ -53,7 +55,7 @@ class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNe
 
         return definition
     }
-    *///?}
+    //?}
 
     companion object {
         @ApiStatus.Internal
