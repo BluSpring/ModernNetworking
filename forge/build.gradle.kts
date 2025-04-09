@@ -58,7 +58,11 @@ dependencies {
     commonBundle(project(common.path, "namedElements")) { isTransitive = false }
     shadowBundle(project(common.path, "transformProductionForge")) { isTransitive = false }
 
-    shadow(api(project(":api")) { isTransitive = false })
+    shadowBundle(api(project(":api")) { isTransitive = false })
+}
+
+kotlin {
+    jvmToolchain(if (stonecutter.eval(minecraft, ">=1.20.5")) 21 else 17)
 }
 
 loom {

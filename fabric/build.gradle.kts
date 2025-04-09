@@ -58,7 +58,7 @@ dependencies {
     commonBundle(project(common.path, "namedElements")) { isTransitive = false }
     shadowBundle(project(common.path, "transformProductionFabric")) { isTransitive = false }
 
-    shadow(api(project(":api")) { isTransitive = false })
+    shadowBundle(api(project(":api")) { isTransitive = false })
 }
 
 loom {
@@ -81,6 +81,10 @@ java {
         JavaVersion.VERSION_21 else JavaVersion.VERSION_17
     targetCompatibility = java
     sourceCompatibility = java
+}
+
+kotlin {
+    jvmToolchain(if (stonecutter.eval(minecraftVersion, ">=1.20.5")) 21 else 17)
 }
 
 tasks.shadowJar {

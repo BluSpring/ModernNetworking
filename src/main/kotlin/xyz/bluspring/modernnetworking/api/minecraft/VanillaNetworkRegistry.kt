@@ -2,7 +2,9 @@ package xyz.bluspring.modernnetworking.api.minecraft
 
 //? if >= 1.20.2 {
 import io.netty.buffer.ByteBuf
-import net.minecraft.network.codec.StreamCodec
+//? if >= 1.20.6 {
+/*import net.minecraft.network.codec.StreamCodec*/
+//? }
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import xyz.bluspring.modernnetworking.ModernNetworking
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper
@@ -13,8 +15,8 @@ import org.jetbrains.annotations.ApiStatus
 import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
 
 class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNetworkRegistry<VanillaClientContext, VanillaServerContext>(namespace) {
-    //? if >= 1.20.2 {
-    @ApiStatus.Internal val clientTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
+    //? if >= 1.20.6 {
+    /*@ApiStatus.Internal val clientTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
     @ApiStatus.Internal val clientCodecs = mutableMapOf<String, StreamCodec<*, CustomPayloadWrapper<*>>>()
 
     @ApiStatus.Internal val serverTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
@@ -54,7 +56,7 @@ class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNe
         }) as StreamCodec<*, CustomPayloadWrapper<*>>
 
         return definition
-    }
+    }*/
     //?}
 
     companion object {

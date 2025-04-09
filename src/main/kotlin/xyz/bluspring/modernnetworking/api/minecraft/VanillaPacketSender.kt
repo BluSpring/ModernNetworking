@@ -30,7 +30,7 @@ object VanillaPacketSender {
         *///?} else {
         
         val registry = VanillaNetworkRegistry.get(packet.definition.namespace) ?: throw IllegalArgumentException("Packet namespace ${packet.definition.namespace} does not exist! ($packet, ${packet.definition})")
-        Minecraft.getInstance().connection!!.send(ServerboundCustomPayloadPacket(CustomPayloadWrapper(registry.serverTypes[packet.definition.id]!!, packet)))
+        Minecraft.getInstance().connection!!.send(ServerboundCustomPayloadPacket(CustomPayloadWrapper(/*? if >= 1.20.6 {*//*registry.serverTypes[packet.definition.id]!!,*//*?}*/ packet)))
 
         //?}
     }
@@ -47,7 +47,7 @@ object VanillaPacketSender {
         *///?} else {
 
         val registry = VanillaNetworkRegistry.get(packet.definition.namespace) ?: throw IllegalArgumentException("Packet namespace ${packet.definition.namespace} does not exist! ($packet, ${packet.definition})")
-        player.connection.send(ClientboundCustomPayloadPacket(CustomPayloadWrapper(registry.clientTypes[packet.definition.id]!!, packet)))
+        player.connection.send(ClientboundCustomPayloadPacket(CustomPayloadWrapper(/*? if >= 1.20.6 {*//*registry.clientTypes[packet.definition.id]!!,*//*?}*/ packet)))
 
         //?}
     }
