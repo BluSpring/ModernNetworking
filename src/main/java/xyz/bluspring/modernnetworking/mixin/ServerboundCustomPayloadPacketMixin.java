@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xyz.bluspring.modernnetworking.api.VanillaNetworkRegistry;
+import xyz.bluspring.modernnetworking.api.minecraft.VanillaNetworkRegistry;
 
 import java.util.ArrayList;
 *///?}

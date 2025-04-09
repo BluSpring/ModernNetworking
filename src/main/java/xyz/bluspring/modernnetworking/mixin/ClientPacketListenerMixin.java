@@ -2,7 +2,6 @@ package xyz.bluspring.modernnetworking.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 //? if >= 1.20.6 {
 
@@ -26,8 +25,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import xyz.bluspring.modernnetworking.api.VanillaClientContext;
-import xyz.bluspring.modernnetworking.api.VanillaNetworkRegistry;
+import xyz.bluspring.modernnetworking.api.minecraft.VanillaClientContext;
+import xyz.bluspring.modernnetworking.api.minecraft.VanillaNetworkRegistry;
 
 @Mixin(ClientPacketListener.class)
 public abstract class ClientPacketListenerMixin /*? if >= 1.20.6 {*//*extends ClientCommonPacketListenerImpl*//*?}*/ {

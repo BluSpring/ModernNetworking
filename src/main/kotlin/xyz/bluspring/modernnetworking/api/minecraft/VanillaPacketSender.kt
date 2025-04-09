@@ -1,4 +1,4 @@
-package xyz.bluspring.modernnetworking.api
+package xyz.bluspring.modernnetworking.api.minecraft
 
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -11,7 +11,8 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.network.protocol./*? if < 1.20.6 {*/game/*?} else {*//*common*//*?}*/.ClientboundCustomPayloadPacket
 import net.minecraft.network.protocol./*? if < 1.20.6 {*/game/*?} else {*//*common*//*?}*/.ServerboundCustomPayloadPacket
 import net.minecraft.server.level.ServerPlayer
-import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper
+import xyz.bluspring.modernnetworking.api.NetworkCodec
+import xyz.bluspring.modernnetworking.api.NetworkPacket
 
 object VanillaPacketSender {
     /**

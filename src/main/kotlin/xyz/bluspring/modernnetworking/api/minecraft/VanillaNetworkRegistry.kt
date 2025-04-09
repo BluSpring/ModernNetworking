@@ -1,4 +1,4 @@
-package xyz.bluspring.modernnetworking.api
+package xyz.bluspring.modernnetworking.api.minecraft
 
 //? if >= 1.20.6 {
 /*import io.netty.buffer.ByteBuf
@@ -8,6 +8,7 @@ import xyz.bluspring.modernnetworking.ModernNetworking
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper
 *///?}
 import org.jetbrains.annotations.ApiStatus
+import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
 
 class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNetworkRegistry<VanillaClientContext, VanillaServerContext>(namespace) {
     //? if >= 1.20.6 {

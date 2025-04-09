@@ -1,4 +1,4 @@
-package xyz.bluspring.modernnetworking.api
+package xyz.bluspring.modernnetworking.api.minecraft
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
