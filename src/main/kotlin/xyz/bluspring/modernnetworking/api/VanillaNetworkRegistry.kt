@@ -1,17 +1,17 @@
 package xyz.bluspring.modernnetworking.api
 
 //? if >= 1.20.6 {
-import io.netty.buffer.ByteBuf
+/*import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import xyz.bluspring.modernnetworking.ModernNetworking
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper
-//?}
+*///?}
 import org.jetbrains.annotations.ApiStatus
 
 class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNetworkRegistry<VanillaClientContext, VanillaServerContext>(namespace) {
     //? if >= 1.20.6 {
-    @ApiStatus.Internal val clientTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
+    /*@ApiStatus.Internal val clientTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
     @ApiStatus.Internal val clientCodecs = mutableMapOf<String, StreamCodec<*, CustomPayloadWrapper<*>>>()
 
     @ApiStatus.Internal val serverTypes = mutableMapOf<String, CustomPacketPayload.Type<*>>()
@@ -52,7 +52,7 @@ class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNe
 
         return definition
     }
-    //?}
+    *///?}
 
     companion object {
         @ApiStatus.Internal
