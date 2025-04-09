@@ -18,6 +18,8 @@ allprojects {
         maven("https://maven.parchmentmc.org")
     }
 
+    version = mod.version
+
     // KFF doesn't have newer versions of Kotlin in older versions of Forge, so.
     if ((project.name.contains("forge") || project.name.contains("neoforge")) && project.tasks.findByName("shadowJar") != null) {
         apply(plugin = "com.gradleup.shadow")

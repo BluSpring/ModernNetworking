@@ -2,6 +2,10 @@ plugins {
     kotlin("jvm")
 }
 
+base {
+    archivesName.set("modernnetworking-api")
+}
+
 dependencies {
     implementation("io.netty:netty-buffer:4.1.97.Final")
 }
