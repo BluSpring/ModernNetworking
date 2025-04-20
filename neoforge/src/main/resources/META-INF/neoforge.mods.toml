@@ -15,14 +15,14 @@ description='''
 
 [[dependencies.modernnetworking]]
 modId="neoforge"
-required=true
+type = 'required'
 versionRange="[1,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.modernnetworking]]
 modId="minecraft"
-required=true
+type = 'required'
 versionRange="${minecraft}"
 ordering="NONE"
 side="BOTH"

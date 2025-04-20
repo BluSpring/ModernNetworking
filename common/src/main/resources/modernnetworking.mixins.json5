@@ -1,5 +1,4 @@
-{
-    "required": true,
+{    "required": true,
     "minVersion": "0.8",
     "package": "xyz.bluspring.modernnetworking.mixin",
     "compatibilityLevel": "JAVA_17",

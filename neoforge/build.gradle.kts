@@ -1,22 +1,26 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.kotlin.dsl.named
+
+
 plugins {
-    id("dev.architectury.loom")
-    id("architectury-plugin")
-    id("com.gradleup.shadow")
     kotlin("jvm")
+    `maven-publish`
 }
 
 val loader = prop("loom.platform")!!
-val minecraft: String = stonecutter.current.version
+val minecraftVersion: String = stonecutter.current.version
 val common: Project = requireNotNull(stonecutter.node.sibling("")) {
     "No common project for $project"
 }
 
-version = "${mod.version}+$minecraft"
+version = "${mod.version}+$minecraftVersion"
+
 base {
     archivesName.set("${mod.id}-$loader")
 }
+
 architectury {
     platformSetupLoomIde()
     neoForge()
@@ -27,10 +31,7 @@ val commonBundle: Configuration by configurations.creating {
     isCanBeResolved = true
 }
 
-val shadowBundle: Configuration by configurations.creating {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-}
+val shade: Configuration by configurations.creating
 
 configurations {
     compileClasspath.get().extendsFrom(commonBundle)
@@ -43,67 +44,20 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:$minecraft")
-    mappings(loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-$minecraft:${common.mod.prop("parchment_snapshot")}")
-    })
     "neoForge"("net.neoforged:neoforge:${common.mod.dep("neoforge_loader")}")
     "io.github.llamalad7:mixinextras-neoforge:${mod.dep("mixin_extras")}".let {
         implementation(it)
         include(it)
     }
 
-    commonBundle(project(common.path, "namedElements")) { isTransitive = false }
-    shadowBundle(project(common.path, "transformProductionNeoForge")) { isTransitive = false }
+    compileOnly(project.project(":common:$minecraftVersion").sourceSets.main.get().output)
 
-    shadowBundle(api(project(":api")) { isTransitive = false })
-}
-
-loom {
-    decompilers {
-        get("vineflower").apply { // Adds names to lambdas - useful for mixins
-            options.put("mark-corresponding-synthetics", "1")
-        }
-    }
-
-    runConfigs.all {
-        isIdeConfigGenerated = true
-        runDir = "../../../run"
-        vmArgs("-Dmixin.debug.export=true", "-XX:+AllowEnhancedClassRedefinition")
-    }
-}
-
-java {
-    withSourcesJar()
-    val java = if (stonecutter.eval(minecraft, ">=1.20.5"))
-        JavaVersion.VERSION_21 else JavaVersion.VERSION_17
-    targetCompatibility = java
-    sourceCompatibility = java
-}
-
-kotlin {
-    jvmToolchain(if (stonecutter.eval(minecraft, ">=1.20.5")) 21 else 17)
-}
-
-tasks.jar {
-    archiveClassifier = "dev"
-}
-
-tasks.remapJar {
-    injectAccessWidener = true
-    input = tasks.shadowJar.get().archiveFile
-    archiveClassifier = null
-    dependsOn(tasks.shadowJar)
-}
-
-tasks.shadowJar {
-    configurations = listOf(shadowBundle)
-    archiveClassifier = "dev-shadow"
-    exclude("fabric.mod.json", "architectury.common.json")
+    shade(api(project(":api")) { isTransitive = false })
+    shade("org.jetbrains.kotlin:kotlin-stdlib")
 }
 
 tasks.processResources {
+    from(project.project(":common:$minecraftVersion").sourceSets.main.get().resources)
     properties(listOf("META-INF/neoforge.mods.toml", "pack.mcmeta"),
         "version" to mod.version,
         "minecraft" to common.mod.prop("mc_dep_forgelike")
@@ -121,4 +75,47 @@ tasks.register<Copy>("buildAndCollect") {
     from(tasks.remapJar.get().archiveFile, tasks.remapSourcesJar.get().archiveFile)
     into(rootProject.layout.buildDirectory.file("libs/${mod.version}/$loader"))
     dependsOn("build")
+}
+
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
+}
+
+tasks.sourcesJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(zipTree(project.project(":common:$minecraftVersion").tasks.sourcesJar.get().archiveFile))
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+    configurations = listOf(shade)
+    archiveClassifier = "dev-shadow"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "xyz.bluspring.modernnetworking"
+            artifactId = "modernnetworking-neoforge"
+            //version = project.version
+
+            artifact(project.tasks.getByName("remapJar")) {
+                builtBy(project.tasks.getByName("remapJar"))
+            }
+            artifact(project.tasks.getByName("kotlinSourcesJar")) {
+                builtBy(project.tasks.getByName("remapSourcesJar"))
+            }
+        }
+    }
+
+    repositories {
+        maven("https://mvn.devos.one/releases") {
+            credentials {
+                username = System.getenv()["MAVEN_USER"]
+                password = System.getenv()["MAVEN_PASS"]
+            }
+        }
+    }
 }

@@ -21,6 +21,7 @@ stonecutter {
         versions("1.18.2", "1.20.4", "1.20.6", "1.21.1")
         vcsVersion = "1.18.2"
 
+        branch("common")
         branch("fabric")
         branch("forge")
         branch("neoforge") {
