@@ -112,6 +112,19 @@ stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chisele
     ofTask("buildAndCollect")
 }
 
+stonecutter registerChiseled tasks.register("chiseledPublishLocal", stonecutter.chiseled) {
+    group = "project"
+    ofTask("publishToMavenLocal")
+    dependsOn(":api:publishToMavenLocal")
+}
+
+stonecutter registerChiseled tasks.register("chiseledPublish", stonecutter.chiseled) {
+    group = "project"
+    ofTask("publish")
+
+    dependsOn(":api:publish")
+}
+
 // Builds loader-specific versions into `build/libs/{mod.version}/{loader}`
 for (it in stonecutter.tree.branches) {
     if (it.id.isEmpty()) continue

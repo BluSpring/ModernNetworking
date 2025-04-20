@@ -103,7 +103,7 @@ publishing {
             artifact(project.tasks.getByName("remapJar")) {
                 builtBy(project.tasks.getByName("remapJar"))
             }
-            artifact(project.tasks.getByName("kotlinSourcesJar")) {
+            artifact(project.tasks.getByName("remapSourcesJar")) {
                 builtBy(project.tasks.getByName("remapSourcesJar"))
             }
         }
