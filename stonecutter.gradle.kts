@@ -13,7 +13,7 @@ plugins {
 }
 
 stonecutter.debug = true
-stonecutter active "1.20.4" /* [SC] DO NOT EDIT */
+stonecutter active "1.20.6" /* [SC] DO NOT EDIT */
 stonecutter.automaticPlatformConstants = true
 
 allprojects {

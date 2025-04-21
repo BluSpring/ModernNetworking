@@ -3,9 +3,9 @@ package xyz.bluspring.modernnetworking.mixin;
 //? if >= 1.20.2 {
 import net.minecraft.network.FriendlyByteBuf;
 //? if >= 1.20.6 {
-/*import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;*/
-//? }
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+//?}
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 //?}
 public abstract class ClientboundCustomPayloadPacketMixin {
     //? if >= 1.20.6 {
-    /*@Inject(method = "method_56461", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "method_56461", at = @At("HEAD"), cancellable = true)
     private static <B, V> void modernnetworking$addRegisteredPacketCodecs(ResourceLocation location, CallbackInfoReturnable<StreamCodec<B, V>> cir) {
         var registry = VanillaNetworkRegistry.get(location.getNamespace());
 
@@ -51,9 +51,9 @@ public abstract class ClientboundCustomPayloadPacketMixin {
                 list.add(new CustomPacketPayload.TypeAndCodec<>((CustomPacketPayload.Type<CustomPayloadWrapper<?>>) type, (StreamCodec<RegistryFriendlyByteBuf, CustomPayloadWrapper<?>>) codec));
             }
         }
-    }*/
-    //? } else if >= 1.20.2 {
-    @Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
+    }
+    //?} else if >= 1.20.2 {
+    /*@Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
     private static void modernnetworking$readWithRegisteredPacket(ResourceLocation location, FriendlyByteBuf buffer, CallbackInfoReturnable<CustomPacketPayload> cir) {
         var registry = VanillaNetworkRegistry.get(location.getNamespace());
 
@@ -65,5 +65,5 @@ public abstract class ClientboundCustomPayloadPacketMixin {
             }
         }
     }
-    //? }
+    *///?}
 }

@@ -58,10 +58,10 @@ public abstract class ClientPacketListenerMixin /*? if >= 1.20.2 {*/extends Clie
             return;
 
         //? if >= 1.20.6 {
-        /*var location = payload.type().id();*/
-        //? } else if >= 1.20.2 {
-        var location = payload.id();
-        //? }
+        var location = payload.type().id();
+        //?} else if >= 1.20.2 {
+        /*var location = payload.id();
+        *///?}
         var data = wrapper.getPacket();
         //?}
         var registry = VanillaNetworkRegistry.get(location.getNamespace());

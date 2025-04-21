@@ -9,13 +9,13 @@ import xyz.bluspring.modernnetworking.api.NetworkPacket
 //?}
 
 //? if >= 1.20.6 {
-/*class CustomPayloadWrapper<B : NetworkPacket>(private val type: CustomPacketPayload.Type<out CustomPacketPayload>, val packet: B) : CustomPacketPayload {
+class CustomPayloadWrapper<B : NetworkPacket>(private val type: CustomPacketPayload.Type<out CustomPacketPayload>, val packet: B) : CustomPacketPayload {
     override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> {
         return type
     }
-}*/
-//? } else if >= 1.20.2 {
-class CustomPayloadWrapper<B : NetworkPacket>(val packet: B) : CustomPacketPayload {
+}
+//?} else if >= 1.20.2 {
+/*class CustomPayloadWrapper<B : NetworkPacket>(val packet: B) : CustomPacketPayload {
     override fun id(): ResourceLocation {
         return ResourceLocation(packet.definition.namespace, packet.definition.id)
     }
@@ -24,4 +24,4 @@ class CustomPayloadWrapper<B : NetworkPacket>(val packet: B) : CustomPacketPaylo
         (packet.definition.codec as NetworkCodec<B, FriendlyByteBuf>).encode(buffer, this.packet)
     }
 }
-//? }
+*///?}
