@@ -6,5 +6,5 @@ interface NetworkPacket {
     /**
      * The packet definition for this network packet.
      */
-    val definition: PacketDefinition<out NetworkPacket, in ByteBuf>
+    val definition: PacketDefinition<out NetworkPacket, out ByteBuf>
 }
