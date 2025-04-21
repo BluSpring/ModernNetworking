@@ -3,11 +3,11 @@ package xyz.bluspring.modernnetworking.api.minecraft
 //? if >= 1.20.6 {
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.network.chat.ComponentSerialization
 //?}
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.world.item.ItemStack
 import xyz.bluspring.modernnetworking.api.NetworkCodec
 
