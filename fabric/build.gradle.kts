@@ -46,8 +46,8 @@ repositories {
 
 dependencies {
     modImplementation("net.fabricmc:fabric-loader:${common.mod.dep("fabric_loader")}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${common.mod.dep("fabric_api")}")
-    modImplementation("net.fabricmc:fabric-language-kotlin:${common.mod.dep("fabric_language_kotlin")}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${common.mod.dep("fabric_api")}")
+    modApi("net.fabricmc:fabric-language-kotlin:${common.mod.dep("fabric_language_kotlin")}")
 
     compileOnly(project.project(":common:$minecraftVersion").sourceSets.main.get().output)
 
