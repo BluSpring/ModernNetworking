@@ -66,9 +66,6 @@ public abstract class ServerGamePacketListenerImplMixin /*? if >= 1.20.6 {*/exte
                     var ctx = new VanillaServerContext(this.server, ((ServerGamePacketListenerImpl) (Object) this).player);
                     registry.handleServerPacket(/*? if >= 1.20.2 {*/(PacketDefinition<? super NetworkPacket, ? extends ByteBuf>)/*?}*/ definition, data, ctx);
                 } finally {
-                    //? if < 1.20.2 {
-                    /*data.release();
-                    *///?}
                     ci.cancel();
                 }
             }
