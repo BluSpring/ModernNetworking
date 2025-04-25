@@ -5,6 +5,7 @@ import xyz.bluspring.modernnetworking.internal.*
 import java.util.UUID
 
 object NetworkCodecs {
+    @JvmField val BOOL = NetworkCodec(ByteBuf::writeBoolean, ByteBuf::readBoolean)
     @JvmField val BYTE = NetworkCodec(ByteBuf::writeByteActual, ByteBuf::readByte)
     @JvmField val FLOAT = NetworkCodec(ByteBuf::writeFloat, ByteBuf::readFloat)
     @JvmField val DOUBLE = NetworkCodec(ByteBuf::writeDouble, ByteBuf::readDouble)
@@ -37,4 +38,40 @@ object NetworkCodecs {
 
     @JvmStatic
     fun <T> unit(value: T) = NetworkCodec<T, ByteBuf>({ buf, value -> }, { value })
+
+    @JvmStatic
+    fun <T, B : ByteBuf> createNullable(original: NetworkCodec<T, B>): NetworkCodec<T?, B> {
+        return NetworkCodec({ buf, value ->
+            buf.writeBoolean(value != null)
+
+            if (value != null) {
+                original.encode(buf, value)
+            }
+        }, { buf ->
+            if (buf.readBoolean()) {
+                return@NetworkCodec original.decode(buf)
+            }
+
+            return@NetworkCodec null
+        })
+    }
+
+    @JvmStatic
+    fun <T, B : ByteBuf> toList(original: NetworkCodec<T, B>): NetworkCodec<List<T>, B> {
+        return NetworkCodec({ buf, values ->
+            buf.writeVarInt(values.size)
+            for (value in values) {
+                original.encode(buf, value)
+            }
+        }, { buf ->
+            val list = mutableListOf<T>()
+            val length = buf.readVarInt()
+
+            for (i in 0 until length) {
+                list.add(original.decode(buf))
+            }
+
+            return@NetworkCodec list.toList()
+        })
+    }
 }
