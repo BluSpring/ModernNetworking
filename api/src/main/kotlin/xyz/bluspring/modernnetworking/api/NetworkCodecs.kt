@@ -5,17 +5,17 @@ import xyz.bluspring.modernnetworking.internal.*
 import java.util.UUID
 
 object NetworkCodecs {
-    @JvmField val BYTE = NetworkCodec<Byte, ByteBuf>(ByteBuf::writeByteActual, ByteBuf::readByte)
-    @JvmField val FLOAT = NetworkCodec<Float, ByteBuf>(ByteBuf::writeFloat, ByteBuf::readFloat)
-    @JvmField val DOUBLE = NetworkCodec<Double, ByteBuf>(ByteBuf::writeDouble, ByteBuf::readDouble)
-    @JvmField val INT = NetworkCodec<Int, ByteBuf>(ByteBuf::writeInt, ByteBuf::readInt)
-    @JvmField val LONG = NetworkCodec<Long, ByteBuf>(ByteBuf::writeLong, ByteBuf::readLong)
-    @JvmField val BYTE_ARRAY = NetworkCodec<ByteArray, ByteBuf>(ByteBuf::writeByteArray, ByteBuf::readByteArray)
+    @JvmField val BYTE = NetworkCodec(ByteBuf::writeByteActual, ByteBuf::readByte)
+    @JvmField val FLOAT = NetworkCodec(ByteBuf::writeFloat, ByteBuf::readFloat)
+    @JvmField val DOUBLE = NetworkCodec(ByteBuf::writeDouble, ByteBuf::readDouble)
+    @JvmField val INT = NetworkCodec(ByteBuf::writeInt, ByteBuf::readInt)
+    @JvmField val LONG = NetworkCodec(ByteBuf::writeLong, ByteBuf::readLong)
+    @JvmField val BYTE_ARRAY = NetworkCodec(ByteBuf::writeByteArray, ByteBuf::readByteArray)
 
-    @JvmField val VAR_INT = NetworkCodec<Int, ByteBuf>(ByteBuf::writeVarInt, ByteBuf::readVarInt)
-    @JvmField val VAR_LONG = NetworkCodec<Long, ByteBuf>(ByteBuf::writeVarLong, ByteBuf::readVarLong)
-    @JvmField val STRING_UTF8 = NetworkCodec<String, ByteBuf>(ByteBuf::writeUtf, ByteBuf::readUtf)
-    @JvmField val UUID = NetworkCodec<UUID, ByteBuf>(ByteBuf::writeUUID, ByteBuf::readUUID)
+    @JvmField val VAR_INT = NetworkCodec(ByteBuf::writeVarInt, ByteBuf::readVarInt)
+    @JvmField val VAR_LONG = NetworkCodec(ByteBuf::writeVarLong, ByteBuf::readVarLong)
+    @JvmField val STRING_UTF8 = NetworkCodec(ByteBuf::writeUtf, ByteBuf::readUtf)
+    @JvmField val UUID = NetworkCodec(ByteBuf::writeUUID, ByteBuf::readUUID)
 
     @JvmStatic
     fun stringUtf8(maxLength: Int) = NetworkCodec<String, ByteBuf>({ buf, value ->
@@ -28,7 +28,7 @@ object NetworkCodecs {
     fun <E : Enum<E>> enumCodec(enumClass: Class<E>): NetworkCodec<E, ByteBuf> {
         val enumValues = enumClass.enumConstants
 
-        return NetworkCodec<E, ByteBuf>({ buf, value ->
+        return NetworkCodec({ buf, value ->
             buf.writeVarInt(value.ordinal)
         }, { buf ->
             enumValues[buf.readVarInt()]
