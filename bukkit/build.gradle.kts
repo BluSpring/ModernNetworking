@@ -73,12 +73,6 @@ publishMods {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersions.addAll(supportedVersions)
     }
-
-    curseforge {
-        projectId = rootProject.property("publishing.curseforge").toString()
-        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-        minecraftVersions.addAll(supportedVersions)
-    }
 }
 
 publishing {
