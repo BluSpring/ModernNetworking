@@ -2,14 +2,14 @@
 A multiversioned and multiloader network packet library for Minecraft based on 1.20.6+'s method of packets.
 
 This API has also been designed in such a way that allows for Bukkit implementations, and even implementations outside
-of Minecraft, however you will have to provide the backing implementations yourself.
+of Minecraft, however you will have to provide some of the backing implementations yourself.
 
 ## Installation Guide (for developers)
 
 This guide intends to help explain to developers on what are the primary requirements for installing
 Modern Networking, and to understand the idea behind each added dependency.
 
-Gradle (Kotlin)
+Gradle (Kotlin) - Fabric/Architectury Loom
 ```kts
 repositories {
     maven {
@@ -48,6 +48,9 @@ dependencies {
     // Fabric Language Kotlin if you are using Fabric, or increase your mod's JAR size due to the
     // Forge/NeoForge-based libraries bundling Kotlin.
     modImplementation("xyz.bluspring.modernnetworking:modernnetworking-$modLoader:$modernNetworkingVersion+$minecraftVersion")
+    
+    // If you want Bukkit support, you may use this.
+    modImplementation("xyz.bluspring.modernnetworking:modernnetworking-bukkit:$modernNetworkingVersion")
 }
 ```
 

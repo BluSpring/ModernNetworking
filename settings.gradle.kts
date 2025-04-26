@@ -19,7 +19,7 @@ stonecutter {
 
     create(rootProject) {
         versions("1.18.2", "1.20.4", "1.20.6", "1.21.1")
-        vcsVersion = "1.18.2"
+        vcsVersion = "1.20.4"
 
         branch("common")
         branch("fabric")
@@ -31,5 +31,6 @@ stonecutter {
 }
 
 include("api")
+include("bukkit")
 
 rootProject.name = "ModernNetworking"

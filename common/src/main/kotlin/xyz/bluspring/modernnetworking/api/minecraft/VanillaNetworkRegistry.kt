@@ -1,16 +1,16 @@
 package xyz.bluspring.modernnetworking.api.minecraft
 
 //? if >= 1.20.2 {
-/*import io.netty.buffer.ByteBuf
+import io.netty.buffer.ByteBuf
 //? if >= 1.20.6 {
-/^import net.minecraft.network.codec.StreamCodec
-^///?}
+/*import net.minecraft.network.codec.StreamCodec
+*///?}
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import xyz.bluspring.modernnetworking.ModernNetworking
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper
 import xyz.bluspring.modernnetworking.api.NetworkPacket
 import xyz.bluspring.modernnetworking.api.PacketDefinition
-*///?}
+//?}
 import org.jetbrains.annotations.ApiStatus
 import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
 

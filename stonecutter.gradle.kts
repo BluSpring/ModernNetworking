@@ -16,7 +16,7 @@ plugins {
 }
 
 stonecutter.debug = true
-stonecutter active "1.18.2" /* [SC] DO NOT EDIT */
+stonecutter active "1.20.4" /* [SC] DO NOT EDIT */
 stonecutter.automaticPlatformConstants = true
 
 allprojects {
@@ -179,11 +179,14 @@ stonecutter registerChiseled tasks.register("chiseledPublish", stonecutter.chise
     ofTask("publish")
 
     dependsOn(":api:publish")
+    dependsOn(":bukkit:publish")
 }
 
 stonecutter registerChiseled tasks.register("chiseledPublishMods", stonecutter.chiseled) {
     group = "project"
     ofTask("publishMods")
+
+    dependsOn(":bukkit:publishMods")
 }
 
 // Builds loader-specific versions into `build/libs/{mod.version}/{loader}`

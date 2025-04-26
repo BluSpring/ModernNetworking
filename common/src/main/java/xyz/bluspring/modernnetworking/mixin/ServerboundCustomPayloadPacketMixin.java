@@ -6,7 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 *///?}
 
 //? if >= 1.20.2 {
-/*import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper;
@@ -20,11 +20,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.bluspring.modernnetworking.api.minecraft.VanillaNetworkRegistry;
 
 import java.util.ArrayList;
-*///?}
+//?}
 
 //? if >= 1.20.2 {
-/*@Mixin(ServerboundCustomPayloadPacket.class)
-*///?}
+@Mixin(ServerboundCustomPayloadPacket.class)
+//?}
 public abstract class ServerboundCustomPayloadPacketMixin {
     //? if >= 1.20.6 {
     /*@Inject(method = "method_56475", at = @At("HEAD"), cancellable = true)
@@ -54,7 +54,7 @@ public abstract class ServerboundCustomPayloadPacketMixin {
         }
     }
     *///?} else if >= 1.20.2 {
-    /*@Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
     private static void modernnetworking$readWithRegisteredPacket(ResourceLocation location, FriendlyByteBuf buffer, CallbackInfoReturnable<CustomPacketPayload> cir) {
         var registry = VanillaNetworkRegistry.get(location.getNamespace());
 
@@ -66,5 +66,5 @@ public abstract class ServerboundCustomPayloadPacketMixin {
             }
         }
     }
-    *///?}
+    //?}
 }
