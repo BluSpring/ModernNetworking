@@ -116,7 +116,7 @@ subprojects {
         else -> ""
     }
 
-    if (project.name.contains("fabric") || project.name.contains("forge")) {
+    if (project.path.contains("fabric") || project.path.contains("forge")) {
         apply(plugin = "me.modmuss50.mod-publish-plugin")
 
         project.extensions.configure<ModPublishExtension>("publishMods") {
@@ -131,7 +131,7 @@ subprojects {
                 .getOrNull() == null || providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null
 
             modrinth {
-                projectId = property("publish.modrinth").toString()
+                projectId = rootProject.property("publishing.modrinth").toString()
                 accessToken = providers.environmentVariable("MODRINTH_TOKEN")
                 minecraftVersions.add(minecraftVersion)
                 if (project.name.contains("fabric")) {
@@ -145,7 +145,7 @@ subprojects {
             }
 
             curseforge {
-                projectId = property("publish.curseforge").toString()
+                projectId = rootProject.property("publishing.curseforge").toString()
                 accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
                 minecraftVersions.add(minecraftVersion)
                 if (project.name.contains("fabric")) {
@@ -177,6 +177,11 @@ stonecutter registerChiseled tasks.register("chiseledPublish", stonecutter.chise
     ofTask("publish")
 
     dependsOn(":api:publish")
+}
+
+stonecutter registerChiseled tasks.register("chiseledPublishMods", stonecutter.chiseled) {
+    group = "project"
+    ofTask("publishMods")
 }
 
 // Builds loader-specific versions into `build/libs/{mod.version}/{loader}`
