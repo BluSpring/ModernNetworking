@@ -1,4 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import me.modmuss50.mpp.ModPublishExtension
+import me.modmuss50.mpp.ReleaseType
 import dev.kikugie.stonecutter.build.StonecutterBuild
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 import net.fabricmc.loom.task.RemapJarTask
@@ -10,10 +12,11 @@ plugins {
     id("dev.architectury.loom") version "1.10-SNAPSHOT" apply false
     id("architectury-plugin") version "3.4-SNAPSHOT" apply false
     id("com.gradleup.shadow") version "8.3.5" apply false
+    id("me.modmuss50.mod-publish-plugin") version "0.7.+" apply false
 }
 
 stonecutter.debug = true
-stonecutter active "1.20.6" /* [SC] DO NOT EDIT */
+stonecutter active "1.18.2" /* [SC] DO NOT EDIT */
 stonecutter.automaticPlatformConstants = true
 
 allprojects {
@@ -105,6 +108,57 @@ subprojects {
             }
         }
     }
+
+    val properLoaderName = when (project.prop("loom.platform")) {
+        "fabric" -> "Fabric"
+        "forge" -> "Forge"
+        "neoforge" -> "NeoForge"
+        else -> ""
+    }
+
+    if (project.name.contains("fabric") || project.name.contains("forge")) {
+        apply(plugin = "me.modmuss50.mod-publish-plugin")
+
+        project.extensions.configure<ModPublishExtension>("publishMods") {
+            file = tasks.named<RemapJarTask>("remapJar").get().archiveFile
+            displayName = "${project.property("mod.version")}+${minecraftVersion} ($properLoaderName)"
+            version = "${project.property("mod.version")}+${minecraftVersion}-${project.prop("loom.platform")}"
+            changelog = rootProject.file("CHANGELOG.md").readText()
+            type = ReleaseType.STABLE
+            modLoaders.add(project.property("loom.platform").toString())
+
+            dryRun = providers.environmentVariable("MODRINTH_TOKEN")
+                .getOrNull() == null || providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null
+
+            modrinth {
+                projectId = property("publish.modrinth").toString()
+                accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+                minecraftVersions.add(minecraftVersion)
+                if (project.name.contains("fabric")) {
+                    requires {
+                        slug = "fabric-api"
+                    }
+                    requires {
+                        slug = "fabric-language-kotlin"
+                    }
+                }
+            }
+
+            curseforge {
+                projectId = property("publish.curseforge").toString()
+                accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+                minecraftVersions.add(minecraftVersion)
+                if (project.name.contains("fabric")) {
+                    requires {
+                        slug = "fabric-api"
+                    }
+                    requires {
+                        slug = "fabric-language-kotlin"
+                    }
+                }
+            }
+        }
+    }
 }
 
 stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chiseled) {
@@ -123,6 +177,11 @@ stonecutter registerChiseled tasks.register("chiseledPublish", stonecutter.chise
     ofTask("publish")
 
     dependsOn(":api:publish")
+}
+
+stonecutter registerChiseled tasks.register("chiseledPublishMods", stonecutter.chiseled) {
+    group = "project"
+    ofTask("publishMods")
 }
 
 // Builds loader-specific versions into `build/libs/{mod.version}/{loader}`
