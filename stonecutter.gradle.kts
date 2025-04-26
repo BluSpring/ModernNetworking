@@ -119,6 +119,8 @@ subprojects {
     if (project.path.contains("fabric") || project.path.contains("forge")) {
         apply(plugin = "me.modmuss50.mod-publish-plugin")
 
+        val common = sc.node.sibling("") ?: return@subprojects
+
         project.extensions.configure<ModPublishExtension>("publishMods") {
             file = tasks.named<RemapJarTask>("remapJar").get().archiveFile
             displayName = "${project.property("mod.version")}+${minecraftVersion} ($properLoaderName)"
@@ -133,7 +135,7 @@ subprojects {
             modrinth {
                 projectId = rootProject.property("publishing.modrinth").toString()
                 accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-                minecraftVersions.addAll(project.mod.prop("supported_versions").split(","))
+                minecraftVersions.addAll(common.mod.prop("supported_versions").split(","))
                 if (project.name.contains("fabric")) {
                     requires {
                         slug = "fabric-api"
@@ -147,7 +149,7 @@ subprojects {
             curseforge {
                 projectId = rootProject.property("publishing.curseforge").toString()
                 accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-                minecraftVersions.addAll(project.mod.prop("supported_versions").split(","))
+                minecraftVersions.addAll(common.mod.prop("supported_versions").split(","))
                 if (project.name.contains("fabric")) {
                     requires {
                         slug = "fabric-api"
