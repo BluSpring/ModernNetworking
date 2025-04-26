@@ -179,11 +179,6 @@ stonecutter registerChiseled tasks.register("chiseledPublish", stonecutter.chise
     dependsOn(":api:publish")
 }
 
-stonecutter registerChiseled tasks.register("chiseledPublishMods", stonecutter.chiseled) {
-    group = "project"
-    ofTask("publishMods")
-}
-
 // Builds loader-specific versions into `build/libs/{mod.version}/{loader}`
 for (it in stonecutter.tree.branches) {
     if (it.id.isEmpty()) continue
