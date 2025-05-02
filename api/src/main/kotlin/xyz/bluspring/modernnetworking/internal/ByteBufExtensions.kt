@@ -2,6 +2,8 @@ package xyz.bluspring.modernnetworking.internal
 
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufUtil
+import java.util.BitSet
+import java.util.EnumSet
 import java.util.UUID
 import kotlin.experimental.and
 import kotlin.text.toByte
@@ -149,4 +151,44 @@ fun ByteBuf.readByteArray(maxLength: Int = this.readableBytes()): ByteArray {
 fun ByteBuf.writeByteArray(byteArray: ByteArray) {
     this.writeVarInt(byteArray.size)
     this.writeBytes(byteArray)
+}
+
+fun ByteBuf.readFixedBitSet(size: Int): BitSet {
+    val bytes = ByteArray(-Math.floorDiv(-size, 8))
+    this.readBytes(bytes)
+    return BitSet.valueOf(bytes)
+}
+
+fun ByteBuf.writeFixedBitSet(bitSet: BitSet, size: Int) {
+    if (bitSet.length() > size) {
+        throw IndexOutOfBoundsException("BitSet is larger than expected size (${bitSet.length()} > $size)")
+    }
+
+    val bytes = bitSet.toByteArray()
+    this.writeBytes(bytes.copyOf(-Math.floorDiv(-size, 8)))
+}
+
+fun <E : Enum<E>> ByteBuf.writeEnumSet(enumSet: EnumSet<E>, enumClass: Class<E>) {
+    val enums = enumClass.enumConstants
+    val bitSet = BitSet(enums.size)
+
+    for ((i, e) in enums.withIndex()) {
+        bitSet.set(i, enumSet.contains(e))
+    }
+
+    this.writeFixedBitSet(bitSet, enums.size)
+}
+
+fun <E : Enum<E>> ByteBuf.readEnumSet(enumClass: Class<E>): EnumSet<E> {
+    val enums = enumClass.enumConstants
+    val bitSet = this.readFixedBitSet(enums.size)
+    val enumSet = EnumSet.noneOf(enumClass)
+
+    for ((i, e) in enums.withIndex()) {
+        if (bitSet.get(i)) {
+            enumSet.add(e)
+        }
+    }
+
+    return enumSet
 }

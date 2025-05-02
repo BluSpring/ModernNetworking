@@ -2,6 +2,7 @@ package xyz.bluspring.modernnetworking.api
 
 import io.netty.buffer.ByteBuf
 import xyz.bluspring.modernnetworking.internal.*
+import java.util.EnumSet
 import java.util.UUID
 
 object NetworkCodecs {
@@ -33,6 +34,15 @@ object NetworkCodecs {
             buf.writeVarInt(value.ordinal)
         }, { buf ->
             enumValues[buf.readVarInt()]
+        })
+    }
+
+    @JvmStatic
+    fun <E : Enum<E>> enumSetCodec(clazz: Class<E>): NetworkCodec<EnumSet<E>, ByteBuf> {
+        return NetworkCodec({ buf, value ->
+            buf.writeEnumSet(value, clazz)
+        }, { buf ->
+            buf.readEnumSet(clazz)
         })
     }
 
@@ -72,6 +82,27 @@ object NetworkCodecs {
             }
 
             return@NetworkCodec list.toList()
+        })
+    }
+
+    @JvmStatic
+    fun <B : ByteBuf, K, V> createMap(keyCodec: NetworkCodec<K, B>, valueCodec: NetworkCodec<V, B>): NetworkCodec<Map<K, V>, B> {
+        return NetworkCodec({ buf, value ->
+            buf.writeVarInt(value.size)
+
+            for ((key, value) in value) {
+                keyCodec.encode(buf, key)
+                valueCodec.encode(buf, value)
+            }
+        }, { buf ->
+            val map = mutableMapOf<K, V>()
+            val length = buf.readVarInt()
+
+            for (i in 0 until length) {
+                map[keyCodec.decode(buf)] = valueCodec.decode(buf)
+            }
+
+            map
         })
     }
 }
