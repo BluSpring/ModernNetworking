@@ -41,7 +41,13 @@ tasks {
         )
     }
 
+    jar {
+        archiveClassifier = "dev"
+    }
+
     getByName<ShadowJar>("shadowJar") {
+        archiveClassifier = null
+
         relocate("org.jetbrains", "xyz.bluspring.modernnetworking.shaded.jetbrains")
         relocate("kotlin", "xyz.bluspring.modernnetworking.shaded.kotlin")
         relocate("kotlinx", "xyz.bluspring.modernnetworking.shaded.kotlinx")

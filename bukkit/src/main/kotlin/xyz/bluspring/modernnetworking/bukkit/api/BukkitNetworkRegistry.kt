@@ -11,7 +11,7 @@ import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
 import xyz.bluspring.modernnetworking.api.NetworkPacket
 import xyz.bluspring.modernnetworking.api.PacketDefinition
 
-class BukkitNetworkRegistry(private val plugin: Plugin, namespace: String? = null) : AbstractNetworkRegistry<Any, Server>(namespace ?: plugin.name.lowercase()), PluginMessageListener {
+class BukkitNetworkRegistry(private val plugin: Plugin, namespace: String? = null) : AbstractNetworkRegistry<Any, BukkitServerContext>(namespace ?: plugin.name.lowercase()), PluginMessageListener {
     override fun <T : NetworkPacket, B : ByteBuf> registerClientbound(definition: PacketDefinition<T, B>): PacketDefinition<T, B> {
         val definition = super.registerClientbound(definition)
         Bukkit.getMessenger().registerOutgoingPluginChannel(this.plugin, "${definition.namespace}:${definition.id}")
@@ -43,6 +43,6 @@ class BukkitNetworkRegistry(private val plugin: Plugin, namespace: String? = nul
         if (message != null)
             buffer.writeBytes(message)
 
-        this.handleServerPacket(definition, buffer, Bukkit.getServer())
+        this.handleServerPacket(definition, buffer, BukkitServerContext(Bukkit.getServer(), player))
     }
 }
