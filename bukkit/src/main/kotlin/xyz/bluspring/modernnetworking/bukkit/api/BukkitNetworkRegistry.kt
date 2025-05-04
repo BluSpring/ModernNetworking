@@ -7,11 +7,17 @@ import org.bukkit.Server
 import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.messaging.PluginMessageListener
+import org.jetbrains.annotations.ApiStatus
 import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
 import xyz.bluspring.modernnetworking.api.NetworkPacket
 import xyz.bluspring.modernnetworking.api.PacketDefinition
+import java.util.Collections
 
-class BukkitNetworkRegistry(private val plugin: Plugin, namespace: String? = null) : AbstractNetworkRegistry<Any, BukkitServerContext>(namespace ?: plugin.name.lowercase()), PluginMessageListener {
+class BukkitNetworkRegistry(val plugin: Plugin, namespace: String? = null) : AbstractNetworkRegistry<Any, BukkitServerContext>(namespace ?: plugin.name.lowercase()), PluginMessageListener {
+    init {
+        registries.add(this)
+    }
+
     override fun <T : NetworkPacket, B : ByteBuf> registerClientbound(definition: PacketDefinition<T, B>): PacketDefinition<T, B> {
         val definition = super.registerClientbound(definition)
         Bukkit.getMessenger().registerOutgoingPluginChannel(this.plugin, "${definition.namespace}:${definition.id}")
@@ -44,5 +50,17 @@ class BukkitNetworkRegistry(private val plugin: Plugin, namespace: String? = nul
             buffer.writeBytes(message)
 
         this.handleServerPacket(definition, buffer, BukkitServerContext(Bukkit.getServer(), player))
+    }
+
+    companion object {
+        val registries: MutableList<BukkitNetworkRegistry> = Collections.synchronizedList(mutableListOf())
+
+        @ApiStatus.Internal
+        @JvmStatic
+        fun get(namespace: String): BukkitNetworkRegistry? {
+            synchronized(registries) {
+                return registries.firstOrNull { it.namespace == namespace }
+            }
+        }
     }
 }
