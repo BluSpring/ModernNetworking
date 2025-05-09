@@ -60,7 +60,7 @@ publishMods {
     version = "${project.property("mod.version")}-bukkit"
     changelog = rootProject.file("CHANGELOG.md").readText()
     type = ReleaseType.STABLE
-    modLoaders.addAll(listOf("bukkit", "paper", "spigot", "purpur")) // TODO: support Folia?
+    modLoaders.addAll(listOf("bukkit", "paper", "spigot", "purpur", "folia"))
 
     dryRun = providers.environmentVariable("MODRINTH_TOKEN")
         .getOrNull() == null || providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null
