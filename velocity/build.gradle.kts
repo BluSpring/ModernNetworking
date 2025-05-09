@@ -7,6 +7,7 @@ import org.jetbrains.gradle.ext.TaskTriggersConfig
 
 plugins {
     kotlin("jvm")
+    kotlin("kapt")
     `maven-publish`
     id("com.gradleup.shadow")
     id("me.modmuss50.mod-publish-plugin")
@@ -28,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")!!)
+    compileOnly(kapt("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")!!)
 
     shade(api(project(":api")) { isTransitive = false })
     shade("org.jetbrains.kotlin:kotlin-stdlib")
