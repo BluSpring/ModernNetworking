@@ -180,6 +180,7 @@ stonecutter registerChiseled tasks.register("chiseledPublish", stonecutter.chise
 
     dependsOn(":api:publish")
     dependsOn(":bukkit:publish")
+    dependsOn(":velocity:publish")
 }
 
 stonecutter registerChiseled tasks.register("chiseledPublishMods", stonecutter.chiseled) {
@@ -187,6 +188,7 @@ stonecutter registerChiseled tasks.register("chiseledPublishMods", stonecutter.c
     ofTask("publishMods")
 
     dependsOn(":bukkit:publishMods")
+    dependsOn(":velocity:publishMods")
 }
 
 // Builds loader-specific versions into `build/libs/{mod.version}/{loader}`

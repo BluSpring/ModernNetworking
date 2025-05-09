@@ -2,18 +2,21 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import me.modmuss50.mpp.ModPublishExtension
 import me.modmuss50.mpp.ReleaseType
 import org.gradle.kotlin.dsl.named
+import org.jetbrains.gradle.ext.ProjectSettings
+import org.jetbrains.gradle.ext.TaskTriggersConfig
 
 plugins {
     kotlin("jvm")
     `maven-publish`
     id("com.gradleup.shadow")
     id("me.modmuss50.mod-publish-plugin")
+    id("org.jetbrains.gradle.plugin.idea-ext")
 }
 
 version = mod.version
 
 base {
-    archivesName.set("${mod.id}-bukkit")
+    archivesName.set("${mod.id}-velocity")
 }
 
 val shade: Configuration by configurations.creating
@@ -25,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly(annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")!!)
 
     shade(api(project(":api")) { isTransitive = false })
     shade("org.jetbrains.kotlin:kotlin-stdlib")
@@ -34,7 +37,23 @@ dependencies {
     api("io.netty:netty-codec:4.1.97.Final")
 }
 
+val templateSource = file("src/main/templates")
+val templateDest = layout.buildDirectory.dir("generated/sources/templates")
+
 tasks {
+    val generateTemplates = create("generateTemplates", Copy::class) {
+        val props = mapOf(
+            "version" to mod.version
+        )
+
+        inputs.properties(props)
+        from(templateSource)
+        into(templateDest)
+        expand(props)
+    }
+
+    sourceSets.main.get().java.srcDir(generateTemplates.outputs)
+
     processResources {
         properties(listOf("plugin.yml"),
             "version" to mod.version
@@ -58,11 +77,11 @@ tasks {
 
 publishMods {
     file = tasks.named<ShadowJar>("shadowJar").get().archiveFile
-    displayName = "${project.property("mod.version")} (Bukkit/PaperMC)"
-    version = "${project.property("mod.version")}-bukkit"
+    displayName = "${project.property("mod.version")} (Velocity)"
+    version = "${project.property("mod.version")}-velocity"
     changelog = rootProject.file("CHANGELOG.md").readText()
     type = ReleaseType.STABLE
-    modLoaders.addAll(listOf("bukkit", "paper", "spigot", "purpur", "folia"))
+    modLoaders.addAll(listOf("velocity"))
 
     dryRun = providers.environmentVariable("MODRINTH_TOKEN")
         .getOrNull() == null || providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null
@@ -87,7 +106,7 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             groupId = "xyz.bluspring.modernnetworking"
-            artifactId = "modernnetworking-bukkit"
+            artifactId = "modernnetworking-velocity"
             //version = project.version
 
             artifact(project.tasks.getByName("shadowJar")) {

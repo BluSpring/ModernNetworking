@@ -32,5 +32,6 @@ stonecutter {
 
 include("api")
 include("bukkit")
+include("velocity")
 
 rootProject.name = "ModernNetworking"
