@@ -29,3 +29,6 @@ side="BOTH"
 
 [[mixins]]
 config = "modernnetworking.mixins.json"
+
+[[mixins]]
+config = "modernnetworking-neoforge.mixins.json"
