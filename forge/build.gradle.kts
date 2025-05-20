@@ -97,6 +97,12 @@ tasks.named<ShadowJar>("shadowJar") {
     configurations = listOf(shade)
     archiveClassifier = "dev-shadow"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    relocate("org.jetbrains", "xyz.bluspring.modernnetworking.shaded.jetbrains")
+    relocate("kotlin", "xyz.bluspring.modernnetworking.shaded.kotlin")
+    relocate("kotlinx", "xyz.bluspring.modernnetworking.shaded.kotlinx")
+    relocate("org.intellij", "xyz.bluspring.modernnetworking.shaded.intellij")
+
     from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
 }
 

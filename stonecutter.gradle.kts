@@ -105,6 +105,7 @@ subprojects {
                 relocate("org.jetbrains", "xyz.bluspring.modernnetworking.shaded.jetbrains")
                 relocate("kotlin", "xyz.bluspring.modernnetworking.shaded.kotlin")
                 relocate("kotlinx", "xyz.bluspring.modernnetworking.shaded.kotlinx")
+                relocate("org.intellij", "xyz.bluspring.modernnetworking.shaded.intellij")
             }
         }
     }
