@@ -144,6 +144,10 @@ subprojects {
                     requires {
                         slug = "fabric-language-kotlin"
                     }
+                } else if (project.path.contains("forge")) {
+                    requires {
+                        slug = "kotlin-for-forge"
+                    }
                 }
             }
 
@@ -157,6 +161,10 @@ subprojects {
                     }
                     requires {
                         slug = "fabric-language-kotlin"
+                    }
+                } else if (project.path.contains("forge")) {
+                    requires {
+                        slug = "kotlin-for-forge"
                     }
                 }
             }
