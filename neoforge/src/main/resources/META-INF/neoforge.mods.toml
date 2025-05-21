@@ -27,6 +27,13 @@ versionRange="${minecraft}"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.modernnetworking]]
+modId = "kotlinforforge"
+type = "required"
+versionRange = "[${kotlinforforge},)"
+ordering = "NONE"
+side = "BOTH"
+
 [[mixins]]
 config = "modernnetworking.mixins.json"
 

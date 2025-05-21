@@ -58,7 +58,6 @@ dependencies {
 
     compileOnly(project.project(":common:$minecraftVersion").sourceSets.main.get().output)
     shade(api(project(":api")) { isTransitive = false })
-    shade("org.jetbrains.kotlin:kotlin-stdlib")
 }
 
 tasks.processResources {
@@ -66,7 +65,8 @@ tasks.processResources {
 
     properties(listOf("META-INF/mods.toml", "pack.mcmeta"),
         "version" to mod.version,
-        "minecraft" to common.mod.prop("mc_dep_forgelike")
+        "minecraft" to common.mod.prop("mc_dep_forgelike"),
+        "kotlinforforge" to common.mod.dep("kotlinforforge")
     )
 }
 
@@ -97,11 +97,6 @@ tasks.named<ShadowJar>("shadowJar") {
     configurations = listOf(shade)
     archiveClassifier = "dev-shadow"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    relocate("org.jetbrains", "xyz.bluspring.modernnetworking.shaded.jetbrains")
-    relocate("kotlin", "xyz.bluspring.modernnetworking.shaded.kotlin")
-    relocate("kotlinx", "xyz.bluspring.modernnetworking.shaded.kotlinx")
-    relocate("org.intellij", "xyz.bluspring.modernnetworking.shaded.intellij")
 
     from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
 }
