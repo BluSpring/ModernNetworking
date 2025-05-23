@@ -53,6 +53,7 @@ dependencies {
     compileOnly(project.project(":common:$minecraftVersion").sourceSets.main.get().output)
 
     shade(api(project(":api")) { isTransitive = false })
+    modApi("thedarkcolour:kotlinforforge-neoforge:${common.mod.dep("kotlinforforge")}")
 }
 
 tasks.processResources {

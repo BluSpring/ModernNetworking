@@ -17,6 +17,7 @@ import xyz.bluspring.modernnetworking.api.PacketDefinition;
 
 /*import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
@@ -48,7 +49,7 @@ public abstract class ClientPacketListenerMixin /*? if >= 1.20.2 {*/extends Clie
     ))
     private void modernnetworking$handleRegisteredPackets(
         //? if < 1.20.2 {
-        /*Logger instance, String s, Object o, Operation<Void> original, @Local ResourceLocation location, @Local FriendlyByteBuf data
+        /*Logger instance, String s, Object o, Operation<Void> original, ClientboundCustomPayloadPacket packet
         *///?} else {
         ClientPacketListener instance, CustomPacketPayload payload, Operation<Void> original
         //?}
@@ -63,7 +64,10 @@ public abstract class ClientPacketListenerMixin /*? if >= 1.20.2 {*/extends Clie
         var location = payload.id();
         //?}
         var data = wrapper.getPacket();
-        //?}
+        //?} else {
+        /*var location = packet.getIdentifier();
+        *///?}
+
         var registry = VanillaNetworkRegistry.get(location.getNamespace());
 
         if (registry != null) {
@@ -71,7 +75,14 @@ public abstract class ClientPacketListenerMixin /*? if >= 1.20.2 {*/extends Clie
 
             if (definition != null) {
                 var ctx = new VanillaClientContext(this.minecraft, this.minecraft.player);
-                registry.handleClientPacket(/*? if >= 1.20.2 {*/(PacketDefinition<? super NetworkPacket, ? extends ByteBuf>)/*?}*/ definition, data, ctx);
+                //? if < 1.20.2
+                /*var data = packet.getData();*/
+                try {
+                    registry.handleClientPacket(/*? if >= 1.20.2 {*/(PacketDefinition<? super NetworkPacket, ? extends ByteBuf>)/*?}*/ definition, data, ctx);
+                } finally {
+                    //? if < 1.20.2
+                    /*data.release();*/
+                }
 
                 return;
             }

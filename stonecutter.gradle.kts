@@ -23,6 +23,7 @@ allprojects {
     repositories {
         mavenCentral()
         maven("https://maven.parchmentmc.org")
+        maven("https://thedarkcolour.github.io/KotlinForForge/")
     }
 
     group = "xyz.bluspring.modernnetworking"

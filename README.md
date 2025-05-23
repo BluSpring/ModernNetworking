@@ -22,7 +22,7 @@ dependencies {
     // Any Minecraft version support will never be dropped from Modern Networking, so you can
     // be comfortable in using the latest version. If anyone requests, I might also provide
     // support for any older versions and/or snapshots as needed. 
-    val modernNetworkingVersion = "1.0.0"
+    val modernNetworkingVersion = "1.2.0"
     
     // ModernNetworking supports Minecraft versions in a much wider manner, where
     // versions between 1.18.2 and 1.20.1 are able to be supported under one version.
@@ -54,12 +54,13 @@ dependencies {
 }
 ```
 
-| Library Minecraft Version | Supported Minecraft Versions |
-|---------------------------|------------------------------|
-| 1.18.2                    | 1.18.2 - 1.20.1              |
-| 1.20.4                    | 1.20.2 - 1.20.4              |
-| 1.20.6                    | 1.20.5 - 1.20.6              |
-| 1.21.1                    | 1.21 - Latest                |
+| Library Minecraft Version | Supported Minecraft Versions           |
+|---------------------------|----------------------------------------|
+| 1.18.2                    | 1.18.2 - 1.20.1 (1.18.2 on Forge only) |
+| 1.19.2                    | 1.19.2 - 1.20.1 (Forge-only)           |
+| 1.20.4                    | 1.20.2 - 1.20.4                        |
+| 1.20.6                    | 1.20.5 - 1.20.6                        |
+| 1.21.1                    | 1.21 - Latest                          |
 
 ## Usage
 
