@@ -137,7 +137,11 @@ subprojects {
             modrinth {
                 projectId = rootProject.property("publishing.modrinth").toString()
                 accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-                minecraftVersions.addAll(common.mod.prop("supported_versions").split(","))
+
+                if (common.mod.prop("supported_versions_forge") != "[VERSIONED]" && project.property("loom.platform") == "forge")
+                    minecraftVersions.addAll(common.mod.prop("supported_versions_forge").split(","))
+                else
+                    minecraftVersions.addAll(common.mod.prop("supported_versions").split(","))
                 if (project.path.contains("fabric")) {
                     requires {
                         slug = "fabric-api"
@@ -155,7 +159,10 @@ subprojects {
             curseforge {
                 projectId = rootProject.property("publishing.curseforge").toString()
                 accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-                minecraftVersions.addAll(common.mod.prop("supported_versions").split(","))
+                if (common.mod.prop("supported_versions_forge") != "[VERSIONED]" && project.property("loom.platform") == "forge")
+                    minecraftVersions.addAll(common.mod.prop("supported_versions_forge").split(","))
+                else
+                    minecraftVersions.addAll(common.mod.prop("supported_versions").split(","))
                 if (project.path.contains("fabric")) {
                     requires {
                         slug = "fabric-api"
