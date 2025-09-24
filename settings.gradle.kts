@@ -17,12 +17,16 @@ stonecutter {
     centralScript = "build.gradle.kts"
     kotlinController = true
 
-    val versions = listOf("1.18.2", "1.19.2", "1.20.4", "1.20.6", "1.21.1")
+    val versions = listOf("1.18.2", "1.19.2", "1.20.4", "1.20.6", "1.21.1", "1.21.7")
     // Guess what?
     // In 1.19 and later, Forge actually changes the fucking names, which Fabric doesn't do.
     // So, this is what we have to deal with.
     val exclusiveForgeVersions = listOf("1.19.2")
     val versionsWithoutNeoForge = listOf("1.18.2")
+
+    // Oh boy, NeoForge does a networking split between client and server! Now we need to
+    // handle that too!
+    val exclusiveNeoForgeVersions = listOf("1.21.7")
 
     create(rootProject) {
         versions(versions)
@@ -30,10 +34,10 @@ stonecutter {
 
         branch("common")
         branch("fabric") {
-            versions(versions.filter { !exclusiveForgeVersions.contains(it) })
+            versions(versions.filter { !exclusiveForgeVersions.contains(it) && !exclusiveNeoForgeVersions.contains(it) })
         }
         branch("forge") {
-            versions(versions)
+            versions(versions.filter { !exclusiveNeoForgeVersions.contains(it) })
         }
         branch("neoforge") {
             versions(versions.filter { !exclusiveForgeVersions.contains(it) && !versionsWithoutNeoForge.contains(it) })

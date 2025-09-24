@@ -34,10 +34,13 @@ public class NetworkRegistryMixin {
         }
     }
 
+    //? if < 1.21.6 {
     @Inject(method = "handleModdedPayload(Lnet/minecraft/network/protocol/common/ClientCommonPacketListener;Lnet/minecraft/network/protocol/common/ClientboundCustomPayloadPacket;)V", at = @At("HEAD"), cancellable = true)
     private static void modernnetworking$avoidPacketCrash(ClientCommonPacketListener listener, ClientboundCustomPayloadPacket packet, CallbackInfo ci) {
         modernnetworking$checkIsModernNetworkingPayload(packet.payload(), ci);
     }
+    
+    //?}
 
     @Inject(method = "handleModdedPayload(Lnet/minecraft/network/protocol/common/ServerCommonPacketListener;Lnet/minecraft/network/protocol/common/ServerboundCustomPayloadPacket;)V", at = @At("HEAD"), cancellable = true)
     private static void modernnetworking$avoidPacketCrash(ServerCommonPacketListener listener, ServerboundCustomPayloadPacket packet, CallbackInfo ci) {

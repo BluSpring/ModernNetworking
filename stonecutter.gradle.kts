@@ -13,6 +13,7 @@ plugins {
     id("architectury-plugin") version "3.4-SNAPSHOT" apply false
     id("com.gradleup.shadow") version "8.3.5" apply false
     id("me.modmuss50.mod-publish-plugin") version "0.7.+" apply false
+    id("dev.kikugie.j52j") version "2.0" apply false
 }
 
 stonecutter active "1.20.4" /* [SC] DO NOT EDIT */

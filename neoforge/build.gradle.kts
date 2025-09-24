@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.named
 plugins {
     kotlin("jvm")
     `maven-publish`
+    id("dev.kikugie.j52j")
 }
 
 val loader = prop("loom.platform")!!
