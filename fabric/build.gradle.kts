@@ -12,7 +12,7 @@ plugins {
 
 val loader = prop("loom.platform")!!
 val minecraftVersion: String = stonecutter.current.version
-val common: Project = requireNotNull(stonecutter.node.sibling("")) {
+val common: Project = requireNotNull(stonecutter.node.sibling("")?.project) {
     "No common project for $project"
 }
 
