@@ -32,6 +32,11 @@ val commonBundle: Configuration by configurations.creating {
     isCanBeResolved = true
 }
 
+val shadowBundle: Configuration by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+}
+
 val shade: Configuration by configurations.creating
 
 configurations {
@@ -51,14 +56,14 @@ dependencies {
         include(it)
     }
 
-    compileOnly(project.project(":common:$minecraftVersion").sourceSets.main.get().output)
-
     shade(api(project(":api")) { isTransitive = false })
+    commonBundle(project(common.path, "namedElements")) { isTransitive = false }
+    shadowBundle(project(common.path, "transformProductionForge")) { isTransitive = false }
+
     modApi("thedarkcolour:kotlinforforge-neoforge:${common.mod.dep("kotlinforforge")}")
 }
 
 tasks.processResources {
-    from(project.project(":common:$minecraftVersion").sourceSets.main.get().resources)
     properties(listOf("META-INF/neoforge.mods.toml", "pack.mcmeta"),
         "version" to mod.version,
         "minecraft" to common.mod.prop("mc_dep_forgelike"),
@@ -81,20 +86,16 @@ tasks.register<Copy>("buildAndCollect") {
 
 tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
 }
 
 tasks.sourcesJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(zipTree(project.project(":common:$minecraftVersion").tasks.sourcesJar.get().archiveFile))
 }
 
 tasks.named<ShadowJar>("shadowJar") {
-    configurations = listOf(shade)
+    configurations = listOf(shade, shadowBundle)
     archiveClassifier = "dev-shadow"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
 }
 
 publishing {

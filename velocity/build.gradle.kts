@@ -2,8 +2,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import me.modmuss50.mpp.ModPublishExtension
 import me.modmuss50.mpp.ReleaseType
 import org.gradle.kotlin.dsl.named
-import org.jetbrains.gradle.ext.ProjectSettings
-import org.jetbrains.gradle.ext.TaskTriggersConfig
 
 plugins {
     kotlin("jvm")
@@ -11,7 +9,6 @@ plugins {
     `maven-publish`
     id("com.gradleup.shadow")
     id("me.modmuss50.mod-publish-plugin")
-    id("org.jetbrains.gradle.plugin.idea-ext")
 }
 
 version = mod.version

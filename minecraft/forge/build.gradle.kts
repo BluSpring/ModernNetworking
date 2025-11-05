@@ -1,11 +1,10 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.named
 
-
 plugins {
+    id("com.gradleup.shadow")
     kotlin("jvm")
     `maven-publish`
 }
@@ -17,16 +16,28 @@ val common: Project = requireNotNull(stonecutter.node.sibling("")?.project) {
 }
 
 version = "${mod.version}+$minecraftVersion"
+
 base {
     archivesName.set("${mod.id}-$loader")
 }
 
 architectury {
     platformSetupLoomIde()
-    fabric()
+    forge()
+}
+
+loom {
+    forge {
+        mixinConfigs("modernnetworking.mixins.json")
+    }
 }
 
 val commonBundle: Configuration by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+}
+
+val shadowBundle: Configuration by configurations.creating {
     isCanBeConsumed = false
     isCanBeResolved = true
 }
@@ -36,41 +47,41 @@ val shade: Configuration by configurations.creating
 configurations {
     compileClasspath.get().extendsFrom(commonBundle)
     runtimeClasspath.get().extendsFrom(commonBundle)
-    get("developmentFabric").extendsFrom(commonBundle)
+    get("developmentForge").extendsFrom(commonBundle)
 }
 
 repositories {
-    maven("https://maven.terraformersmc.com")
-    maven("https://maven.nucleoid.xyz/") // Not sure why but we need this
+    maven("https://maven.minecraftforge.net")
 }
 
 dependencies {
-    modImplementation("net.fabricmc:fabric-loader:${common.mod.dep("fabric_loader")}")
-    modApi("net.fabricmc.fabric-api:fabric-api:${common.mod.dep("fabric_api")}")
-    modApi("net.fabricmc:fabric-language-kotlin:${common.mod.dep("fabric_language_kotlin")}")
-
-    compileOnly(project.project(":common:$minecraftVersion").sourceSets.main.get().output)
+    "forge"("net.minecraftforge:forge:$minecraftVersion-${common.mod.dep("forge_loader")}")
+    "io.github.llamalad7:mixinextras-forge:${mod.dep("mixin_extras")}".let {
+        implementation(it)
+        include(it)
+    }
 
     shade(api(project(":api")) { isTransitive = false })
+    commonBundle(project(common.path, "namedElements")) { isTransitive = false }
+    shadowBundle(project(common.path, "transformProductionForge")) { isTransitive = false }
+
+    modApi("thedarkcolour:kotlinforforge:${common.mod.dep("kotlinforforge")}")
+}
+
+tasks.processResources {
+    properties(listOf("META-INF/mods.toml", "pack.mcmeta"),
+        "version" to mod.version,
+        "minecraft" to common.mod.prop("mc_dep_forgelike"),
+        "kotlinforforge" to common.mod.dep("kotlinforforge")
+    )
 }
 
 tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
 }
 
 tasks.sourcesJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(zipTree(project.project(":common:$minecraftVersion").tasks.sourcesJar.get().archiveFile))
-}
-
-tasks.processResources {
-    properties(listOf("fabric.mod.json"),
-        "version" to mod.version,
-        "minecraft" to common.mod.prop("mc_dep_fabric"),
-        "loader_version" to common.mod.dep("fabric_loader"),
-        "kotlin_loader_version" to common.mod.dep("fabric_language_kotlin")
-    )
 }
 
 tasks.build {
@@ -87,17 +98,16 @@ tasks.register<Copy>("buildAndCollect") {
 }
 
 tasks.named<ShadowJar>("shadowJar") {
-    configurations = listOf(shade)
+    configurations = listOf(shade, shadowBundle)
     archiveClassifier = "dev-shadow"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(zipTree(project.project(":common:$minecraftVersion").tasks.remapJar.get().archiveFile))
 }
 
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             groupId = "xyz.bluspring.modernnetworking"
-            artifactId = "modernnetworking-fabric"
+            artifactId = "modernnetworking-forge"
             //version = project.version
 
             artifact(project.tasks.getByName("remapJar")) {

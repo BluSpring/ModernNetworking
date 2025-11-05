@@ -13,6 +13,8 @@ plugins {
     id("dev.kikugie.stonecutter") version("0.7")
 }
 
+include(":minecraft")
+
 stonecutter {
     centralScript = "build.gradle.kts"
     kotlinController = true
@@ -28,11 +30,10 @@ stonecutter {
     // handle that too!
     val exclusiveNeoForgeVersions = listOf("1.21.7")
 
-    create(rootProject) {
+    create(project(":minecraft")) {
         versions(versions)
         vcsVersion = "1.20.4"
 
-        branch("common")
         branch("fabric") {
             versions(versions.filter { !exclusiveForgeVersions.contains(it) && !exclusiveNeoForgeVersions.contains(it) })
         }
