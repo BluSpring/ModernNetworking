@@ -55,3 +55,7 @@ publishing {
         }
     }
 }
+
+tasks.shadowJar {
+    configurations = listOf()
+}

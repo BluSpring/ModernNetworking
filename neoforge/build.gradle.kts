@@ -92,7 +92,7 @@ tasks.named<ShadowJar>("shadowJar") {
     configurations = listOf(shade)
     archiveClassifier = "dev-shadow"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(zipTree(project.project(":common:$minecraftVersion").tasks.sourcesJar.get().archiveFile))
+    from(zipTree(project.project(":common:$minecraftVersion").tasks.jar.get().archiveFile))
 }
 
 publishing {
