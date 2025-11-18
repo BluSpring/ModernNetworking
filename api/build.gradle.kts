@@ -34,13 +34,4 @@ publishing {
             from(components["java"])
         }
     }
-
-    repositories {
-        maven("https://mvn.devos.one/releases") {
-            credentials {
-                username = System.getenv()["MAVEN_USER"]
-                password = System.getenv()["MAVEN_PASS"]
-            }
-        }
-    }
 }

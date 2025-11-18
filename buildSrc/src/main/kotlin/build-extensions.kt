@@ -29,5 +29,6 @@ value class ModData(private val project: Project) {
     val group: String get() = requireNotNull(project.prop("mod.group")) { "Missing 'mod.group'" }
 
     fun prop(key: String) = requireNotNull(project.prop("mod.$key")) { "Missing 'mod.$key'" }
+    fun prop(key: String, orElse: Any) = project.prop("mod.$key") ?: orElse
     fun dep(key: String) = requireNotNull(project.prop("deps.$key")) { "Missing 'deps.$key'" }
 }

@@ -5,6 +5,7 @@ pluginManagement {
         maven("https://maven.minecraftforge.net/")
         maven("https://maven.neoforged.net/releases/")
         maven("https://maven.kikugie.dev/releases")
+        maven("https://maven.kikugie.dev/snapshots")
         gradlePluginPortal()
     }
 }
@@ -13,13 +14,11 @@ plugins {
     id("dev.kikugie.stonecutter") version("0.7")
 }
 
-include(":minecraft")
-
 stonecutter {
     centralScript = "build.gradle.kts"
     kotlinController = true
 
-    val versions = listOf("1.18.2", "1.19.2", "1.20.4", "1.20.6", "1.21.1", "1.21.7")
+    val versions = listOf("1.18.2", "1.19.2", "1.20.4", "1.20.6", "1.21.1", "1.21.7", "1.21.10")
     // Guess what?
     // In 1.19 and later, Forge actually changes the fucking names, which Fabric doesn't do.
     // So, this is what we have to deal with.
@@ -30,15 +29,16 @@ stonecutter {
     // handle that too!
     val exclusiveNeoForgeVersions = listOf("1.21.7")
 
-    create(project(":minecraft")) {
+    create(rootProject) {
         versions(versions)
         vcsVersion = "1.20.4"
 
+        branch("common")
         branch("fabric") {
             versions(versions.filter { !exclusiveForgeVersions.contains(it) && !exclusiveNeoForgeVersions.contains(it) })
         }
         branch("forge") {
-            versions(versions.filter { !exclusiveNeoForgeVersions.contains(it) })
+            versions(versions.filter { !exclusiveNeoForgeVersions.contains(it) }.filterIndexed { i, _ -> i <= versions.indexOf("1.20.4") })
         }
         branch("neoforge") {
             versions(versions.filter { !exclusiveForgeVersions.contains(it) && !versionsWithoutNeoForge.contains(it) })

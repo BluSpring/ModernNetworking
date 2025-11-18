@@ -1,0 +1,38 @@
+modLoader="klf"
+loaderVersion="[${kotlinlangforge_loader},)"
+license="MIT"
+issueTrackerURL="https://github.com/BluSpring/ModernNetworking/issues"
+
+[[mods]]
+modId="modernnetworking"
+version="${version}"
+displayName="Modern Networking"
+logoFile="icon.png"
+authors="BluSpring"
+description='''
+    Multiversioned and multiloader network packet API based on 1.20.6+'s method of packets.
+    '''
+
+[[dependencies.modernnetworking]]
+modId="forge"
+mandatory=true
+versionRange="[1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.modernnetworking]]
+modId="minecraft"
+mandatory=true
+versionRange="${minecraft}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.modernnetworking]]
+modId = "kotlinlangforge"
+mandatory = true
+versionRange = "[${kotlinlangforge},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "modernnetworking.mixins.json"
