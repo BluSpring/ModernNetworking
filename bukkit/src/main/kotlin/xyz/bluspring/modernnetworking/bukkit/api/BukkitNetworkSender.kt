@@ -1,6 +1,7 @@
 package xyz.bluspring.modernnetworking.bukkit.api
 
 import io.netty.buffer.ByteBuf
+import io.netty.buffer.ByteBufUtil
 import io.netty.buffer.Unpooled
 import org.bukkit.entity.Player
 import xyz.bluspring.modernnetworking.api.NetworkCodec
@@ -13,6 +14,6 @@ object BukkitNetworkSender {
         val buffer = Unpooled.buffer()
         (packet.definition.codec as NetworkCodec<T, ByteBuf>).encode(buffer, packet)
 
-        this.sendPluginMessage(registry.plugin, "${packet.definition.namespace}:${packet.definition.id}", buffer.array())
+        this.sendPluginMessage(registry.plugin, "${packet.definition.namespace}:${packet.definition.id}", ByteBufUtil.getBytes(buffer))
     }
 }
