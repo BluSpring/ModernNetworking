@@ -28,7 +28,7 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.modernnetworking]]
-modId = "kotlinlangforge"
+modId = "klf"
 mandatory = true
 versionRange = "[${kotlinlangforge},)"
 ordering = "NONE"
