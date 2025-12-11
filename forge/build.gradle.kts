@@ -58,7 +58,7 @@ dependencies {
 
     compileOnly(project.project(":common:$minecraftVersion").sourceSets.main.get().output)
     shade(api(project(":api")) { isTransitive = false })
-    modApi("dev.nyon:KotlinLangForge:${common.mod.dep("kotlinlangforge")}-${common.mod.dep("kotlinlangforge_loader")}+forge")
+    modApi("dev.nyon:KotlinLangForge:${common.mod.dep("kotlinlangforge")}-k${common.mod.dep("kotlin")}-${common.mod.dep("kotlinlangforge_loader")}+forge")
 }
 
 tasks.processResources {

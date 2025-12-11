@@ -1,3 +1,4 @@
-## [1.2.4] - 2025-11-29
-- Fixed KotlinLangForge not being depended on correctly... again.
-  - Someone remind me to set up unit tests.
+## [1.2.5] - 2025-12-11
+- Fixed KotlinLangForge not being depended on correctly... AGAIN.
+  - I am really bad at this, though to be fair I really don't like Forge.
+- Add support for 1.21.11
