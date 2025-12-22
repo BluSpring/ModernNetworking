@@ -58,6 +58,8 @@ dependencies {
 }
 
 tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     from(project.project(":common:$minecraftVersion").sourceSets.main.get().resources)
 
     properties(listOf("fabric.mod.json"),
