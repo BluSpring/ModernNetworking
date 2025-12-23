@@ -27,12 +27,13 @@ versionRange="${minecraft}"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.modernnetworking]]
-modId = "klf"
-mandatory = true
-versionRange = "[${kotlinlangforge},)"
-ordering = "NONE"
-side = "BOTH"
+# FIXME: we really need to figure this fucking thing out properly.
+#[[dependencies.modernnetworking]]
+#modId = "klf"
+#mandatory = true
+#versionRange = "[${kotlinlangforge},)"
+#ordering = "NONE"
+#side = "BOTH"
 
 [[mixins]]
 config = "modernnetworking.mixins.json"
