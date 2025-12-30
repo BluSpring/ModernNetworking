@@ -3,7 +3,11 @@ package xyz.bluspring.modernnetworking.modern
 //? if >= 1.20.2 {
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+//? if < 1.21.11 {
 import net.minecraft.resources.ResourceLocation
+//?} else {
+/*import net.minecraft.resources.Identifier as ResourceLocation
+*///?}
 import xyz.bluspring.modernnetworking.api.NetworkCodec
 import xyz.bluspring.modernnetworking.api.NetworkPacket
 //?}

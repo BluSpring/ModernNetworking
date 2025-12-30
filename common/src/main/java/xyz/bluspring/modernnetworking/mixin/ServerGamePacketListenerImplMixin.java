@@ -29,6 +29,7 @@ import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper;
 import org.spongepowered.asm.mixin.Final;
 //?}
 
+@SuppressWarnings("MixinSuperClass") // this is wrong
 @Mixin(/*? if <1.20.6 >=1.20.2 {*/ServerCommonPacketListenerImpl.class/*?} else {*//*ServerGamePacketListenerImpl.class*//*?}*/)
 public abstract class ServerGamePacketListenerImplMixin /*? if >= 1.20.6 {*//*extends ServerCommonPacketListenerImpl*//*?}*/ {
     /*? if < 1.20.6 {*/@Shadow @Final private MinecraftServer server;/*?}*/

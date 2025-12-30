@@ -10,7 +10,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper;
+//? if < 1.21.11 {
 import net.minecraft.resources.ResourceLocation;
+ //?} else {
+/*import net.minecraft.resources.Identifier;
+*///?}
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +32,7 @@ import java.util.ArrayList;
 public abstract class ServerboundCustomPayloadPacketMixin {
     //? if >= 1.20.6 {
     /*@Inject(method = "method_56475", at = @At("HEAD"), cancellable = true)
-    private static <B, V> void modernnetworking$addRegisteredPacketCodecs(ResourceLocation location, CallbackInfoReturnable<StreamCodec<B, V>> cir) {
+    private static <B, V> void modernnetworking$addRegisteredPacketCodecs(/^? if < 1.21.11 {^/ResourceLocation/^?} else {^//^Identifier^//^?}^/ location, CallbackInfoReturnable<StreamCodec<B, V>> cir) {
         var registry = VanillaNetworkRegistry.get(location.getNamespace());
 
         if (registry != null) {

@@ -1,2 +1,3 @@
-## [1.2.7] - 2025-12-23
-- Have I ever mentioned how much I really, really, *really* don't like Forge?
+## [1.2.8] - 2025-12-31
+- Properly update to 1.21.11
+- Realize that 1.20.6+ clientbound-only packets have been broken this entire time and no one told me

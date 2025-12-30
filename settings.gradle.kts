@@ -18,7 +18,7 @@ stonecutter {
     centralScript = "build.gradle.kts"
     kotlinController = true
 
-    val versions = listOf("1.18.2", "1.19.2", "1.20.4", "1.20.6", "1.21.1", "1.21.7", "1.21.10")
+    val versions = listOf("1.18.2", "1.19.2", "1.20.4", "1.20.6", "1.21.1", "1.21.7", "1.21.10", "1.21.11")
     // Guess what?
     // In 1.19 and later, Forge actually changes the fucking names, which Fabric doesn't do.
     // So, this is what we have to deal with.

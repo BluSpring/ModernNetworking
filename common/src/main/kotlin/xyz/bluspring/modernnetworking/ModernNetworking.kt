@@ -1,6 +1,10 @@
 package xyz.bluspring.modernnetworking
 
+//? if < 1.21.11 {
 import net.minecraft.resources.ResourceLocation
+//?} else {
+/*import net.minecraft.resources.Identifier as ResourceLocation
+*///?}
 
 object ModernNetworking {
     fun id(namespace: String, path: String): ResourceLocation {

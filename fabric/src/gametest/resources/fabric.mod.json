@@ -1,0 +1,23 @@
+{
+    "schemaVersion": 1,
+    "id": "modernnetworking-testmod",
+    "version": "1.0.0",
+    "name": "ModernNetworking: Test Mod",
+    "description": "The Fabric test mod for Modern Networking",
+    "authors": [
+        "BluSpring"
+    ],
+    "contact": {
+    },
+    "license": "MIT",
+    "environment": "*",
+    "icon": "assets/modernnetworking/icon.png",
+    "depends": {
+        "modernnetworking": "*"
+    },
+    "entrypoints": {
+        "fabric-gametest": [
+            "xyz.bluspring.modernnetworking.fabric.test.ModernNetworkingFabricTest"
+        ]
+    }
+}

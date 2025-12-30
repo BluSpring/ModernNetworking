@@ -65,6 +65,10 @@ subprojects {
     apply(plugin = "com.gradleup.shadow")
     apply(plugin = "dev.kikugie.fletching-table")
 
+    fun loaderDep(dep: String, default: String = "[UNSUPPORTED]"): Any {
+        return common?.project?.mod?.dep(dep, mod.dep(dep, default)) ?: mod.dep(dep, default)
+    }
+
     val minecraftVersion = sc.current.version
     val loom = project.extensions.getByName<LoomGradleExtensionAPI>("loom")
 
@@ -74,7 +78,7 @@ subprojects {
         "minecraft"("com.mojang:minecraft:$minecraftVersion")
         "mappings"(loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-$minecraftVersion:${common?.project?.mod?.prop("parchment_snapshot") ?: mod.prop("parchment_snapshot")}")
+            parchment("org.parchmentmc.data:parchment-${loaderDep("parchment_version", minecraftVersion)}:${common?.project?.mod?.prop("parchment_snapshot") ?: mod.prop("parchment_snapshot")}")
         })
     }
 

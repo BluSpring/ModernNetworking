@@ -35,11 +35,11 @@ object VanillaCodecs {
 
     //? if >= 1.20.6 {
     /*@JvmStatic
-    fun <B : ByteBuf, V> streamCodecToNetworkCodec(codec: StreamCodec<B, V>): NetworkCodec<V, B> {
+    fun <B : ByteBuf, V : Any> streamCodecToNetworkCodec(codec: StreamCodec<B, V>): NetworkCodec<V, B> {
         return codec.toNetworkCodec()
     }
 
-    fun <B : ByteBuf, V> StreamCodec<B, V>.toNetworkCodec(): NetworkCodec<V, B> {
+    fun <B : ByteBuf, V : Any> StreamCodec<B, V>.toNetworkCodec(): NetworkCodec<V, B> {
         return NetworkCodec({ buf, value ->
             this.encode(buf, value)
         }, { buf ->

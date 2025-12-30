@@ -30,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import xyz.bluspring.modernnetworking.api.minecraft.VanillaClientContext;
 import xyz.bluspring.modernnetworking.api.minecraft.VanillaNetworkRegistry;
 
+@SuppressWarnings("MixinSuperClass") // this is wrong
 @Mixin(ClientPacketListener.class)
 public abstract class ClientPacketListenerMixin /*? if >= 1.20.2 {*/extends ClientCommonPacketListenerImpl/*?}*/ {
     //? if < 1.20.2 {
