@@ -33,11 +33,11 @@ stonecutter {
             // NeoForge doesn't exist for <=1.20.1
             versions(versions.filter { stonecutter.eval(it, ">1.20.1") })
         }
-        branch("forge") {
+        /*branch("forge") {
             // KLF doesn't exist for >=1.20.5, don't bother
             // MDG also does not work with versions older than 1.20.1 either, from the looks.
             versions(versions.filter { stonecutter.eval(it, "<=1.20.1") })
-        }
+        }*/
     }
 }
 
