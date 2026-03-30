@@ -19,4 +19,8 @@ val shadedDep by configurations.named("shadedDep")
 
 dependencies {
     api("dev.nyon:KotlinLangForge:${libs.versions.kotlinlangforge.get()}-${klfLangVersion}+neoforge")
+
+    shadedDep(api(project(":api")) {
+        isTransitive = false
+    })
 }

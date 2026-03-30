@@ -1,27 +1,27 @@
 {
     "schemaVersion": 1,
-    "id": "modernnetworking",
-    "version": "${version}",
-    "name": "Modern Networking",
-    "description": "Multiversioned and multiloader network packet API based on 1.20.6+'s method of packets.",
+    "id": "${mod_id}",
+    "version": "${mod_version}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
     "authors": [
         "BluSpring"
     ],
     "contact": {
-        "sources": "https://github.com/BluSpring/ModernNetworking"
+        "sources": "${mod_sources}"
     },
     "license": "MIT",
     "icon": "icon.png",
     "environment": "*",
     "entrypoints": {},
     "mixins": [
-        "modernnetworking.mixins.json"
+        "${mod_id}.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=${loader_version}",
-        "fabric-language-kotlin": ">=${kotlin_loader_version}",
+        "fabricloader": "*",
+        "fabric-language-kotlin": "*",
         "fabric-api": "*",
-        "minecraft": "${minecraft}"
+        "minecraft": "${minecraft_version_range_fabric}"
     },
     "custom": {
         "modmenu": {

@@ -27,4 +27,8 @@ dependencies {
     moddedApi(libs.fabric.kotlin)
     api(libs.mixinextras.fabric)
     annotationProcessor(libs.mixinextras.fabric)
+
+    shadedDep(api(project(":api")) {
+        isTransitive = false
+    })
 }
