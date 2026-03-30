@@ -1,3 +1,4 @@
-## [1.2.8] - 2025-12-31
-- Properly update to 1.21.11
-- Realize that 1.20.6+ clientbound-only packets have been broken this entire time and no one told me
+## [1.3.0] - 2026-03-30
+- Update to 26.1
+- Rework development environment for faster mod updates
+- Drop support for 1.20.1 and older

@@ -1,61 +1,40 @@
+import net.neoforged.moddevgradle.dsl.NeoForgeExtension
+import net.neoforged.moddevgradle.legacyforge.dsl.LegacyForgeExtension
+
 plugins {
-    id("architectury-plugin")
-    id("dev.architectury.loom")
-    id("dev.kikugie.fletching-table")
+    alias(libs.plugins.fletching.table)
     `maven-publish`
 }
 
-val minecraftVersion = stonecutter.current.version
-version = "${mod.version}+$minecraftVersion"
+val mcVersion = stonecutter.current.version
+val common = stonecutter.node.sibling("")!!
 
-base {
-    archivesName.set("${mod.id}-common")
+if (stonecutter.eval(mcVersion, "<=1.20.1")) {
+    apply(plugin = "net.neoforged.moddev.legacyforge")
+
+    project.extensions.configure<LegacyForgeExtension> {
+        mcpVersion = mcVersion
+
+        configureModDev(this, "common")
+    }
+} else {
+    apply(plugin = "net.neoforged.moddev")
+
+    project.extensions.configure<NeoForgeExtension> {
+        neoFormVersion = tryFindNeoFormVersion(mcVersion)!!
+    }
 }
 
-architectury {
-    common(stonecutter.tree.branches.mapNotNull {
-        if (stonecutter.current.project !in it) null
-        else it.project.prop("loom.platform")
-    })
-}
+setupCommon("common")
+setupCommonModDev("common")
 
 dependencies {
-    modImplementation("net.fabricmc:fabric-loader:${mod.dep("fabric_loader")}")
+    api(libs.mixin) // Mixin
+    api(libs.fabric.kotlin) // Provides all the Kotlin stuff we'd ever need
+//    annotationProcessor(libs.mixinextras.common) // MixinExtras
+    api(libs.mixinextras.common)
+
     api(project(":api")) {
         isTransitive = false
     }
-}
-
-loom {
-    decompilers {
-        get("vineflower").apply { // Adds names to lambdas - useful for mixins
-            options.put("mark-corresponding-synthetics", "1")
-        }
-    }
-}
-
-tasks.build {
-    group = "versioned"
-    description = "Must run through 'chiseledBuild'"
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            groupId = "xyz.bluspring.modernnetworking"
-            artifactId = "modernnetworking-common"
-            //version = project.version
-
-            artifact(project.tasks.getByName("remapJar")) {
-                builtBy(project.tasks.getByName("remapJar"))
-            }
-            artifact(project.tasks.getByName("remapSourcesJar")) {
-                builtBy(project.tasks.getByName("remapSourcesJar"))
-            }
-        }
-    }
-}
-
-tasks.shadowJar {
-    configurations = listOf()
 }

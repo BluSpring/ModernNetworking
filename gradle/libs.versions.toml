@@ -1,0 +1,45 @@
+[versions]
+# https://fabricmc.net/develop/
+fabric-loom = "1.15.+"
+# https://projects.neoforged.net/neoforged/moddevgradle
+moddevgradle = "2.0.140"
+# https://kotlinlang.org/docs/releases.html
+kotlin = "2.3.20"
+# https://codeberg.org/stonecutter/fletching-table/src/branch/main/build.gradle.kts#L18
+fletching-table = "0.1.0-alpha.22"
+# https://stonecutter.kikugie.dev/
+stonecutter = "0.9.+"
+# https://github.com/GradleUp/shadow/releases
+shadow = "9.4.0"
+# https://github.com/modmuss50/mod-publish-plugin/blob/main/build.gradle.kts#L13
+mod-publish = "1.1.0"
+
+# https://github.com/FabricMC/Mixin/blob/main/gradle.properties#L7
+mixin = "0.8.7"
+# https://github.com/LlamaLad7/MixinExtras/releases
+mixinextras = "0.5.3"
+
+# https://fabricmc.net/develop/
+fabric-loader = "0.18.4"
+# https://modrinth.com/mod/fabric-language-kotlin/versions
+fabric-kotlin = "1.13.9+kotlin.2.3.10"
+
+# https://modrinth.com/mod/kotlin-lang-forge/versions
+kotlinlangforge = "2.11.2-k2.3.20"
+
+[libraries]
+fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
+fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-kotlin" }
+
+mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
+mixinextras-common = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinextras" }
+mixinextras-fabric = { module = "io.github.llamalad7:mixinextras-fabric", version.ref = "mixinextras" }
+mixinextras-forge = { module = "io.github.llamalad7:mixinextras-forge", version.ref = "mixinextras" }
+
+[plugins]
+moddevgradle = { id = "net.neoforged.moddev" }
+moddevgradle-legacy = { id = "net.neoforged.moddev.legacyforge" }
+kotlin = { id = "org.jetbrains.kotlin.jvm" }
+fletching-table = { id = "dev.kikugie.fletching-table", version.ref = "fletching-table" }
+shadow = { id = "com.gradleup.shadow" }
+mod-publish = { id = "me.modmuss50.mod-publish-plugin" }

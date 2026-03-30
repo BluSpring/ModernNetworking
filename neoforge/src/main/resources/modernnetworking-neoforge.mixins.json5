@@ -8,8 +8,8 @@
     ],
     "client": [
         //? if >= 1.21.6 {
-        /*"ClientNetworkRegistryMixin"
-        *///?}
+        "ClientNetworkRegistryMixin"
+        //?}
     ],
     "injectors": {
         "defaultRequire": 1

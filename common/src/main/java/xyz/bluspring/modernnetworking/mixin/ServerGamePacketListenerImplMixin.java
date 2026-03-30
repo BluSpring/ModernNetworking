@@ -26,19 +26,19 @@ import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper;
 //?}
 
 //? if < 1.20.6 {
-import org.spongepowered.asm.mixin.Final;
-//?}
+/*import org.spongepowered.asm.mixin.Final;
+*///?}
 
 @SuppressWarnings("MixinSuperClass") // this is wrong
-@Mixin(/*? if <1.20.6 >=1.20.2 {*/ServerCommonPacketListenerImpl.class/*?} else {*//*ServerGamePacketListenerImpl.class*//*?}*/)
-public abstract class ServerGamePacketListenerImplMixin /*? if >= 1.20.6 {*//*extends ServerCommonPacketListenerImpl*//*?}*/ {
-    /*? if < 1.20.6 {*/@Shadow @Final private MinecraftServer server;/*?}*/
+@Mixin(/*? if <1.20.6 >=1.20.2 {*//*ServerCommonPacketListenerImpl.class*//*?} else {*/ServerGamePacketListenerImpl.class/*?}*/)
+public abstract class ServerGamePacketListenerImplMixin /*? if >= 1.20.6 {*/extends ServerCommonPacketListenerImpl/*?}*/ {
+    /*? if < 1.20.6 {*//*@Shadow @Final private MinecraftServer server;*//*?}*/
 
     //? if >= 1.20.6 {
-    /*public ServerGamePacketListenerImplMixin(MinecraftServer server, Connection connection, CommonListenerCookie cookie) {
+    public ServerGamePacketListenerImplMixin(MinecraftServer server, Connection connection, CommonListenerCookie cookie) {
         super(server, connection, cookie);
     }
-    *///?}
+    //?}
 
     @Inject(method = "handleCustomPayload", at = @At("HEAD"), cancellable = true)
     private void modernnetworking$handleRegisteredPackets(ServerboundCustomPayloadPacket packet, CallbackInfo ci) {
@@ -50,10 +50,10 @@ public abstract class ServerGamePacketListenerImplMixin /*? if >= 1.20.6 {*//*ex
             return;
 
         //? if >= 1.20.6 {
-        /*var location = wrapper.type().id();
-        *///?} else {
-        var location = wrapper.id();
-        //?}
+        var location = wrapper.type().id();
+        //?} else {
+        /*var location = wrapper.id();
+        *///?}
         var data = wrapper.getPacket();
         //?}
 
