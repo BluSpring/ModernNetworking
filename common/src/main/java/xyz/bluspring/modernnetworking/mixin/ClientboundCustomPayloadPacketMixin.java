@@ -3,17 +3,17 @@ package xyz.bluspring.modernnetworking.mixin;
 //? if >= 1.20.2 {
 import net.minecraft.network.FriendlyByteBuf;
 //? if >= 1.20.6 {
-import net.minecraft.network.RegistryFriendlyByteBuf;
+/*import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-//?}
+*///?}
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import xyz.bluspring.modernnetworking.modern.CustomPayloadWrapper;
 //? if < 1.21.11 {
-/*import net.minecraft.resources.ResourceLocation;
- *///?} else {
-import net.minecraft.resources.Identifier;
-//?}
+import net.minecraft.resources.ResourceLocation;
+ //?} else {
+/*import net.minecraft.resources.Identifier;
+*///?}
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,8 +30,8 @@ import java.util.ArrayList;
 //?}
 public abstract class ClientboundCustomPayloadPacketMixin {
     //? if >= 1.20.6 {
-    @Inject(method = {"method_56461", "lambda$static$0"}, at = @At("HEAD"), cancellable = true, require = 0)
-    private static <B, V> void modernnetworking$addRegisteredPacketCodecs(/*? if < 1.21.11 {*//*ResourceLocation*//*?} else {*/Identifier/*?}*/ location, CallbackInfoReturnable<StreamCodec<B, V>> cir) {
+    /*@Inject(method = {"method_56461", "lambda$static$0"}, at = @At("HEAD"), cancellable = true, require = 0)
+    private static <B, V> void modernnetworking$addRegisteredPacketCodecs(/^? if < 1.21.11 {^/ResourceLocation/^?} else {^//^Identifier^//^?}^/ location, CallbackInfoReturnable<StreamCodec<B, V>> cir) {
         var registry = VanillaNetworkRegistry.get(location.getNamespace());
 
         if (registry != null) {
@@ -56,8 +56,8 @@ public abstract class ClientboundCustomPayloadPacketMixin {
             }
         }
     }
-    //?} else if >= 1.20.2 {
-    /*@Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
+    *///?} else if >= 1.20.2 {
+    @Inject(method = "readPayload", at = @At("HEAD"), cancellable = true)
     private static void modernnetworking$readWithRegisteredPacket(ResourceLocation location, FriendlyByteBuf buffer, CallbackInfoReturnable<CustomPacketPayload> cir) {
         var registry = VanillaNetworkRegistry.get(location.getNamespace());
 
@@ -69,5 +69,5 @@ public abstract class ClientboundCustomPayloadPacketMixin {
             }
         }
     }
-    *///?}
+    //?}
 }

@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.fletching.table) apply false
 }
 
-stonecutter active "26.1"
+stonecutter active "1.20.4"
 
 
 allprojects {
