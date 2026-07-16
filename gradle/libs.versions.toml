@@ -27,6 +27,11 @@ fabric-kotlin = "1.13.12+kotlin.2.4.0"
 # https://modrinth.com/mod/kotlin-lang-forge/versions
 kotlinlangforge = "2.12.1-k2.4.0"
 
+netty = "4.1.97.Final"
+
+paper-api = "1.21-R0.1-SNAPSHOT"
+velocity-api = "3.4.0-SNAPSHOT"
+
 [libraries]
 fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
 fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-kotlin" }
@@ -35,6 +40,11 @@ mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
 mixinextras-common = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinextras" }
 mixinextras-fabric = { module = "io.github.llamalad7:mixinextras-fabric", version.ref = "mixinextras" }
 mixinextras-forge = { module = "io.github.llamalad7:mixinextras-forge", version.ref = "mixinextras" }
+
+netty-buffer = { module = "io.netty:netty-buffer", version.ref = "netty" }
+
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper-api" }
+velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "velocity-api" }
 
 [plugins]
 fabric-loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric-loom" }

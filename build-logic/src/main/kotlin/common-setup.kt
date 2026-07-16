@@ -16,14 +16,20 @@ import org.gradle.kotlin.dsl.*
 import org.gradle.language.jvm.tasks.ProcessResources
 import java.net.URI
 
-fun Project.setupCommon(module: String) {
-    val stonecutter = project.extensions.getByType<StonecutterBuildExtension>()
-
-    version = "${mod.version}+${stonecutter.current.version}"
+fun Project.setupCommonUnmodded(module: String) {
+    version = "${mod.version}"
 
     project.extensions.configure<BasePluginExtension>("base") {
         archivesName.set("${mod.name}-$module")
     }
+}
+
+fun Project.setupCommon(module: String) {
+    setupCommonUnmodded(module)
+
+    val stonecutter = project.extensions.getByType<StonecutterBuildExtension>()
+
+    version = "${mod.version}+${stonecutter.current.version}"
 
     stonecutter.constants.match(module, "fabric", "forge", "neoforge",
         "common" // do not use lmao
@@ -53,7 +59,7 @@ fun Project.setupCommon(module: String) {
         project.extensions.configure<ModPublishExtension>("publishMods") {
             displayName = "${common.project.mod.version}+${stonecutter.current.version} ($properLoaderName)"
             version = "${common.project.mod.version}+${stonecutter.current.version}-$module"
-            changelog = ""
+            changelog = rootProject.file("CHANGELOG.md").readText()
             type = ReleaseType.STABLE
             modLoaders.add(module)
 
