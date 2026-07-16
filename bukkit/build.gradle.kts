@@ -1,6 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import me.modmuss50.mpp.ReleaseType
-import org.gradle.kotlin.dsl.named
 
 plugins {
     alias(libs.plugins.kotlin)
@@ -39,7 +38,7 @@ tasks {
     }
 
     getByName<ShadowJar>("shadowJar") {
-        configurations = listOf(shade)
+        configurations = listOf(shadedDep)
         archiveClassifier = null
 
         val shadePkg = "xyz.bluspring.modernnetworking.bukkit.shaded"
