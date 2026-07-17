@@ -29,7 +29,7 @@ kotlinlangforge = "2.12.1-k2.4.0"
 
 netty = "4.1.97.Final"
 
-paper-api = "1.21-R0.1-SNAPSHOT"
+paper-api = "1.16.5-R0.1-SNAPSHOT"
 velocity-api = "3.4.0-SNAPSHOT"
 
 [libraries]
