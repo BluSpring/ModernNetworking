@@ -2,7 +2,7 @@ package xyz.bluspring.modernnetworking.api
 
 import io.netty.buffer.ByteBuf
 
-@Deprecated(level = DeprecationLevel.ERROR)
+@Deprecated(level = DeprecationLevel.ERROR, message = "Refactored to properly match MC 1.20.6.", replaceWith = ReplaceWith("NetworkCodec", "xyz.bluspring.modernnetworking.api.v2.codec.NetworkCodec"))
 data class NetworkCodec<T, B : ByteBuf>(private val encoder: Encoder<B, T>, private val decoder: Decoder<B, T>) {
     fun encode(buffer: B, value: T) {
         this.encoder.encode(buffer, value)
