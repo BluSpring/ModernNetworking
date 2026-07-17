@@ -2,11 +2,8 @@ package xyz.bluspring.modernnetworking.internal
 
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufUtil
-import java.util.BitSet
-import java.util.EnumSet
-import java.util.UUID
+import java.util.*
 import kotlin.experimental.and
-import kotlin.text.toByte
 
 internal const val SEGMENT_BITS = 0x7F
 internal const val CONTINUE_BIT = 0x80
@@ -124,6 +121,10 @@ fun ByteBuf.writeUtf(text: String, maxLength: Int = 32767) {
 
 fun ByteBuf.writeByteActual(byte: Byte) {
     this.writeByte(byte.toInt())
+}
+
+fun ByteBuf.writeShortActual(short: Short) {
+    this.writeShort(short.toInt())
 }
 
 fun ByteBuf.readUUID(): UUID {
