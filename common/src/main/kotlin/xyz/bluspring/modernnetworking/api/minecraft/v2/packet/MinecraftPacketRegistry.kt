@@ -1,6 +1,7 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.packet
 
-import io.netty.buffer.ByteBuf
+//? if >= 1.20.5 {
+/*import io.netty.buffer.ByteBuf
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
@@ -11,8 +12,7 @@ import xyz.bluspring.modernnetworking.api.v2.packet.PacketRegistry
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 
 abstract class MinecraftPacketRegistry : PacketRegistry {
-    //? if >= 1.20.6 {
-    /*protected val definitionsToTypes: MutableMap<PacketDefinition<*, *>, CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, CustomPayloadWrapper<*>>> = mutableMapOf()
+    protected val definitionsToTypes: MutableMap<PacketDefinition<*, *>, CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, CustomPayloadWrapper<*>>> = mutableMapOf()
 
     fun <B : ByteBuf, T : NetworkPacket> getOrCreateType(definition: PacketDefinition<B, T>): CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, CustomPayloadWrapper<T>> {
         if (this.definitionsToTypes.contains(definition)) {
@@ -32,5 +32,9 @@ abstract class MinecraftPacketRegistry : PacketRegistry {
 
         return typeAndCodec
     }
-    *///? }
 }
+*///? } else {
+import xyz.bluspring.modernnetworking.api.v2.packet.DefaultedPacketRegistry
+
+class MinecraftPacketRegistry : DefaultedPacketRegistry()
+//? }

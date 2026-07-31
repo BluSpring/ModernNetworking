@@ -1,8 +1,6 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client
 
 import io.netty.buffer.ByteBuf
-import net.minecraft.network.FriendlyByteBuf
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry.UnknownPacketHandler
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketHandlerRegistry

@@ -1,6 +1,8 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client
 
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
+//? if >= 1.20.2 {
+/*import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
+*///? }
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientLoginPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.SingleReceiverPacketHandlerRegistry

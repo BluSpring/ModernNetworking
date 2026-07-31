@@ -1,11 +1,15 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.codec
 
-import io.netty.buffer.ByteBuf
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.Tag
 import net.minecraft.network.FriendlyByteBuf
-import net.minecraft.network.chat.ComponentSerialization
+//? if >= 1.20.5 {
+/*import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.network.codec.StreamCodec
+import io.netty.buffer.ByteBuf
+import net.minecraft.nbt.Tag
+*///? } else {
+import net.minecraft.network.chat.Component
+//? }
 import net.minecraft.world.item.ItemStack
 import xyz.bluspring.modernnetworking.api.v2.codec.NetworkCodec
 
@@ -14,7 +18,7 @@ object MinecraftNetworkCodecs {
     val ITEM_STACK = //? if >= 1.20.6 {
         /*ItemStack.STREAM_CODEC.toNetworkCodec()
     *///?} else {
-        NetworkCodec<ItemStack, FriendlyByteBuf>(FriendlyByteBuf::writeItem, FriendlyByteBuf::readItem)
+        NetworkCodec<FriendlyByteBuf, ItemStack>(FriendlyByteBuf::writeItem, FriendlyByteBuf::readItem)
     //?}
 
     @JvmField val COMPOUND_TAG: NetworkCodec<FriendlyByteBuf, CompoundTag> = NetworkCodec({ buf, value -> buf.writeNbt(value) }) { buf -> buf.readNbt()!! }
@@ -23,7 +27,7 @@ object MinecraftNetworkCodecs {
     //? if >= 1.20.6 {
     /*val COMPONENT = ComponentSerialization.STREAM_CODEC.toNetworkCodec()
     *///?} else {
-    val COMPONENT = NetworkCodec<Component, FriendlyByteBuf>(FriendlyByteBuf::writeComponent, FriendlyByteBuf::readComponent)
+    val COMPONENT = NetworkCodec<FriendlyByteBuf, Component>(FriendlyByteBuf::writeComponent, FriendlyByteBuf::readComponent)
     //?}
 
     //? if >= 1.20.5 {

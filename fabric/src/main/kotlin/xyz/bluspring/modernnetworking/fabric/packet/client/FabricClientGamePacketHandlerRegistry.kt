@@ -7,17 +7,36 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.Cli
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketHandlerRegistry
-import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
+//? if >= 1.20.5 {
+/*import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
+*///? } else {
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
+import net.minecraft.network.FriendlyByteBuf
+import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
+//? }
 import xyz.bluspring.modernnetworking.minecraft.MinecraftSingleReceiverPacketHandlerRegistry
 
 class FabricClientGamePacketHandlerRegistry : MinecraftSingleReceiverPacketHandlerRegistry<ClientGamePacketContext>(MinecraftPacketRegistries.CLIENT_PLAY) {
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ClientGamePacketContext>) {
-        ClientPlayNetworking.registerGlobalReceiver(this.packetRegistry.getOrCreateType(definition).type) { packet, ctx ->
+        //? if >= 1.20.5 {
+        /*ClientPlayNetworking.registerGlobalReceiver(this.packetRegistry.getOrCreateType(definition).type) { packet, ctx ->
             handler.handle(packet.packet, ClientGamePacketContext(ctx.player(), ctx.client()))
         }
+        *///? } else {
+        ClientPlayNetworking.registerGlobalReceiver(definition.identifier) { client, listener, buf, sender ->
+            val packet = definition.codec.decode(buf as B)
+            handler.handle(packet, ClientGamePacketContext(client.player!!, client))
+        }
+        //? }
     }
 
     override fun <T : NetworkPacket> send(packet: T) {
-        ClientPlayNetworking.send(CustomPayloadWrapper(this.packetRegistry, packet))
+        //? if >= 1.20.5 {
+        /*ClientPlayNetworking.send(CustomPayloadWrapper(this.packetRegistry, packet))
+        *///? } else {
+        val buf = PacketByteBufs.create()
+        (packet.definition as PacketDefinition<FriendlyByteBuf, T>).codec.encode(buf, packet)
+        ClientPlayNetworking.send(packet.definition.identifier, buf)
+        //? }
     }
 }

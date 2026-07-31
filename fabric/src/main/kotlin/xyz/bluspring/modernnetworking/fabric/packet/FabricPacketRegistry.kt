@@ -1,6 +1,7 @@
 package xyz.bluspring.modernnetworking.fabric.packet
 
-import io.netty.buffer.ByteBuf
+//? if >= 1.20.5 {
+/*import io.netty.buffer.ByteBuf
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.minecraft.network.FriendlyByteBuf
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
@@ -14,3 +15,4 @@ class FabricPacketRegistry<B : FriendlyByteBuf>(val fabricRegistry: PayloadTypeR
         return definition
     }
 }
+*///? }
