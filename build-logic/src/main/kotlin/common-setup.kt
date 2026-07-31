@@ -35,6 +35,13 @@ fun Project.setupCommon(module: String) {
         "common" // do not use lmao
     )
 
+    val apiProj = rootProject.project(":api")
+    if (module != "api") {
+        dependencies {
+            "compileOnly"(apiProj.extensions.getByName<SourceSetContainer>("sourceSets").named("main").get().output)
+        }
+    }
+
     if (module != "common") {
         val common = stonecutter.node.sibling("") ?: return
         val shadedDep by configurations.creating
@@ -109,12 +116,14 @@ fun Project.setupCommon(module: String) {
 
         tasks.named<Jar>("jar") {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            from(zipTree(apiProj.tasks.named<Jar>("jar").get().archiveFile))
             from(zipTree(commonProj.tasks.named<Jar>("jar").get().archiveFile))
             archiveClassifier = "dev"
         }
 
         tasks.named<Jar>("sourcesJar") {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            from(zipTree(apiProj.tasks.named<Jar>("sourcesJar").get().archiveFile))
             from(zipTree(commonProj.tasks.named<Jar>("sourcesJar").get().archiveFile))
         }
 
@@ -126,11 +135,13 @@ fun Project.setupCommon(module: String) {
             }
 
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            from(zipTree(apiProj.tasks.named<Jar>("jar").get().archiveFile))
             from(zipTree(commonProj.tasks.named<Jar>("jar").get().archiveFile))
         }
 
         tasks.named<ProcessResources>("processResources") {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            from(apiProj.extensions.getByName<SourceSetContainer>("sourceSets").named("main").get().resources)
             from(commonProj.extensions.getByName<SourceSetContainer>("sourceSets").named("main").get().resources)
         }
 

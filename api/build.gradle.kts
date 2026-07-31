@@ -10,6 +10,11 @@ dependencies {
     compileOnly(libs.netty.buffer)
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 kotlin {
     jvmToolchain(8)
 }

@@ -6,5 +6,5 @@ import xyz.bluspring.modernnetworking.api.v2.codec.NetworkCodec
 data class PacketDefinition<B : ByteBuf, T : NetworkPacket>(
     val namespace: String,
     val id: String,
-    val codec: NetworkCodec<in B, T>
+    val codec: NetworkCodec<B, T>
 )

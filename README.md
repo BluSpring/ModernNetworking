@@ -79,7 +79,7 @@ public record CustomPacket(String data) implements NetworkPacket {
     }
 }
 
-// Create the network registry for your namespace.
+// Create the network packet for your namespace.
 private static final VanillaRegistry registry = VanillaRegistry.create("modid");
 
 // Create a clientbound (server -> client) definition for your custom packet.
@@ -114,7 +114,7 @@ data class CustomPacket(val data: String) : NetworkPacket {
     }
 }
 
-// Create the network registry for your namespace.
+// Create the network packet for your namespace.
 private val registry = VanillaRegistry.create("modid")
 
 // Create a clientbound (server -> client) definition for your custom packet.

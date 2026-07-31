@@ -3,7 +3,7 @@ package xyz.bluspring.modernnetworking.api
 import io.netty.buffer.ByteBuf
 
 /**
- * The base network registry. You may be looking for VanillaNetworkRegistry.
+ * The base network packet. You may be looking for VanillaNetworkRegistry.
  */
 @Deprecated(level = DeprecationLevel.HIDDEN, message = "Refactored to properly match MC 1.20.6 and be more extensible, alongside supporting source set splitting.", replaceWith = ReplaceWith("PacketRegistry", "xyz.bluspring.modernnetworking.api.v2.packet.PacketRegistry"))
 abstract class AbstractNetworkRegistry<CLIENT, SERVER> protected constructor(val namespace: String) {

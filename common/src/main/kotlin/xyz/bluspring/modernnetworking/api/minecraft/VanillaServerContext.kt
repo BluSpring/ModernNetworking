@@ -1,0 +1,10 @@
+package xyz.bluspring.modernnetworking.api.minecraft
+
+import net.minecraft.server.MinecraftServer
+import net.minecraft.server.level.ServerPlayer
+
+@Deprecated(level = DeprecationLevel.HIDDEN, message = "Refactored to provide further context information.", replaceWith = ReplaceWith("ServerCommonPacketContext", "xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerCommonPacketContext"))
+data class VanillaServerContext(
+    val server: MinecraftServer,
+    val player: ServerPlayer
+)
