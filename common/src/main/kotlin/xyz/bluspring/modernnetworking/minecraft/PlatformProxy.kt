@@ -14,10 +14,10 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.Cli
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientLoginPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketHandlerRegistry
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketRegistry
-import xyz.bluspring.modernnetworking.api.v2.packet.SingleReceiverPacketHandlerRegistry
-import java.util.ServiceLoader
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.PacketRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
+import java.util.*
 
 interface PlatformProxy {
     fun canLoad(): Boolean = true

@@ -1,6 +1,5 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.packet
 
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketRegistry
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
 object MinecraftPacketRegistries {

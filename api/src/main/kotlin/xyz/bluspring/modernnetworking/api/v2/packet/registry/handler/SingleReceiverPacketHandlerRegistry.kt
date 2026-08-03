@@ -1,4 +1,6 @@
-package xyz.bluspring.modernnetworking.api.v2.packet
+package xyz.bluspring.modernnetworking.api.v2.packet.registry.handler
+
+import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 
 interface SingleReceiverPacketHandlerRegistry<C> : PacketHandlerRegistry<C, Unit> {
     fun <T : NetworkPacket> send(packet: T) {

@@ -5,7 +5,7 @@ package xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client
 *///? }
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientLoginPacketContext
-import xyz.bluspring.modernnetworking.api.v2.packet.SingleReceiverPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
 object MinecraftClientPacketHandlerRegistries {

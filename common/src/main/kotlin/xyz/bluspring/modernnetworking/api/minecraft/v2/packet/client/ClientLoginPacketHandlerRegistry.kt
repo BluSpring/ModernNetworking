@@ -3,8 +3,8 @@ package xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client
 import io.netty.buffer.ByteBuf
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketHandlerRegistry
-import xyz.bluspring.modernnetworking.api.v2.packet.SingleReceiverPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
 import java.util.concurrent.CompletableFuture
 
 abstract class ClientLoginPacketHandlerRegistry<C> : SingleReceiverPacketHandlerRegistry<C> {

@@ -8,7 +8,7 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConf
 *///? }
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
 object MinecraftServerPacketHandlerRegistries {

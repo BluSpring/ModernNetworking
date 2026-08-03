@@ -1,6 +1,8 @@
-package xyz.bluspring.modernnetworking.api.v2.packet
+package xyz.bluspring.modernnetworking.api.v2.packet.registry.handler
 
 import io.netty.buffer.ByteBuf
+import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
+import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 
 abstract class AbstractPacketHandlerRegistry<C, R> : PacketHandlerRegistry<C, R> {
     val handlers = mutableMapOf<PacketDefinition<*, *>, PacketHandlerRegistry.PacketHandler<*, C>>()

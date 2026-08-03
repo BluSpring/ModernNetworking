@@ -34,7 +34,7 @@ abstract class MinecraftPacketRegistry : PacketRegistry {
     }
 }
 *///? } else {
-import xyz.bluspring.modernnetworking.api.v2.packet.DefaultedPacketRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedPacketRegistry
 
 class MinecraftPacketRegistry : DefaultedPacketRegistry()
 //? }

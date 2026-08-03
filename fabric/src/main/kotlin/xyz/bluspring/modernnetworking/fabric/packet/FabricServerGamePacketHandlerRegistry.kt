@@ -1,21 +1,21 @@
 package xyz.bluspring.modernnetworking.fabric.packet
 
-import io.netty.buffer.ByteBuf
 //? if >= 1.20.5 {
 /*import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 *///? } else {
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
-import net.minecraft.network.FriendlyByteBuf
-import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
 //? }
+import io.netty.buffer.ByteBuf
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
+import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.level.ServerPlayer
+import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.MinecraftPacketHandlerRegistry
 
 class FabricServerGamePacketHandlerRegistry : MinecraftPacketHandlerRegistry<ServerGamePacketContext, ServerPlayer>(MinecraftPacketRegistries.SERVER_PLAY) {

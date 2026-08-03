@@ -1,6 +1,8 @@
-package xyz.bluspring.modernnetworking.api.v2.packet
+package xyz.bluspring.modernnetworking.api.v2.packet.registry
 
 import io.netty.buffer.ByteBuf
+import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
+import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 
 /**
  * An implementation of [PacketRegistry] that registers packet definitions in a list.
