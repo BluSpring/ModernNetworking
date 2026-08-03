@@ -1,7 +1,7 @@
 package xyz.bluspring.modernnetworking.fabric.packet.client
 
 //? if >= 1.20.2 {
-import io.netty.buffer.ByteBuf
+/*import io.netty.buffer.ByteBuf
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
@@ -22,4 +22,4 @@ class FabricClientConfigurationPacketHandlerRegistry : MinecraftSingleReceiverPa
         ClientConfigurationNetworking.send(CustomPayloadWrapper(this.packetRegistry, packet))
     }
 }
-//? }
+*///? }

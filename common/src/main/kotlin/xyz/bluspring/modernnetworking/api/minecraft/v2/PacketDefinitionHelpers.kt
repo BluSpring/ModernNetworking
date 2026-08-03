@@ -7,8 +7,8 @@ object PacketDefinitionHelpers {
     @JvmStatic
     val PacketDefinition<*, *>.identifier: ResourceLocation
         //? if >= 1.20.5 {
-        get() = ResourceLocation.fromNamespaceAndPath(this.namespace, this.id)
-        //? } else {
-        /*get() = ResourceLocation(this.namespace, this.id)
-        *///? }
+        /*get() = ResourceLocation.fromNamespaceAndPath(this.namespace, this.id)
+        *///? } else {
+        get() = ResourceLocation(this.namespace, this.id)
+        //? }
 }
