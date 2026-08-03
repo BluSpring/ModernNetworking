@@ -12,10 +12,10 @@ legacyForge {
     configureModDev(this, "forge")
 }
 
-mixin {
-    config("${mod.id}.mixins.json")
-    config("${mod.id}.forge.mixins.json")
-}
+//mixin {
+//    config("${mod.id}.mixins.json")
+//    config("${mod.id}.forge.mixins.json")
+//}
 
 setupCommon("forge")
 setupCommonModDev("forge")

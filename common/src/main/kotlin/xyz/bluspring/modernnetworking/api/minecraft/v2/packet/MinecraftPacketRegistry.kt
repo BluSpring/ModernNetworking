@@ -1,14 +1,14 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.packet
 
 //? if >= 1.20.5 {
-/*import io.netty.buffer.ByteBuf
+import io.netty.buffer.ByteBuf
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.resources.ResourceLocation
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.PacketRegistry
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 
 abstract class MinecraftPacketRegistry : PacketRegistry {
@@ -33,8 +33,8 @@ abstract class MinecraftPacketRegistry : PacketRegistry {
         return typeAndCodec
     }
 }
-*///? } else {
-import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedPacketRegistry
+//? } else {
+/*import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedPacketRegistry
 
 class MinecraftPacketRegistry : DefaultedPacketRegistry()
-//? }
+*///? }

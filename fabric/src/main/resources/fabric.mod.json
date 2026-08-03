@@ -15,9 +15,6 @@
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "xyz.bluspring.template.fabric.KotlinStonecutterTemplateFabric"
-    ]
   },
   "mixins": [
   ],
