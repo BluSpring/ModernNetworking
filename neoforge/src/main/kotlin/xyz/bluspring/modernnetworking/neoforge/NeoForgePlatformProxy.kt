@@ -1,11 +1,11 @@
 package xyz.bluspring.modernnetworking.neoforge
 
-//? if >= 1.20.5 {
-//? }
 //? if >= 1.20.2 {
 import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
+import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgeServerConfigurationPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.neoforge.packet.client.NeoForgeClientConfigurationPacketHandlerRegistry
 //? }
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
@@ -21,10 +21,10 @@ import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandl
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgePacketRegistry
-import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgeServerConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgeServerGamePacketHandlerRegistry
-import xyz.bluspring.modernnetworking.neoforge.packet.client.NeoForgeClientConfigurationPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgeServerLoginPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.neoforge.packet.client.NeoForgeClientGamePacketHandlerRegistry
+import xyz.bluspring.modernnetworking.neoforge.packet.client.NeoForgeClientLoginPacketHandlerRegistry
 
 class NeoForgePlatformProxy : PlatformProxy {
     override fun createServerLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()

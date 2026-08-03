@@ -1,6 +1,8 @@
-package xyz.bluspring.modernnetworking.neoforge.packet
+package xyz.bluspring.modernnetworking.neoforge.packet.client
 
 import io.netty.buffer.ByteBuf
+import net.minecraft.client.Minecraft
+import net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl
 import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.PacketFlow
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
@@ -10,13 +12,15 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.ClientLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientLoginPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import java.util.Optional
 
-class NeoForgeServerLoginPacketHandlerRegistry : ServerLoginPacketHandlerRegistry<ServerLoginPacketContext, ServerLoginPacketListenerImpl>() {
+class NeoForgeClientLoginPacketHandlerRegistry : ClientLoginPacketHandlerRegistry<ClientLoginPacketContext>() {
     private val internalTypeRegistry = object : MinecraftPacketRegistry() {
         override fun <B : ByteBuf, T : NetworkPacket> register(
             definition: PacketDefinition<B, T>
@@ -26,16 +30,15 @@ class NeoForgeServerLoginPacketHandlerRegistry : ServerLoginPacketHandlerRegistr
         }
     }
 
-    override fun <B : ByteBuf, T : NetworkPacket> registerLogin(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ServerLoginPacketContext>, unknownHandler: UnknownPacketHandler<ServerLoginPacketContext>) {
+    override fun <B : ByteBuf, T : NetworkPacket> registerLogin(
+        definition: PacketDefinition<B, T>,
+        handler: LoginPacketHandler<T, ClientLoginPacketContext>
+    ) {
         // NeoForge doesn't have a proper API to do any of this, for some reason.
         // We're using internal APIs to do this because of that.
         val typeAndCodec = this.internalTypeRegistry.getOrCreateType(definition)
         NetworkRegistry.register(typeAndCodec.type, typeAndCodec.codec, MainThreadPayloadHandler { packet, ctx ->
-            handler.handle(packet.packet, ServerLoginPacketContext(ctx.listener() as ServerLoginPacketListenerImpl,
-                ServerLifecycleHooks.getCurrentServer()!!, true)
-            { future ->
-                TODO("Not yet implemented. Blame NeoForge.")
-            })
-        }, listOf(ConnectionProtocol.LOGIN), Optional.of(PacketFlow.SERVERBOUND), "1", true)
+            handler.handle(packet.packet, ClientLoginPacketContext(ctx.listener() as ClientHandshakePacketListenerImpl, Minecraft.getInstance()))
+        }, listOf(ConnectionProtocol.LOGIN), Optional.of(PacketFlow.CLIENTBOUND), "1", true)
     }
 }

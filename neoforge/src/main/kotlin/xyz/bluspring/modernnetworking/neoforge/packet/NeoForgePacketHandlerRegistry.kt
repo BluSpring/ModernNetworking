@@ -3,19 +3,15 @@ package xyz.bluspring.modernnetworking.neoforge.packet
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.PacketFlow
-import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
 import net.neoforged.fml.ModList
-import net.neoforged.neoforge.common.extensions.ICommonPacketListener
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
-import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.AbstractPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
-import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 import xyz.bluspring.modernnetworking.minecraft.MinecraftPacketHandlerRegistry
-import java.util.Collections
+import java.util.*
 
 abstract class NeoForgePacketHandlerRegistry<C, R>(packetRegistry: MinecraftPacketRegistry, val flow: PacketFlow, val protocol: ConnectionProtocol) : MinecraftPacketHandlerRegistry<C, R>(packetRegistry) {
     private val knownNamespaces: MutableSet<String> = Collections.synchronizedSet(mutableSetOf())
