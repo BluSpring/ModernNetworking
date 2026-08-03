@@ -14,6 +14,9 @@ import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 abstract class MinecraftPacketRegistry : PacketRegistry {
     protected val definitionsToTypes: MutableMap<PacketDefinition<*, *>, CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, CustomPayloadWrapper<*>>> = mutableMapOf()
 
+    val definitions: Collection<PacketDefinition<*, *>>
+        get() = this.definitionsToTypes.keys
+
     fun <B : ByteBuf, T : NetworkPacket> getOrCreateType(definition: PacketDefinition<B, T>): CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, CustomPayloadWrapper<T>> {
         if (this.definitionsToTypes.contains(definition)) {
             return this.definitionsToTypes[definition]!! as CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, CustomPayloadWrapper<T>>
