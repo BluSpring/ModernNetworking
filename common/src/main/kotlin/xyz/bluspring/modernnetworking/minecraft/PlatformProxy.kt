@@ -11,10 +11,12 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.ClientLoginPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientLoginPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.DualPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.PacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
@@ -23,9 +25,9 @@ import java.util.*
 interface PlatformProxy {
     fun canLoad(): Boolean = true
 
-    fun createLoginRegistry(): PacketRegistry
+    fun createLoginRegistry(): DualPacketRegistry
     fun createServerLoginHandlerRegistry(): ServerLoginPacketHandlerRegistry<ServerLoginPacketContext, ServerLoginPacketListenerImpl>
-    fun createClientLoginHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientLoginPacketContext>
+    fun createClientLoginHandlerRegistry(): ClientLoginPacketHandlerRegistry<ClientLoginPacketContext>
 
     //? if >= 1.20.2 {
     /*fun createServerConfigRegistry(): MinecraftPacketRegistry

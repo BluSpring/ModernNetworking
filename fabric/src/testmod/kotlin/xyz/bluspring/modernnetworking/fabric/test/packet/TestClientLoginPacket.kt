@@ -12,7 +12,7 @@ data class TestClientLoginPacket(
     val testByteArray: ByteArray,
 ) : NetworkPacket {
     override val definition: PacketDefinition<out ByteBuf, out NetworkPacket>
-        get() = ModernNetworkingFabricTest.TEST_CLIENT_LOGIN
+        get() = ModernNetworkingFabricTest.TEST_LOGIN.clientbound
 
     companion object {
         val CODEC = CompositeCodecs.composite(

@@ -1,6 +1,8 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client
 
 import io.netty.buffer.ByteBuf
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry.UnknownPacketHandler
+import xyz.bluspring.modernnetworking.api.v2.packet.DualPacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
@@ -8,6 +10,10 @@ import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleRecei
 import java.util.concurrent.CompletableFuture
 
 abstract class ClientLoginPacketHandlerRegistry<C> : SingleReceiverPacketHandlerRegistry<C> {
+    fun <B : ByteBuf, T : NetworkPacket> registerLogin(definition: DualPacketDefinition<B, *, T>, handler: LoginPacketHandler<T, C>) {
+        this.registerLogin(definition.clientbound, handler)
+    }
+
     abstract fun <B : ByteBuf, T : NetworkPacket> registerLogin(definition: PacketDefinition<B, T>, handler: LoginPacketHandler<T, C>)
 
     @Deprecated(message = "DO NOT USE THIS!", replaceWith = ReplaceWith("registerLogin"), level = DeprecationLevel.HIDDEN)

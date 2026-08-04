@@ -16,11 +16,14 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.ClientLoginPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientLoginPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedDualPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedPacketRegistry
+import xyz.bluspring.modernnetworking.api.v2.packet.registry.DualPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.PacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
@@ -31,9 +34,9 @@ import xyz.bluspring.modernnetworking.fabric.packet.client.FabricClientLoginPack
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
 class FabricPlatformProxy : PlatformProxy {
-    override fun createLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()
+    override fun createLoginRegistry(): DualPacketRegistry = DefaultedDualPacketRegistry()
     override fun createServerLoginHandlerRegistry(): ServerLoginPacketHandlerRegistry<ServerLoginPacketContext, ServerLoginPacketListenerImpl> = FabricServerLoginPacketHandlerRegistry()
-    override fun createClientLoginHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientLoginPacketContext> = FabricClientLoginPacketHandlerRegistry()
+    override fun createClientLoginHandlerRegistry(): ClientLoginPacketHandlerRegistry<ClientLoginPacketContext> = FabricClientLoginPacketHandlerRegistry()
 
     //? if >= 1.20.2 {
     /*override fun createServerConfigRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(PayloadTypeRegistry.configurationC2S())
