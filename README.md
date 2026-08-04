@@ -13,6 +13,18 @@ still using Modern Networking v1's API will not have to worry about broken API c
 
 The main changes:
 - Switched the generics for NetworkCodec
+- Implemented support for login and configuration phases
+  - The login phase's implementation is very rough, largely due to the heavy inconsistencies
+    between Fabric, Forge and NeoForge on its implementation.
+  - NeoForge also doesn't actually support the login phase, annoyingly. Neither does Bukkit.
+  - Bukkit/Paper also doesn't support the configuration phase system.
+- Added defaulted handler and packet registry implementations for easier use in projects outside of Minecraft
+- Heavily improved the API with Bukkit
+- Added some useful helpers into NetworkCodec
+  - e.g. `xmap`, `dispatch`
+- Rewrote some `NetworkCodecs` helpers to be more Kotlin-friendly while still being usable by Java.
+- All network handlers now register directly to the implementing mod loader's API
+  - This subsequently fixes Bukkit not being able to send/receive packets from Modern Networking.
 
 ## Installation Guide (for developers)
 
