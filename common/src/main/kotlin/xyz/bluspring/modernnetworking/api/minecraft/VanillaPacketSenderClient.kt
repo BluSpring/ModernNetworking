@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION_ERROR")
 package xyz.bluspring.modernnetworking.api.minecraft
 
 import xyz.bluspring.modernnetworking.api.NetworkPacket

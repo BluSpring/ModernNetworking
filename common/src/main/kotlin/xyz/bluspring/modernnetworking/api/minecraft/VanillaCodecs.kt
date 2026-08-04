@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION_ERROR")
 package xyz.bluspring.modernnetworking.api.minecraft
 
 //? if >= 1.20.6 {

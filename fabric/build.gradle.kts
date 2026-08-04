@@ -17,7 +17,35 @@ setupCommonLoom("fabric")
 
 val loom = extensions.getByType<LoomGradleExtensionAPI>()
 
-val shadedDep by configurations.named("shadedDep")
+val shadedDep = configurations.named("shadedDep").get()
+
+sourceSets {
+    create("testmod") {
+        compileClasspath += main.get().compileClasspath
+        compileClasspath += main.get().output
+
+        runtimeClasspath += main.get().runtimeClasspath
+        runtimeClasspath += main.get().output
+    }
+}
+
+loom.runs {
+    register("testmodClient") {
+        client()
+        displayName = "Testmod Client"
+
+        sourceSet = "testmod"
+        runDirectory = file("run/test")
+    }
+
+    register("testmodServer") {
+        server()
+        displayName = "Testmod Server"
+
+        sourceSet = "testmod"
+        runDirectory = file("run/test/server")
+    }
+}
 
 dependencies {
     moddedImplementation(libs.fabric.loader)

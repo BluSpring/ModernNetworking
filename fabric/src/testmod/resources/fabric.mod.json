@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "modernnetworking_test",
+    "version": "1.0.0",
+    "name": "ModernNetworking Test",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "xyz.bluspring.modernnetworking.fabric.test.ModernNetworkingFabricTest"
+        ],
+        "client": [
+            "xyz.bluspring.modernnetworking.fabric.test.client.ModernNetworkingFabricTestClient"
+        ]
+    }
+}

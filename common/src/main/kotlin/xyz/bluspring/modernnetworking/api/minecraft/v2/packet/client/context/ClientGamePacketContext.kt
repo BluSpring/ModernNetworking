@@ -5,6 +5,6 @@ import net.minecraft.client.multiplayer.ClientPacketListener
 import net.minecraft.client.player.LocalPlayer
 
 class ClientGamePacketContext(
-    val player: LocalPlayer,
+    val player: LocalPlayer?,
     client: Minecraft,
-) : ClientCommonPacketContext<ClientPacketListener>(player.connection, client)
+) : ClientCommonPacketContext<ClientPacketListener?>(player?.connection, client)

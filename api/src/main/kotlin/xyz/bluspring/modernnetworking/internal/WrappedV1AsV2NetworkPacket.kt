@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION_ERROR")
 package xyz.bluspring.modernnetworking.internal
 
 import io.netty.buffer.ByteBuf

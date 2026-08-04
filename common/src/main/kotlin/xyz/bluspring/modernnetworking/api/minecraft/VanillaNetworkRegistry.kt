@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION_ERROR")
 package xyz.bluspring.modernnetworking.api.minecraft
 
 import io.netty.buffer.ByteBuf
@@ -32,7 +33,7 @@ class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNe
     override fun <T : NetworkPacket, B : ByteBuf> addClientboundHandler(definition: PacketDefinition<T, B>, handler: NetworkHandler<VanillaClientContext, T>) {
         super.addClientboundHandler(definition, handler)
         MinecraftClientPacketHandlers.PLAY.register(definition.asV2) { packet, ctx ->
-            handler.handle(packet.original, VanillaClientContext(ctx.client, ctx.player))
+            handler.handle(packet.original, VanillaClientContext(ctx.client, ctx.client.player!!))
         }
     }
 

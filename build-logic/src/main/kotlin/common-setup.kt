@@ -38,7 +38,7 @@ fun Project.setupCommon(module: String) {
     val apiProj = rootProject.project(":api")
     if (module != "api") {
         dependencies {
-            "compileOnly"(apiProj.extensions.getByName<SourceSetContainer>("sourceSets").named("main").get().output)
+            "api"(apiProj.extensions.getByName<SourceSetContainer>("sourceSets").named("main").get().output)
         }
     }
 
@@ -48,7 +48,7 @@ fun Project.setupCommon(module: String) {
         val commonProj = project.project(":common:${stonecutter.current.version}")
 
         dependencies {
-            "compileOnly"(commonProj.extensions.getByName<SourceSetContainer>("sourceSets").named("main").get().output)
+            "api"(commonProj.extensions.getByName<SourceSetContainer>("sourceSets").named("main").get().output)
         }
 
         val properLoaderName = when (module) {

@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf
 /**
  * Composite codecs, designed
  */
+@Suppress("DEPRECATION_ERROR")
 @Deprecated(level = DeprecationLevel.HIDDEN, message = "Migrated to use the updated NetworkCodec.", replaceWith = ReplaceWith("CompositeCodecs", "xyz.bluspring.modernnetworking.api.v2.codec.CompositeCodecs"))
 object CompositeCodecs {
     @JvmStatic fun <BUF : ByteBuf, TYPE, C1> composite(
