@@ -4,12 +4,25 @@ A multiversioned and multiloader network packet library for Minecraft based on 1
 This API has also been designed in such a way that allows for Bukkit implementations, and even implementations outside
 of Minecraft, however you will have to provide some of the backing implementations yourself.
 
+This API is very heavily engineered towards Netty. You can make a fork of this codebase to adapt it
+outside of Netty if you need it.
+
+## Migrating API from v1 to v2
+I've taken great care in trying to maintain binary compatibility with the original v1 API, so any projects
+still using Modern Networking v1's API will not have to worry about broken API compatibility.
+
+The main changes:
+- Switched the generics for NetworkCodec
+
 ## Installation Guide (for developers)
 
 This guide intends to help explain to developers on what are the primary requirements for installing
-Modern Networking, and to understand the idea behind each added dependency.
+Modern Networking, and to understand the idea behind each added dependency. This guide uses Gradle under the Kotlin
+buildscript, however it can very easily be adapted to the Groovy buildscript. (just change `val` to `def`)
 
-### Gradle (Kotlin)
+### Standard Development Setup
+This development setup is to be used by both non-modded and modded development environments.
+### 
 ```kts
 repositories {
     maven {
@@ -23,12 +36,12 @@ repositories {
 // support for any older versions and/or snapshots as needed. 
 val modernNetworkingVersion = "2.0.0"
 
-dependencies {
-    // ModernNetworking supports Minecraft versions in a much wider manner, where
-    // versions between 1.18.2 and 1.20.1 are able to be supported under one version.
-    // You may refer to the table below for the version support.
-    val minecraftVersion = "1.18.2"
+// ModernNetworking supports Minecraft versions in a much wider manner, where
+// versions between 1.18.2 and 1.20.1 are able to be supported under one version.
+// You may refer to the table below for the version support.
+val minecraftVersion = "1.18.2"
 
+dependencies {
     // This is the API. You would want this to get the sources for it, or if you want to
     // create your own implementation, as the API is fully disconnected from Minecraft itself.
     implementation("xyz.bluspring.modernnetworking:modernnetworking-api:$modernNetworkingVersion")
@@ -76,7 +89,7 @@ dependencies {
 
 ## Usage
 
-Java
+### Java
 ```java
 // Create your custom packet, like the 1.20.6+ way of doing so.
 public record CustomPacket(String data) implements NetworkPacket {
@@ -110,7 +123,7 @@ MinecraftClientPacketHandlers.PLAY.register(CUSTOM_PACKET, (packet, ctx) -> {
 MinecraftServerPacketHandlers.PLAY.send(serverPlayer, new CustomPacket("Your custom data here"));
 ```
 
-Kotlin
+### Kotlin
 ```kotlin
 // Create your custom packet, like the 1.20.6+ way of doing so.
 data class CustomPacket(val data: String) : NetworkPacket {
