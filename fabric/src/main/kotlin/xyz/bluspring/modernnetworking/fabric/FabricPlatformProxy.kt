@@ -6,6 +6,7 @@ import xyz.bluspring.modernnetworking.fabric.packet.FabricPacketRegistry
 *///? }
 //? if >= 1.20.2 {
 /*import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
 import xyz.bluspring.modernnetworking.fabric.packet.FabricServerConfigurationPacketHandlerRegistry
@@ -30,8 +31,7 @@ import xyz.bluspring.modernnetworking.fabric.packet.client.FabricClientLoginPack
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
 class FabricPlatformProxy : PlatformProxy {
-    override fun createServerLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()
-    override fun createClientLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()
+    override fun createLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()
     override fun createServerLoginHandlerRegistry(): ServerLoginPacketHandlerRegistry<ServerLoginPacketContext, ServerLoginPacketListenerImpl> = FabricServerLoginPacketHandlerRegistry()
     override fun createClientLoginHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientLoginPacketContext> = FabricClientLoginPacketHandlerRegistry()
 

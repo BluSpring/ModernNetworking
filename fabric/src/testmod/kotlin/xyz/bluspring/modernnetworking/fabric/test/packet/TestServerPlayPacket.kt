@@ -7,18 +7,18 @@ import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.fabric.test.ModernNetworkingFabricTest
 
-data class TestClientPacket(
+data class TestServerPlayPacket(
     val testString: String,
     val testByteArray: ByteArray,
 ) : NetworkPacket {
     override val definition: PacketDefinition<out ByteBuf, out NetworkPacket>
-        get() = ModernNetworkingFabricTest.TEST_CLIENT_PLAY
+        get() = ModernNetworkingFabricTest.TEST_SERVER_PLAY
 
     companion object {
         val CODEC = CompositeCodecs.composite(
-            NetworkCodecs.STRING_UTF8, TestClientPacket::testString,
-            NetworkCodecs.BYTE_ARRAY, TestClientPacket::testByteArray,
-            ::TestClientPacket
+            NetworkCodecs.STRING_UTF8, TestServerPlayPacket::testString,
+            NetworkCodecs.BYTE_ARRAY, TestServerPlayPacket::testByteArray,
+            ::TestServerPlayPacket
         )
     }
 }

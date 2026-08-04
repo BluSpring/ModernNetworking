@@ -5,9 +5,9 @@ import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
 object MinecraftPacketRegistries {
     /**
-     * The serverbound [PacketRegistry] for the login phase.
+     * The [PacketRegistry] for the login phase.
      */
-    @JvmField val SERVER_LOGIN = PlatformProxy.instance.createServerLoginRegistry()
+    @JvmField val LOGIN = PlatformProxy.instance.createLoginRegistry()
 
     //? if >= 1.20.2 {
     /*/**
@@ -21,10 +21,6 @@ object MinecraftPacketRegistries {
      */
     @JvmField val SERVER_PLAY = PlatformProxy.instance.createServerGameRegistry()
 
-    /**
-     * The clientbound [PacketRegistry] for the login phase.
-     */
-    @JvmField val CLIENT_LOGIN = PlatformProxy.instance.createClientLoginRegistry()
 
     //? if >= 1.20.2 {
     /*/**

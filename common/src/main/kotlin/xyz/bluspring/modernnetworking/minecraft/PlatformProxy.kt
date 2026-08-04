@@ -2,6 +2,7 @@ package xyz.bluspring.modernnetworking.minecraft
 
 //? if >= 1.20.2 {
 /*import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
 *///? }
@@ -22,9 +23,8 @@ import java.util.*
 interface PlatformProxy {
     fun canLoad(): Boolean = true
 
-    fun createServerLoginRegistry(): PacketRegistry
+    fun createLoginRegistry(): PacketRegistry
     fun createServerLoginHandlerRegistry(): ServerLoginPacketHandlerRegistry<ServerLoginPacketContext, ServerLoginPacketListenerImpl>
-    fun createClientLoginRegistry(): PacketRegistry
     fun createClientLoginHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientLoginPacketContext>
 
     //? if >= 1.20.2 {

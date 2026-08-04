@@ -28,8 +28,7 @@ import xyz.bluspring.modernnetworking.neoforge.packet.client.NeoForgeClientGameP
 import xyz.bluspring.modernnetworking.neoforge.packet.client.NeoForgeClientLoginPacketHandlerRegistry
 
 class NeoForgePlatformProxy : PlatformProxy {
-    override fun createServerLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()
-    override fun createClientLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()
+    override fun createLoginRegistry(): PacketRegistry = DefaultedPacketRegistry()
     override fun createServerLoginHandlerRegistry(): ServerLoginPacketHandlerRegistry<ServerLoginPacketContext, ServerLoginPacketListenerImpl> = NeoForgeServerLoginPacketHandlerRegistry()
     override fun createClientLoginHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientLoginPacketContext> = NeoForgeClientLoginPacketHandlerRegistry()
 
