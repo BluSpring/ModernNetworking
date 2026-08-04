@@ -2,7 +2,6 @@ package xyz.bluspring.modernnetworking.fabric
 
 //? if >= 1.20.5 {
 /*import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
-import xyz.bluspring.modernnetworking.fabric.packet.FabricPacketRegistry
 *///? }
 //? if >= 1.20.2 {
 /*import net.minecraft.server.network.ServerConfigurationPacketListenerImpl

@@ -28,10 +28,6 @@ class ForgeServerLoginPacketHandlerRegistry : ServerLoginPacketHandlerRegistry<S
             val listener = ctx.networkManager.packetListener as ServerLoginPacketListenerImpl
             val packetCtx = ServerLoginPacketContext(listener, ServerLifecycleHooks.getCurrentServer()!!, { packet ->
                 ctx.networkManager.send(packet)
-            }, { packet ->
-                val buf = FriendlyByteBuf(Unpooled.buffer())
-                packet.definition.codec.cast<FriendlyByteBuf, NetworkPacket>().encode(buf, packet)
-                ctx.networkManager.send(ClientboundCustomQueryPacket(event.loginIndex + 1, packet.definition.identifier, buf))
             }, wasUnderstood, { future ->
                 TODO("Not yet implemented. Blame Forge.")
             })

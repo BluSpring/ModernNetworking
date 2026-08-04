@@ -16,7 +16,7 @@ class NeoForgeServerGamePacketHandlerRegistry : NeoForgePacketHandlerRegistry<Se
         // this is so hacky oml
         val player = context.player()
             //? if <= 1.20.4
-            .orElseThrow()
+            //.orElseThrow()
         return ServerGamePacketContext(player as ServerPlayer, player.server)
     }
 

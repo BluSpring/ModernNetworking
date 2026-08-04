@@ -5,13 +5,13 @@ import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.PacketFlow
 import net.neoforged.fml.ModList
 //? if >= 1.20.5 {
-/*import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
-*///? } else {
-import net.minecraft.network.FriendlyByteBuf
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
+//? } else {
+/*import net.minecraft.network.FriendlyByteBuf
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent
 import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
-//? }
+*///? }
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
@@ -38,7 +38,7 @@ abstract class NeoForgePacketHandlerRegistry<C, R>(val packetRegistry: Minecraft
                 ?: throw IllegalArgumentException("Packet definition namespace under NeoForge mod ID $namespace does not support event buses!")
 
             //? if >= 1.20.5 {
-            /*eventBus.addListener<RegisterPayloadHandlersEvent> { event ->
+            eventBus.addListener<RegisterPayloadHandlersEvent> { event ->
                 val registrar = event.registrar("1")
                 val types = synchronized(this.packetRegistry.definitions) {
                     this.packetRegistry.definitions.filter { it.namespace == namespace }
@@ -90,8 +90,8 @@ abstract class NeoForgePacketHandlerRegistry<C, R>(val packetRegistry: Minecraft
                     }
                 }
             }
-            *///? } else {
-            eventBus.addListener<RegisterPayloadHandlerEvent> { event ->
+            //? } else {
+            /*eventBus.addListener<RegisterPayloadHandlerEvent> { event ->
                 val registrar = event.registrar("1")
                 val definitions = synchronized(this.packetRegistry.definitions) {
                     this.packetRegistry.definitions.filter { it.namespace == namespace }
@@ -117,7 +117,7 @@ abstract class NeoForgePacketHandlerRegistry<C, R>(val packetRegistry: Minecraft
                     }
                 }
             }
-            //? }
+            *///? }
         }
     }
 

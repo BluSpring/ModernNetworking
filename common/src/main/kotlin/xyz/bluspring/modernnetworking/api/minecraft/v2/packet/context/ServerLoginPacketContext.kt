@@ -10,16 +10,11 @@ class ServerLoginPacketContext(
     handler: ServerLoginPacketListenerImpl,
     server: MinecraftServer,
     private val packetSender: (Packet<*>) -> Unit,
-    private val networkPacketSender: (NetworkPacket) -> Unit,
     val wasUnderstood: Boolean,
     val synchronizer: LoginSynchronizer,
 ) : ServerCommonPacketContext<ServerLoginPacketListenerImpl>(handler, server) {
     fun sendPacket(packet: Packet<*>) {
         this.packetSender(packet)
-    }
-
-    fun sendPacket(packet: NetworkPacket) {
-        this.networkPacketSender(packet)
     }
 
     fun interface LoginSynchronizer {

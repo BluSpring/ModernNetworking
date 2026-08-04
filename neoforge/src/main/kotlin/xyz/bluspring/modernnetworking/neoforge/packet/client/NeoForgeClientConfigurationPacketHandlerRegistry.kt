@@ -14,13 +14,13 @@ class NeoForgeClientConfigurationPacketHandlerRegistry : NeoForgeClientPacketHan
     override fun createPayloadContext(context: IPayloadContext): ClientConfigurationPacketContext {
         // this is so hacky oml
         //? if >= 1.20.5 {
-        /*val listener = context.listener() as ServerConfigurationPacketListenerImpl
-        *///? } else {
-        // okay nevermind the new one is better, what the fuck is this
+        val listener = context.listener() as ServerConfigurationPacketListenerImpl
+        //? } else {
+        /*// okay nevermind the new one is better, what the fuck is this
         val listener = context.packetHandler().javaClass.getDeclaredMethod("listener").apply {
             this.isAccessible = true
         }.invoke(context.packetHandler()) as ClientConfigurationPacketListenerImpl
-        //? }
+        *///? }
         return ClientConfigurationPacketContext(listener, Minecraft.getInstance())
     }
 }

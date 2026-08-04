@@ -8,13 +8,13 @@ import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 
 //? if >= 1.20.5 {
-/*import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
-*///? } else {
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
+//? } else {
+/*import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.neoforged.neoforge.network.event.OnGameConfigurationEvent as RegisterConfigurationTasksEvent
 import net.neoforged.neoforge.network.configuration.ICustomConfigurationTask
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
-//? }
+*///? }
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import net.neoforged.neoforge.server.ServerLifecycleHooks
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
@@ -46,16 +46,16 @@ class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRe
 
             val task = object :
                 //? if >= 1.20.5 {
-                /*ConfigurationTask
-                *///? } else {
-                ICustomConfigurationTask
-                //? }
+                ConfigurationTask
+                //? } else {
+                /*ICustomConfigurationTask
+                *///? }
             {
                 //? if <= 1.20.4 {
-                override fun run(p0: Consumer<CustomPacketPayload>) {
+                /*override fun run(p0: Consumer<CustomPacketPayload>) {
                     // lmao
                 }
-                //? }
+                *///? }
 
                 override fun start(task: Consumer<Packet<*>>) {
                     handler.handleTask(context)
@@ -86,13 +86,13 @@ class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRe
     override fun createPayloadContext(context: IPayloadContext): ServerConfigurationPacketContext {
         // this is so hacky oml
         //? if >= 1.20.5 {
-        /*val listener = context.listener() as ServerConfigurationPacketListenerImpl
-        *///? } else {
-        // okay nevermind the new one is better, what the fuck is this
+        val listener = context.listener() as ServerConfigurationPacketListenerImpl
+        //? } else {
+        /*// okay nevermind the new one is better, what the fuck is this
         val listener = context.packetHandler().javaClass.getDeclaredMethod("listener").apply {
             this.isAccessible = true
         }.invoke(context.packetHandler()) as ServerConfigurationPacketListenerImpl
-        //? }
+        *///? }
         return ServerConfigurationPacketContext(listener, ServerLifecycleHooks.getCurrentServer()!!)
     }
 
