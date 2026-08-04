@@ -8,7 +8,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlers
-import xyz.bluspring.modernnetworking.fabric.api.FabricPacketSender.sendPacket
+import xyz.bluspring.modernnetworking.fabric.api.v2.FabricPacketSender.sendPacket
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestClientLoginPacket
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestClientPlayPacket
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestServerLoginPacket
