@@ -15,6 +15,7 @@ abstract class ClientLoginPacketHandlerRegistry<C> : SingleReceiverPacketHandler
         throw IllegalStateException("Do not use register for client login packets!")
     }
 
+    @Deprecated(message = "DO NOT USE THIS!", level = DeprecationLevel.HIDDEN)
     override fun <T : NetworkPacket> send(packet: T) {
         throw IllegalStateException("Do not use send for client login packets!")
     }

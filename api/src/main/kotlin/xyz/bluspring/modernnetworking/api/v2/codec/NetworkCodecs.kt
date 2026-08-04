@@ -67,7 +67,7 @@ object NetworkCodecs {
     }
 
     @JvmStatic @JvmOverloads
-    fun <T, B : ByteBuf> NetworkCodec<B, T>.list(maxLength: Int = 32767, listProvider: () -> MutableList<T> = ::mutableListOf): NetworkCodec<B, List<T>> {
+    fun <T, B : ByteBuf, C : Collection<T>> NetworkCodec<B, T>.collectionOf(maxLength: Int = 32767, collectionProvider: () -> MutableCollection<T>): NetworkCodec<B, C> {
         return NetworkCodec({ buf, values ->
             if (maxLength > -1 && values.size > maxLength)
                 throw IllegalArgumentException("Length of list to write to list codec $this is too long! (${values.size} > $maxLength)")
@@ -77,7 +77,7 @@ object NetworkCodecs {
                 this.encode(buf, value)
             }
         }, { buf ->
-            val list = listProvider()
+            val list = collectionProvider()
             val length = buf.readVarInt()
 
             if (maxLength > -1 && length > maxLength)
@@ -87,9 +87,13 @@ object NetworkCodecs {
                 list.add(this.decode(buf))
             }
 
-            return@NetworkCodec list.toList()
+            return@NetworkCodec list as C
         })
     }
+
+    @JvmStatic @JvmOverloads fun <T, B : ByteBuf> NetworkCodec<B, T>.listOf(maxLength: Int = 32767): NetworkCodec<B, List<T>> = this.collectionOf(maxLength, ::mutableListOf)
+    @JvmStatic @JvmOverloads fun <T, B : ByteBuf> NetworkCodec<B, T>.setOf(maxLength: Int = 32767): NetworkCodec<B, Set<T>> = this.collectionOf(maxLength, ::mutableSetOf)
+    @JvmStatic @JvmOverloads fun <T, B : ByteBuf> NetworkCodec<B, T>.sortedSetOf(maxLength: Int = 32767): NetworkCodec<B, SortedSet<T>> = this.collectionOf(maxLength, ::sortedSetOf)
 
     @JvmStatic @JvmOverloads
     fun <B : ByteBuf, K, V> map(keyCodec: NetworkCodec<B, K>, valueCodec: NetworkCodec<B, V>, maxLength: Int = 32767, mapProvider: () -> MutableMap<K, V> = ::mutableMapOf): NetworkCodec<B, Map<K, V>> {

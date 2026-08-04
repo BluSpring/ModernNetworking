@@ -9,7 +9,7 @@ import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
 import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import net.neoforged.neoforge.server.ServerLifecycleHooks
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftConfigurationPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ConfigurationContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
@@ -20,9 +20,9 @@ import java.util.function.Consumer
 
 class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>(
     MinecraftPacketRegistries.SERVER_CONFIGURATION, PacketFlow.SERVERBOUND, ConnectionProtocol.CONFIGURATION
-), MinecraftConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
+), ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
     private val definitions = mutableListOf<ConfigTaskDefinition>()
-    private val handlers = mutableMapOf<ConfigTaskDefinition, MinecraftConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>>()
+    private val handlers = mutableMapOf<ConfigTaskDefinition, ConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>>()
 
     private data class ConfigTaskDefinition(val namespace: String, val id: String, val taskId: String) {
         val fullId: String
@@ -71,7 +71,7 @@ class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRe
         return ServerConfigurationPacketContext(listener, ServerLifecycleHooks.getCurrentServer()!!)
     }
 
-    override fun registerTask(namespace: String, id: String, taskId: String, handler: MinecraftConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>) {
+    override fun registerTask(namespace: String, id: String, taskId: String, handler: ConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>) {
         val definition = ConfigTaskDefinition(namespace, id, taskId)
         if (this.handlers.contains(definition))
             throw IllegalArgumentException("A configuration task already exists under ID ${definition.fullId}!")

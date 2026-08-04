@@ -27,6 +27,9 @@ class ConfigurationContext<R> @ApiStatus.Internal constructor (
         this@ConfigurationContext.taskPacketConsumer(packet)
     }
 
+    /**
+     * Marks this task as completed, allowing the receiver [R] to continue
+     */
     fun complete() {
         this.completionListener()
     }

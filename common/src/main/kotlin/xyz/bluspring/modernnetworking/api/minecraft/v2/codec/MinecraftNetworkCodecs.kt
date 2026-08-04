@@ -1,5 +1,6 @@
 package xyz.bluspring.modernnetworking.api.minecraft.v2.codec
 
+import io.netty.buffer.ByteBuf
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.FriendlyByteBuf
 //? if >= 1.20.5 {
@@ -9,8 +10,10 @@ import io.netty.buffer.ByteBuf
 *///? } else {
 import net.minecraft.network.chat.Component
 //? }
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import xyz.bluspring.modernnetworking.api.v2.codec.NetworkCodec
+import xyz.bluspring.modernnetworking.api.v2.codec.NetworkCodecs
 
 object MinecraftNetworkCodecs {
     @JvmField
@@ -28,6 +31,14 @@ object MinecraftNetworkCodecs {
     *///?} else {
     val COMPONENT = NetworkCodec<FriendlyByteBuf, Component>(FriendlyByteBuf::writeComponent, FriendlyByteBuf::readComponent)
     //?}
+
+    @JvmField val IDENTIFIER: NetworkCodec<ByteBuf, ResourceLocation> = NetworkCodecs.STRING_UTF8.xmap(
+        //? if <= 1.20.4 {
+        ::ResourceLocation
+        //? } else {
+        /*ResourceLocation::parse
+        *///? }
+        , ResourceLocation::toString)
 
     //? if >= 1.20.5 {
     /*@JvmStatic

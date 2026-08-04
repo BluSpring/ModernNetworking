@@ -8,7 +8,6 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConf
 
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
@@ -30,7 +29,7 @@ interface PlatformProxy {
 
     //? if >= 1.20.2 {
     /*fun createServerConfigRegistry(): MinecraftPacketRegistry
-    fun createServerConfigHandlerRegistry(): MinecraftConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>
+    fun createServerConfigHandlerRegistry(): ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>
     fun createClientConfigRegistry(): MinecraftPacketRegistry
     fun createClientConfigHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientConfigurationPacketContext>
     *///? }

@@ -8,7 +8,7 @@ import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
 import net.minecraft.server.network.ConfigurationTask
 import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftConfigurationPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ConfigurationContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
@@ -19,9 +19,9 @@ import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 import xyz.bluspring.modernnetworking.minecraft.MinecraftPacketHandlerRegistry
 import java.util.function.Consumer
 
-class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>(MinecraftPacketRegistries.SERVER_CONFIGURATION), MinecraftConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
+class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>(MinecraftPacketRegistries.SERVER_CONFIGURATION), ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
     private val definitions = mutableListOf<ConfigTaskDefinition>()
-    private val handlers = mutableMapOf<ConfigTaskDefinition, MinecraftConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>>()
+    private val handlers = mutableMapOf<ConfigTaskDefinition, ConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>>()
 
     private data class ConfigTaskDefinition(val namespace: String, val id: String, val taskId: String) {
         val fullId: String
@@ -66,7 +66,7 @@ class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerReg
         }
     }
 
-    override fun registerTask(namespace: String, id: String, taskId: String, handler: MinecraftConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>) {
+    override fun registerTask(namespace: String, id: String, taskId: String, handler: ConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>) {
         val definition = ConfigTaskDefinition(namespace, id, taskId)
         if (this.handlers.contains(definition))
             throw IllegalArgumentException("A configuration task already exists under ID ${definition.fullId}!")

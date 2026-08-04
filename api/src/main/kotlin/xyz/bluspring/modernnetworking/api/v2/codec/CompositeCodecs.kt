@@ -3,7 +3,7 @@ package xyz.bluspring.modernnetworking.api.v2.codec
 import io.netty.buffer.ByteBuf
 
 /**
- * Composite codecs, designed
+ * Composite codecs, designed to be functionally similar to Minecraft 1.20.5+'s StreamCodec.composite codecs.
  */
 object CompositeCodecs {
     @JvmStatic fun <BUF : ByteBuf, TYPE, C1> composite(

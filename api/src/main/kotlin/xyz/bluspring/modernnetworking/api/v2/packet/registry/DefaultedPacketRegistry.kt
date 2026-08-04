@@ -10,6 +10,9 @@ import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 open class DefaultedPacketRegistry : PacketRegistry {
     protected val definitions = mutableListOf<PacketDefinition<*, *>>()
 
+    /**
+     * Find a registered [PacketDefinition] based on the provided namespace and ID.
+     */
     fun <B : ByteBuf, T : NetworkPacket> findDefinition(namespace: String, id: String): PacketDefinition<B, T>? {
         return this.definitions.firstOrNull {
             it.namespace == namespace && it.id == id
