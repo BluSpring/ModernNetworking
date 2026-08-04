@@ -25,7 +25,9 @@ class FabricClientGamePacketHandlerRegistry : MinecraftSingleReceiverPacketHandl
         *///? } else {
         ClientPlayNetworking.registerGlobalReceiver(definition.identifier) { client, listener, buf, sender ->
             val packet = definition.codec.decode(buf as B)
-            handler.handle(packet, ClientGamePacketContext(client.player, client))
+            client.execute {
+                handler.handle(packet, ClientGamePacketContext(client.player, client))
+            }
         }
         //? }
     }

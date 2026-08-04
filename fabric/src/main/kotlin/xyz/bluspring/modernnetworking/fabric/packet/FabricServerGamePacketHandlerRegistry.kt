@@ -26,7 +26,9 @@ class FabricServerGamePacketHandlerRegistry : MinecraftPacketHandlerRegistry<Ser
         *///? } else {
         ServerPlayNetworking.registerGlobalReceiver(definition.identifier) { server, player, listener, buf, sender ->
             val packet = definition.codec.cast<FriendlyByteBuf, T>().decode(buf)
-            handler.handle(packet, ServerGamePacketContext(player, server))
+            server.execute {
+                handler.handle(packet, ServerGamePacketContext(player, server))
+            }
         }
         //? }
     }

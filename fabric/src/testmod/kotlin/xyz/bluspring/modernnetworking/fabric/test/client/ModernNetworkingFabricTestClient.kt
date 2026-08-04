@@ -16,10 +16,8 @@ class ModernNetworkingFabricTestClient : ClientModInitializer {
         }
 
         MinecraftClientPacketHandlers.PLAY.register(ModernNetworkingFabricTest.TEST_CLIENT_PLAY) { packet, ctx ->
-            ctx.client.execute {
-                ctx.client.gui.chat.addMessage(Component.literal("Received client play ${packet.testString} ${packet.testByteArray.toHexString()}"))
-                MinecraftClientPacketHandlers.PLAY.send(TestServerPlayPacket("Test serverbound", byteArrayOf(4, 4, 2, 1, 7, 5, 2, 3, 0)))
-            }
+            ctx.client.gui.chat.addMessage(Component.literal("Received client play ${packet.testString} ${packet.testByteArray.toHexString()}"))
+            MinecraftClientPacketHandlers.PLAY.send(TestServerPlayPacket("Test serverbound", byteArrayOf(4, 4, 2, 1, 7, 5, 2, 3, 0)))
         }
     }
 }
