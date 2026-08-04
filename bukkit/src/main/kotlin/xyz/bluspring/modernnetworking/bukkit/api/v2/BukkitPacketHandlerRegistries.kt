@@ -5,7 +5,9 @@ import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandl
 import xyz.bluspring.modernnetworking.bukkit.BukkitPacketHandlerRegistry
 
 object BukkitPacketHandlerRegistries {
-    @JvmField val LOGIN: PacketHandlerRegistry<BukkitPacketContext, Player> = BukkitPacketHandlerRegistry()
-    @JvmField val CONFIGURATION: PacketHandlerRegistry<BukkitPacketContext, Player> = BukkitPacketHandlerRegistry()
+    // TODO: Add support for login and configuration packets
+//    @JvmField val LOGIN: PacketHandlerRegistry<BukkitPacketContext, Player> = BukkitPacketHandlerRegistry()
+//    @JvmField val CONFIGURATION: PacketHandlerRegistry<BukkitPacketContext, Player> = BukkitPacketHandlerRegistry()
+
     @JvmField val PLAY: PacketHandlerRegistry<BukkitPacketContext, Player> = BukkitPacketHandlerRegistry()
 }

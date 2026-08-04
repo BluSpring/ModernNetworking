@@ -11,8 +11,7 @@ import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.bukkit.api.v2.BukkitPacketContext
 
-class BukkitPacketHandlerRegistry :
-    PacketHandlerRegistry<BukkitPacketContext, Player> {
+class BukkitPacketHandlerRegistry : PacketHandlerRegistry<BukkitPacketContext, Player> {
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, BukkitPacketContext>) {
         val id = "${definition.namespace}:${definition.id}"
         Bukkit.getMessenger().registerIncomingPluginChannel(ModernNetworkingBukkit.plugin, id) { _, player, message ->
