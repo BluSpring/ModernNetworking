@@ -8,7 +8,7 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.Cli
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
-object MinecraftClientPacketHandlerRegistries {
+object MinecraftClientPacketHandlers {
     @JvmField val LOGIN: SingleReceiverPacketHandlerRegistry<ClientLoginPacketContext> = PlatformProxy.instance.createClientLoginHandlerRegistry()
     //? if >= 1.20.2 {
     /*@JvmField val CONFIGURATION: SingleReceiverPacketHandlerRegistry<ClientConfigurationPacketContext> = PlatformProxy.instance.createClientConfigHandlerRegistry()

@@ -5,9 +5,9 @@ import xyz.bluspring.modernnetworking.api.NetworkPacket
 import xyz.bluspring.modernnetworking.api.PacketDefinition
 import org.jetbrains.annotations.ApiStatus
 import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlerRegistries
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlers
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.MinecraftClientPacketHandlerRegistries
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.MinecraftClientPacketHandlers
 
 @Deprecated(level = DeprecationLevel.HIDDEN, message = "Refactored to provide access to more phases i.e. login and configuration phases.")
 class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNetworkRegistry<VanillaClientContext, VanillaServerContext>(namespace) {
@@ -31,14 +31,14 @@ class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNe
 
     override fun <T : NetworkPacket, B : ByteBuf> addClientboundHandler(definition: PacketDefinition<T, B>, handler: NetworkHandler<VanillaClientContext, T>) {
         super.addClientboundHandler(definition, handler)
-        MinecraftClientPacketHandlerRegistries.PLAY.register(definition.asV2) { packet, ctx ->
+        MinecraftClientPacketHandlers.PLAY.register(definition.asV2) { packet, ctx ->
             handler.handle(packet.original, VanillaClientContext(ctx.client, ctx.player))
         }
     }
 
     override fun <T : NetworkPacket, B : ByteBuf> addServerboundHandler(definition: PacketDefinition<T, B>, handler: NetworkHandler<VanillaServerContext, T>) {
         super.addServerboundHandler(definition, handler)
-        MinecraftServerPacketHandlerRegistries.PLAY.register(definition.asV2) { packet, ctx ->
+        MinecraftServerPacketHandlers.PLAY.register(definition.asV2) { packet, ctx ->
             handler.handle(packet.original, VanillaServerContext(ctx.server, ctx.player))
         }
     }

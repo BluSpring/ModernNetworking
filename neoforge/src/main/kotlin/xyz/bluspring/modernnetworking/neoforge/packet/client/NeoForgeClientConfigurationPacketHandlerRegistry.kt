@@ -9,7 +9,7 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketReg
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
 
 class NeoForgeClientConfigurationPacketHandlerRegistry : NeoForgeClientPacketHandlerRegistry<ClientConfigurationPacketContext>(
-    MinecraftPacketRegistries.CLIENT_CONFIGURATION, PacketFlow.CLIENTBOUND, ConnectionProtocol.CONFIGURATION
+    MinecraftPacketRegistries.CLIENT_CONFIGURATION, MinecraftPacketRegistries.SERVER_CONFIGURATION, PacketFlow.CLIENTBOUND, ConnectionProtocol.CONFIGURATION
 ) {
     override fun createPayloadContext(context: IPayloadContext): ClientConfigurationPacketContext {
         // this is so hacky oml

@@ -19,7 +19,7 @@ import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 import java.util.function.Consumer
 
 class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>(
-    MinecraftPacketRegistries.SERVER_CONFIGURATION, PacketFlow.SERVERBOUND, ConnectionProtocol.CONFIGURATION
+    MinecraftPacketRegistries.CLIENT_CONFIGURATION, PacketFlow.SERVERBOUND, ConnectionProtocol.CONFIGURATION
 ), ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
     private val definitions = mutableListOf<ConfigTaskDefinition>()
     private val handlers = mutableMapOf<ConfigTaskDefinition, ConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>>()

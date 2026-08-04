@@ -13,7 +13,7 @@ import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandl
 import xyz.bluspring.modernnetworking.minecraft.MinecraftPacketHandlerRegistry
 import java.util.*
 
-abstract class NeoForgePacketHandlerRegistry<C, R>(packetRegistry: MinecraftPacketRegistry, val flow: PacketFlow, val protocol: ConnectionProtocol) : MinecraftPacketHandlerRegistry<C, R>(packetRegistry) {
+abstract class NeoForgePacketHandlerRegistry<C, R>(val packetRegistry: MinecraftPacketRegistry, opposingPacketRegistry: MinecraftPacketRegistry, val flow: PacketFlow, val protocol: ConnectionProtocol) : MinecraftPacketHandlerRegistry<C, R>(opposingPacketRegistry) {
     private val knownNamespaces: MutableSet<String> = Collections.synchronizedSet(mutableSetOf())
     private val handlers = mutableMapOf<PacketDefinition<*, *>, PacketHandlerRegistry.PacketHandler<*, C>>()
 

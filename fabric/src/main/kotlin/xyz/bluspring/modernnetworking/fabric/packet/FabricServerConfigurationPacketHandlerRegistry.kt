@@ -19,7 +19,7 @@ import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 import xyz.bluspring.modernnetworking.minecraft.MinecraftPacketHandlerRegistry
 import java.util.function.Consumer
 
-class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>(MinecraftPacketRegistries.SERVER_CONFIGURATION), ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
+class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>(MinecraftPacketRegistries.CLIENT_CONFIGURATION), ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
     private val definitions = mutableListOf<ConfigTaskDefinition>()
     private val handlers = mutableMapOf<ConfigTaskDefinition, ConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>>()
 
@@ -47,7 +47,7 @@ class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerReg
                                 is NetworkPacket -> task.accept(
                                     ClientboundCustomPayloadPacket(
                                         CustomPayloadWrapper(
-                                            MinecraftPacketRegistries.CLIENT_CONFIGURATION,
+                                            this@FabricServerConfigurationPacketHandlerRegistry.opposingPacketRegistry,
                                             packet
                                         )
                                     )
@@ -76,13 +76,13 @@ class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerReg
     }
 
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ServerConfigurationPacketContext>) {
-        ServerConfigurationNetworking.registerGlobalReceiver(this.packetRegistry.getOrCreateType(definition).type) { packet, ctx ->
+        ServerConfigurationNetworking.registerGlobalReceiver(this.opposingPacketRegistry.getOrCreateType(definition).type) { packet, ctx ->
             handler.handle(packet.packet, ServerConfigurationPacketContext(ctx.networkHandler(), ctx.server()))
         }
     }
 
     override fun <T : NetworkPacket> send(receiver: ServerConfigurationPacketListenerImpl, packet: T) {
-        ServerConfigurationNetworking.send(receiver, CustomPayloadWrapper(this.packetRegistry, packet))
+        ServerConfigurationNetworking.send(receiver, CustomPayloadWrapper(this.opposingPacketRegistry, packet))
     }
 }
 *///? }

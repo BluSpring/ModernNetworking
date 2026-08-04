@@ -4,7 +4,7 @@ import net.neoforged.bus.api.IEventBus
 import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
 import xyz.bluspring.modernnetworking.ModernNetworking
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlerRegistries
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlers
 import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgeServerConfigurationPacketHandlerRegistry
 
 @Mod(ModernNetworking.MOD_ID)
@@ -13,7 +13,7 @@ class ModernNetworkingNeoForge(bus: IEventBus) {
         ModernNetworking.init()
 
         bus.addListener<RegisterConfigurationTasksEvent> { event ->
-            (MinecraftServerPacketHandlerRegistries.CONFIGURATION as NeoForgeServerConfigurationPacketHandlerRegistry)
+            (MinecraftServerPacketHandlers.CONFIGURATION as NeoForgeServerConfigurationPacketHandlerRegistry)
                 .handleRegisterEvent(event)
         }
     }

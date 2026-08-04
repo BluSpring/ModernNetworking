@@ -10,7 +10,7 @@ import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 
 class NeoForgeServerGamePacketHandlerRegistry : NeoForgePacketHandlerRegistry<ServerGamePacketContext, ServerPlayer>(
-    MinecraftPacketRegistries.SERVER_PLAY, PacketFlow.SERVERBOUND, ConnectionProtocol.PLAY
+    MinecraftPacketRegistries.SERVER_PLAY, MinecraftPacketRegistries.CLIENT_PLAY, PacketFlow.SERVERBOUND, ConnectionProtocol.PLAY
 ) {
     override fun createPayloadContext(context: IPayloadContext): ServerGamePacketContext {
         // this is so hacky oml

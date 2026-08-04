@@ -9,8 +9,8 @@ import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleRecei
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgePacketHandlerRegistry
 
-abstract class NeoForgeClientPacketHandlerRegistry<C>(packetRegistry: MinecraftPacketRegistry, flow: PacketFlow, protocol: ConnectionProtocol) : NeoForgePacketHandlerRegistry<C, Unit>(packetRegistry, flow, protocol), SingleReceiverPacketHandlerRegistry<C> {
+abstract class NeoForgeClientPacketHandlerRegistry<C>(packetRegistry: MinecraftPacketRegistry, opposingPacketRegistry: MinecraftPacketRegistry, flow: PacketFlow, protocol: ConnectionProtocol) : NeoForgePacketHandlerRegistry<C, Unit>(packetRegistry, opposingPacketRegistry, flow, protocol), SingleReceiverPacketHandlerRegistry<C> {
     override fun <T : NetworkPacket> send(packet: T) {
-        Minecraft.getInstance().connection!!.send(CustomPayloadWrapper(this.packetRegistry, packet))
+        Minecraft.getInstance().connection!!.send(CustomPayloadWrapper(this.opposingPacketRegistry, packet))
     }
 }

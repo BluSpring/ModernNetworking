@@ -16,10 +16,10 @@ import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.MinecraftSingleReceiverPacketHandlerRegistry
 
-class FabricClientGamePacketHandlerRegistry : MinecraftSingleReceiverPacketHandlerRegistry<ClientGamePacketContext>(MinecraftPacketRegistries.CLIENT_PLAY) {
+class FabricClientGamePacketHandlerRegistry : MinecraftSingleReceiverPacketHandlerRegistry<ClientGamePacketContext>(MinecraftPacketRegistries.SERVER_PLAY) {
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ClientGamePacketContext>) {
         //? if >= 1.20.5 {
-        /*ClientPlayNetworking.registerGlobalReceiver(this.packetRegistry.getOrCreateType(definition).type) { packet, ctx ->
+        /*ClientPlayNetworking.registerGlobalReceiver(this.opposingPacketRegistry.getOrCreateType(definition).type) { packet, ctx ->
             handler.handle(packet.packet, ClientGamePacketContext(ctx.player(), ctx.client()))
         }
         *///? } else {
@@ -32,7 +32,7 @@ class FabricClientGamePacketHandlerRegistry : MinecraftSingleReceiverPacketHandl
 
     override fun <T : NetworkPacket> send(packet: T) {
         //? if >= 1.20.5 {
-        /*ClientPlayNetworking.send(CustomPayloadWrapper(this.packetRegistry, packet))
+        /*ClientPlayNetworking.send(CustomPayloadWrapper(this.opposingPacketRegistry, packet))
         *///? } else {
         val buf = PacketByteBufs.create()
         (packet.definition as PacketDefinition<FriendlyByteBuf, T>).codec.encode(buf, packet)

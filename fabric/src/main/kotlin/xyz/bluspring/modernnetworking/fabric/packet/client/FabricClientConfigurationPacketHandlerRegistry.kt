@@ -11,15 +11,15 @@ import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandl
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 import xyz.bluspring.modernnetworking.minecraft.MinecraftSingleReceiverPacketHandlerRegistry
 
-class FabricClientConfigurationPacketHandlerRegistry : MinecraftSingleReceiverPacketHandlerRegistry<ClientConfigurationPacketContext>(MinecraftPacketRegistries.CLIENT_PLAY) {
+class FabricClientConfigurationPacketHandlerRegistry : MinecraftSingleReceiverPacketHandlerRegistry<ClientConfigurationPacketContext>(MinecraftPacketRegistries.SERVER_CONFIGURATION) {
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ClientConfigurationPacketContext>) {
-        ClientConfigurationNetworking.registerGlobalReceiver(this.packetRegistry.getOrCreateType(definition).type) { packet, ctx ->
+        ClientConfigurationNetworking.registerGlobalReceiver(this.opposingPacketRegistry.getOrCreateType(definition).type) { packet, ctx ->
             handler.handle(packet.packet, ClientConfigurationPacketContext(ctx.networkHandler(), ctx.client()))
         }
     }
 
     override fun <T : NetworkPacket> send(packet: T) {
-        ClientConfigurationNetworking.send(CustomPayloadWrapper(this.packetRegistry, packet))
+        ClientConfigurationNetworking.send(CustomPayloadWrapper(this.opposingPacketRegistry, packet))
     }
 }
 *///? }

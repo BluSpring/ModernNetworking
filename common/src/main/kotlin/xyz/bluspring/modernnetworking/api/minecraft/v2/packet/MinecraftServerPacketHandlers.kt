@@ -11,7 +11,7 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLogi
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.PlatformProxy
 
-object MinecraftServerPacketHandlerRegistries {
+object MinecraftServerPacketHandlers {
     @JvmField val LOGIN: ServerLoginPacketHandlerRegistry<ServerLoginPacketContext, ServerLoginPacketListenerImpl> = PlatformProxy.instance.createServerLoginHandlerRegistry()
     //? if >= 1.20.2 {
     /*@JvmField val CONFIGURATION: ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> = PlatformProxy.instance.createServerConfigHandlerRegistry()

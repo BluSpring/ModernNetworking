@@ -10,6 +10,9 @@ import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 interface PacketHandlerRegistry<C, R> {
     fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandler<T, C>)
 
+    /**
+     * Sends a packet to the following receiver [R].
+     */
     fun <T : NetworkPacket> send(receiver: R, packet: T)
 
     fun interface PacketHandler<T : NetworkPacket, C> {
