@@ -26,6 +26,3 @@ mandatory=true
 versionRange="${minecraft_version_range_forge}"
 ordering="NONE"
 side="BOTH"
-
-[[mixins]]
-config = "${mod_id}.mixins.json"
