@@ -19,7 +19,7 @@ class FabricClientLoginPacketHandlerRegistry : ClientLoginPacketHandlerRegistry<
                 .thenApply { packet ->
                     if (packet != null) {
                         val friendlyBuf = FriendlyByteBuf(Unpooled.buffer())
-                        (packet.definition.codec as NetworkCodec<FriendlyByteBuf, NetworkPacket>)
+                        (packet.definition.codec.cast<FriendlyByteBuf, NetworkPacket>())
                             .encode(friendlyBuf, packet)
                         friendlyBuf
                     } else null

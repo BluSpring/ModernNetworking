@@ -3,11 +3,11 @@ package xyz.bluspring.modernnetworking.fabric.packet.client
 //? if >= 1.20.5 {
 /*import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 *///? } else {
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.minecraft.network.FriendlyByteBuf
 import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
 //? }
 import io.netty.buffer.ByteBuf
+import io.netty.buffer.Unpooled
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
@@ -34,8 +34,8 @@ class FabricClientGamePacketHandlerRegistry : MinecraftSingleReceiverPacketHandl
         //? if >= 1.20.5 {
         /*ClientPlayNetworking.send(CustomPayloadWrapper(this.opposingPacketRegistry, packet))
         *///? } else {
-        val buf = PacketByteBufs.create()
-        (packet.definition as PacketDefinition<FriendlyByteBuf, T>).codec.encode(buf, packet)
+        val buf = FriendlyByteBuf(Unpooled.buffer())
+        packet.definition.codec.cast<FriendlyByteBuf, T>().encode(buf, packet)
         ClientPlayNetworking.send(packet.definition.identifier, buf)
         //? }
     }

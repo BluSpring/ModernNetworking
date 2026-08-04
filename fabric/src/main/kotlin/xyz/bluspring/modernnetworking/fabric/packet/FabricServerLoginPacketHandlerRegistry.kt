@@ -2,6 +2,7 @@ package xyz.bluspring.modernnetworking.fabric.packet
 
 import io.netty.buffer.ByteBuf
 import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking
+import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
 import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
@@ -18,7 +19,7 @@ class FabricServerLoginPacketHandlerRegistry : ServerLoginPacketHandlerRegistry<
                 { sender.sendPacket(it) }, understood, synchronizer::waitFor)
 
             if (understood) {
-                val packet = definition.codec.decode(buf as B)
+                val packet = definition.codec.cast<FriendlyByteBuf, T>().decode(buf)
                 handler.handle(packet, context)
             } else {
                 unknownHandler.handle(context)

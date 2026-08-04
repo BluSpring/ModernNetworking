@@ -4,11 +4,11 @@ package xyz.bluspring.modernnetworking.fabric.packet
 /*import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 *///? } else {
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs
 import net.minecraft.network.FriendlyByteBuf
 import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
 //? }
 import io.netty.buffer.ByteBuf
+import io.netty.buffer.Unpooled
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.server.level.ServerPlayer
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
@@ -25,7 +25,7 @@ class FabricServerGamePacketHandlerRegistry : MinecraftPacketHandlerRegistry<Ser
         PayloadTypeRegistry.playC2S().register(type.type, type.codec)
         *///? } else {
         ServerPlayNetworking.registerGlobalReceiver(definition.identifier) { server, player, listener, buf, sender ->
-            val packet = definition.codec.decode(buf as B)
+            val packet = definition.codec.cast<FriendlyByteBuf, T>().decode(buf)
             handler.handle(packet, ServerGamePacketContext(player, server))
         }
         //? }
@@ -35,8 +35,8 @@ class FabricServerGamePacketHandlerRegistry : MinecraftPacketHandlerRegistry<Ser
         //? if >= 1.20.5 {
         /*ServerPlayNetworking.send(receiver, CustomPayloadWrapper(this.opposingPacketRegistry, packet))
         *///? } else {
-        val buf = PacketByteBufs.create()
-        (packet.definition as PacketDefinition<FriendlyByteBuf, T>).codec.encode(buf, packet)
+        val buf = FriendlyByteBuf(Unpooled.buffer())
+        packet.definition.codec.cast<FriendlyByteBuf, T>().encode(buf, packet)
         ServerPlayNetworking.send(receiver, packet.definition.identifier, buf)
         //? }
     }
