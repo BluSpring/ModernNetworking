@@ -9,7 +9,7 @@ of Minecraft, however you will have to provide some of the backing implementatio
 This guide intends to help explain to developers on what are the primary requirements for installing
 Modern Networking, and to understand the idea behind each added dependency.
 
-Gradle (Kotlin) - Fabric/Architectury Loom
+### Gradle (Kotlin)
 ```kts
 repositories {
     maven {
@@ -17,22 +17,37 @@ repositories {
     }
 }
 
+// Please refer to the release tags for the latest version of Modern Networking.
+// Any Minecraft version support will never be dropped from Modern Networking, so you can
+// be comfortable in using the latest version. If anyone requests, I might also provide
+// support for any older versions and/or snapshots as needed. 
+val modernNetworkingVersion = "2.0.0"
+
 dependencies {
-    // Please refer to the release tags for the latest version of Modern Networking.
-    // Any Minecraft version support will never be dropped from Modern Networking, so you can
-    // be comfortable in using the latest version. If anyone requests, I might also provide
-    // support for any older versions and/or snapshots as needed. 
-    val modernNetworkingVersion = "2.0.0"
-    
     // ModernNetworking supports Minecraft versions in a much wider manner, where
     // versions between 1.18.2 and 1.20.1 are able to be supported under one version.
     // You may refer to the table below for the version support.
     val minecraftVersion = "1.18.2"
-    
+
     // This is the API. You would want this to get the sources for it, or if you want to
     // create your own implementation, as the API is fully disconnected from Minecraft itself.
     implementation("xyz.bluspring.modernnetworking:modernnetworking-api:$modernNetworkingVersion")
 
+    // If you want Bukkit support, you may use this.
+    implementation("xyz.bluspring.modernnetworking:modernnetworking-bukkit:$modernNetworkingVersion")
+
+    // Or if you want Velocity support, you may use this.
+    implementation("xyz.bluspring.modernnetworking:modernnetworking-velocity:$modernNetworkingVersion")
+}
+
+```
+
+### Minecraft Mod Development Setup
+If you are on Fabric/Architectury Loom and using Minecraft 1.21.11 and earlier, make sure to switch `implementation` with `modImplementation`.
+Alternatively, if you are using MinecraftForge and are on ForgeGradle, make sure to wrap the dependency notation
+with `fg.deobf()`.
+```kts
+dependencies {
     // The mod loader type. Valid types:
     // - fabric
     // - forge
@@ -41,16 +56,13 @@ dependencies {
     
     // This is the shared library for both modloaders. I recommend adding this for having sources data,
     // even if you do not use a multiloader setup.
-    modImplementation("xyz.bluspring.modernnetworking:modernnetworking-common:$modernNetworkingVersion+$minecraftVersion")
+    implementation("xyz.bluspring.modernnetworking:modernnetworking-common:$modernNetworkingVersion+$minecraftVersion")
     
     // This is the modloader-specific library. You may bundle this with your mod if you want.
     // Please note that if you bundle this mod, you may create an additional dependency on
     // Fabric Language Kotlin if you are using Fabric, or increase your mod's JAR size due to the
     // Forge/NeoForge-based libraries bundling Kotlin.
-    modImplementation("xyz.bluspring.modernnetworking:modernnetworking-$modLoader:$modernNetworkingVersion+$minecraftVersion")
-    
-    // If you want Bukkit support, you may use this.
-    modImplementation("xyz.bluspring.modernnetworking:modernnetworking-bukkit:$modernNetworkingVersion")
+    implementation("xyz.bluspring.modernnetworking:modernnetworking-$modLoader:$modernNetworkingVersion+$minecraftVersion")
 }
 ```
 
@@ -68,7 +80,7 @@ Java
 ```java
 // Create your custom packet, like the 1.20.6+ way of doing so.
 public record CustomPacket(String data) implements NetworkPacket {
-    public static final NetworkCodec<CustomPacket, FriendlyByteBuf> CODEC = CompositeCodecs.composite(
+    public static final NetworkCodec<FriendlyByteBuf, CustomPacket> CODEC = CompositeCodecs.composite(
         NetworkCodecs.STRING_UTF8, CustomPacket::data,
         CustomPacket::new
     );
@@ -79,30 +91,30 @@ public record CustomPacket(String data) implements NetworkPacket {
     }
 }
 
-// Create the network packet for your namespace.
-private static final VanillaRegistry registry = VanillaRegistry.create("modid");
+// Create the network registry for your namespace.
+private static final NamespacedPacketRegistry registry = MinecraftPacketRegistries.CLIENT_PLAY.namespaced("modid");
 
 // Create a clientbound (server -> client) definition for your custom packet.
 // This should preferably be a public static final field.
 // If desired, you may also specify a definition directly rather than the ID and codec.
-public static final PacketDefinition<CustomPacket, FriendlyByteBuf> CUSTOM_PACKET = registry.registerClientbound("custom_packet", CustomPacket.CODEC);
+public static final PacketDefinition<FriendlyByteBuf, CustomPacket> CUSTOM_PACKET = registry.register("custom_packet", CustomPacket.CODEC);
 
 // Register client network handler for this custom packet.
-registry.addClientboundHandler(CUSTOM_PACKET, (packet, ctx) -> {
+MinecraftClientPacketHandlers.PLAY.register(CUSTOM_PACKET, (packet, ctx) -> {
     // Handle your logic here.
     // Remember that this is running under the **network thread**,
     // not the client/server thread.
 });
 
 // Send packet from server to client.
-VanillaPacketSender.sendToPlayer(serverPlayer, new CustomPacket("Your custom data here"));
+MinecraftServerPacketHandlers.PLAY.send(serverPlayer, new CustomPacket("Your custom data here"));
 ```
 
 Kotlin
 ```kotlin
 // Create your custom packet, like the 1.20.6+ way of doing so.
 data class CustomPacket(val data: String) : NetworkPacket {
-    override fun getDefinition(): PacketDefinition<out NetworkPacket, out ByteBuf> {
+    override fun getDefinition(): PacketDefinition<out ByteBuf, out NetworkPacket> {
         return YourModClass.CUSTOM_PACKET
     }
     
@@ -114,21 +126,21 @@ data class CustomPacket(val data: String) : NetworkPacket {
     }
 }
 
-// Create the network packet for your namespace.
-private val registry = VanillaRegistry.create("modid")
+// Create the network registry for your namespace.
+private val registry = MinecraftPacketRegistries.CLIENT_PLAY.namespaced("modid")
 
 // Create a clientbound (server -> client) definition for your custom packet.
 // This should preferably be a public static final field.
 // If desired, you may also specify a definition directly rather than the ID and codec.
-val CUSTOM_PACKET = registry.registerClientbound("custom_packet", CustomPacket.CODEC)
+val CUSTOM_PACKET = registry.register("custom_packet", CustomPacket.CODEC)
 
 // Register client network handler for this custom packet.
-registry.addClientboundHandler(CUSTOM_PACKET) { packet, ctx ->
+MinecraftClientPacketHandlers.PLAY.register(CUSTOM_PACKET) { packet, ctx ->
     // Handle your logic here.
     // Remember that this is running under the **network thread**,
     // not the client/server thread.
 }
 
 // Send packet from server to client.
-VanillaPacketSender.sendToPlayer(serverPlayer, CustomPacket("Your custom data here"))
+MinecraftServerPacketHandlers.PLAY.send(serverPlayer, CustomPacket("Your custom data here"))
 ```
