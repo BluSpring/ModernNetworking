@@ -39,6 +39,6 @@ class NeoForgeClientLoginPacketHandlerRegistry : ClientLoginPacketHandlerRegistr
         val typeAndCodec = this.internalTypeRegistry.getOrCreateType(definition)
         NetworkRegistry.register(typeAndCodec.type, typeAndCodec.codec, MainThreadPayloadHandler { packet, ctx ->
             handler.handle(packet.packet, ClientLoginPacketContext(ctx.listener() as ClientHandshakePacketListenerImpl, Minecraft.getInstance()))
-        }, listOf(ConnectionProtocol.LOGIN), Optional.of(PacketFlow.CLIENTBOUND), "1", true)
+        }, listOf(ConnectionProtocol.LOGIN), Optional.of(PacketFlow.SERVERBOUND), "1", true)
     }
 }
