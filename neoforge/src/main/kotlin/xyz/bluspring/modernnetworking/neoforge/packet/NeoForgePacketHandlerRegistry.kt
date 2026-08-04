@@ -4,7 +4,14 @@ import io.netty.buffer.ByteBuf
 import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.PacketFlow
 import net.neoforged.fml.ModList
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
+//? if >= 1.20.5 {
+/*import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
+*///? } else {
+import net.minecraft.network.FriendlyByteBuf
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent
+import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
+import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
+//? }
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
@@ -30,7 +37,8 @@ abstract class NeoForgePacketHandlerRegistry<C, R>(val packetRegistry: Minecraft
             val eventBus = container.eventBus
                 ?: throw IllegalArgumentException("Packet definition namespace under NeoForge mod ID $namespace does not support event buses!")
 
-            eventBus.addListener<RegisterPayloadHandlersEvent> { event ->
+            //? if >= 1.20.5 {
+            /*eventBus.addListener<RegisterPayloadHandlersEvent> { event ->
                 val registrar = event.registrar("1")
                 val types = synchronized(this.packetRegistry.definitions) {
                     this.packetRegistry.definitions.filter { it.namespace == namespace }
@@ -82,6 +90,34 @@ abstract class NeoForgePacketHandlerRegistry<C, R>(val packetRegistry: Minecraft
                     }
                 }
             }
+            *///? } else {
+            eventBus.addListener<RegisterPayloadHandlerEvent> { event ->
+                val registrar = event.registrar("1")
+                val definitions = synchronized(this.packetRegistry.definitions) {
+                    this.packetRegistry.definitions.filter { it.namespace == namespace }
+                }.map { it as PacketDefinition<FriendlyByteBuf, NetworkPacket> }
+
+                for (definition in definitions) {
+                    when (protocol) {
+                        ConnectionProtocol.PLAY -> {
+                            registrar.play(definition.identifier, { buf -> CustomPayloadWrapper(this.packetRegistry, definition.codec.decode(buf)) }) { packet, ctx ->
+                                val handler = this.handlers[packet.packet.definition] as? PacketHandlerRegistry.PacketHandler<NetworkPacket, C>
+                                handler?.handle(packet.packet, this.createPayloadContext(ctx))
+                            }
+                        }
+
+                        ConnectionProtocol.CONFIGURATION -> {
+                            registrar.configuration(definition.identifier, { buf -> CustomPayloadWrapper(this.packetRegistry, definition.codec.decode(buf)) }) { packet, ctx ->
+                                val handler = this.handlers[packet.packet.definition] as? PacketHandlerRegistry.PacketHandler<NetworkPacket, C>
+                                handler?.handle(packet.packet, this.createPayloadContext(ctx))
+                            }
+                        }
+
+                        else -> throw IllegalArgumentException("Unsupported protocol $flow/$protocol!")
+                    }
+                }
+            }
+            //? }
         }
     }
 

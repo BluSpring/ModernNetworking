@@ -1,10 +1,11 @@
 package xyz.bluspring.modernnetworking.fabric.packet
 
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
+
 //? if >= 1.20.5 {
 /*import io.netty.buffer.ByteBuf
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.minecraft.network.FriendlyByteBuf
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 
@@ -15,4 +16,6 @@ class FabricPacketRegistry<B : FriendlyByteBuf>(val fabricRegistry: PayloadTypeR
         return definition
     }
 }
+*///? } else if >= 1.20.2 {
+/*typealias FabricPacketRegistry = MinecraftPacketRegistry
 *///? }

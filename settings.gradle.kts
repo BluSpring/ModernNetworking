@@ -16,7 +16,7 @@ plugins {
     id("dev.kikugie.stonecutter") version "0.9.+" // https://stonecutter.kikugie.dev/
 }
 
-val versions = listOf(/*"1.18.2", "1.19.2",*/ "1.20.1", /*"1.20.4", "1.20.6",*/ "1.21.1", "1.21.4", "1.21.8", "26.1.2", "26.2")
+val versions = listOf("1.18.2", "1.20.4", /*"1.20.6",*/ "1.21.1", "1.21.4", "1.21.8", "26.1.2", "26.2")
 
 stonecutter {
     centralScript = "build.gradle.kts"
@@ -24,7 +24,7 @@ stonecutter {
 
     create(rootProject) {
         versions(versions)
-        vcsVersion = "1.20.1"
+        vcsVersion = "1.18.2"
 
         branch("common")
         branch("fabric")
@@ -33,8 +33,8 @@ stonecutter {
             versions(versions.filter { stonecutter.eval(it, ">1.20.1") })
         }
         branch("forge") {
-            // KLF doesn't exist for >=1.20.5, don't bother
-            versions(versions.filter { stonecutter.eval(it, "<1.20.5") })
+            // Forge is hard to test for 1.20.2+, the codebase just will not load, don't bother
+            versions(versions.filter { stonecutter.eval(it, "<=1.20.1") })
         }
     }
 }

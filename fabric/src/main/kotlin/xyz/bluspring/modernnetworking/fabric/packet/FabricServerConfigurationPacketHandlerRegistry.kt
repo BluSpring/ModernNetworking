@@ -8,6 +8,11 @@ import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
 import net.minecraft.server.network.ConfigurationTask
 import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
+//? if <= 1.20.4 {
+import io.netty.buffer.Unpooled
+import net.minecraft.network.FriendlyByteBuf
+import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
+//? }
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ConfigurationContext
@@ -76,13 +81,26 @@ class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerReg
     }
 
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ServerConfigurationPacketContext>) {
-        ServerConfigurationNetworking.registerGlobalReceiver(this.opposingPacketRegistry.getOrCreateType(definition).type) { packet, ctx ->
+        //? if >= 1.20.5 {
+        /*ServerConfigurationNetworking.registerGlobalReceiver(this.opposingPacketRegistry.getOrCreateType(definition).type) { packet, ctx ->
             handler.handle(packet.packet, ServerConfigurationPacketContext(ctx.networkHandler(), ctx.server()))
         }
+        *///? } else {
+        ServerConfigurationNetworking.registerGlobalReceiver(definition.identifier) { server, impl, buf, sender ->
+            val packet = definition.codec.cast<FriendlyByteBuf, T>().decode(buf)
+            handler.handle(packet, ServerConfigurationPacketContext(impl, server))
+        }
+        //? }
     }
 
     override fun <T : NetworkPacket> send(receiver: ServerConfigurationPacketListenerImpl, packet: T) {
-        ServerConfigurationNetworking.send(receiver, CustomPayloadWrapper(this.opposingPacketRegistry, packet))
+        //? if >= 1.20.5 {
+        /*ServerConfigurationNetworking.send(receiver, CustomPayloadWrapper(this.opposingPacketRegistry, packet))
+        *///? } else {
+        val buf = FriendlyByteBuf(Unpooled.buffer())
+        packet.definition.codec.cast<FriendlyByteBuf, T>().encode(buf, packet)
+        ServerConfigurationNetworking.send(receiver, packet.definition.identifier, buf)
+        //? }
     }
 }
 *///? }

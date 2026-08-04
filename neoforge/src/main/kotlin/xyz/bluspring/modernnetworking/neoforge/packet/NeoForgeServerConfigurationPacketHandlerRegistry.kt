@@ -3,10 +3,18 @@ package xyz.bluspring.modernnetworking.neoforge.packet
 import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.PacketFlow
-import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
 import net.minecraft.server.network.ConfigurationTask
 import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
-import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
+import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
+
+//? if >= 1.20.5 {
+/*import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
+*///? } else {
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+import net.neoforged.neoforge.network.event.OnGameConfigurationEvent as RegisterConfigurationTasksEvent
+import net.neoforged.neoforge.network.configuration.ICustomConfigurationTask
+import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
+//? }
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import net.neoforged.neoforge.server.ServerLifecycleHooks
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
@@ -14,12 +22,10 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketReg
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ConfigurationContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
-import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
-import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 import java.util.function.Consumer
 
 class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl>(
-    MinecraftPacketRegistries.CLIENT_CONFIGURATION, PacketFlow.SERVERBOUND, ConnectionProtocol.CONFIGURATION
+    MinecraftPacketRegistries.SERVER_CONFIGURATION, MinecraftPacketRegistries.CLIENT_CONFIGURATION, PacketFlow.SERVERBOUND, ConnectionProtocol.CONFIGURATION
 ), ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> {
     private val definitions = mutableListOf<ConfigTaskDefinition>()
     private val handlers = mutableMapOf<ConfigTaskDefinition, ConfigurationPacketHandlerRegistry.ConfigurationTaskHandler<ServerConfigurationPacketListenerImpl>>()
@@ -38,7 +44,19 @@ class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRe
                 event.listener.finishCurrentTask(taskType)
             }
 
-            val task = object : ConfigurationTask {
+            val task = object :
+                //? if >= 1.20.5 {
+                /*ConfigurationTask
+                *///? } else {
+                ICustomConfigurationTask
+                //? }
+            {
+                //? if <= 1.20.4 {
+                override fun run(p0: Consumer<CustomPacketPayload>) {
+                    // lmao
+                }
+                //? }
+
                 override fun start(task: Consumer<Packet<*>>) {
                     handler.handleTask(context)
                     context.startConfigurationTask { packet ->
@@ -67,7 +85,14 @@ class NeoForgeServerConfigurationPacketHandlerRegistry : NeoForgePacketHandlerRe
 
     override fun createPayloadContext(context: IPayloadContext): ServerConfigurationPacketContext {
         // this is so hacky oml
-        val listener = context.listener() as ServerConfigurationPacketListenerImpl
+        //? if >= 1.20.5 {
+        /*val listener = context.listener() as ServerConfigurationPacketListenerImpl
+        *///? } else {
+        // okay nevermind the new one is better, what the fuck is this
+        val listener = context.packetHandler().javaClass.getDeclaredMethod("listener").apply {
+            this.isAccessible = true
+        }.invoke(context.packetHandler()) as ServerConfigurationPacketListenerImpl
+        //? }
         return ServerConfigurationPacketContext(listener, ServerLifecycleHooks.getCurrentServer()!!)
     }
 

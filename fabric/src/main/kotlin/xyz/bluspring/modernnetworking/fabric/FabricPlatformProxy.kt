@@ -6,6 +6,7 @@ import xyz.bluspring.modernnetworking.fabric.packet.FabricPacketRegistry
 *///? }
 //? if >= 1.20.2 {
 /*import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
+import xyz.bluspring.modernnetworking.fabric.packet.FabricPacketRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
@@ -22,9 +23,7 @@ import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.Cli
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedDualPacketRegistry
-import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.DualPacketRegistry
-import xyz.bluspring.modernnetworking.api.v2.packet.registry.PacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.SingleReceiverPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.fabric.packet.FabricServerGamePacketHandlerRegistry
@@ -39,8 +38,16 @@ class FabricPlatformProxy : PlatformProxy {
     override fun createClientLoginHandlerRegistry(): ClientLoginPacketHandlerRegistry<ClientLoginPacketContext> = FabricClientLoginPacketHandlerRegistry()
 
     //? if >= 1.20.2 {
-    /*override fun createServerConfigRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(PayloadTypeRegistry.configurationC2S())
-    override fun createClientConfigRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(PayloadTypeRegistry.playS2C())
+    /*override fun createServerConfigRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(
+        //? if >= 1.20.5 {
+        /*PayloadTypeRegistry.configurationC2S()
+        *///? }
+    )
+    override fun createClientConfigRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(
+        //? if >= 1.20.5 {
+        /*PayloadTypeRegistry.playS2C()
+        *///? }
+    )
     override fun createServerConfigHandlerRegistry(): ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> = FabricServerConfigurationPacketHandlerRegistry()
     override fun createClientConfigHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientConfigurationPacketContext> = FabricClientConfigurationPacketHandlerRegistry()
     *///? }

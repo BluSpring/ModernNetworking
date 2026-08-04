@@ -14,7 +14,10 @@ class NeoForgeServerGamePacketHandlerRegistry : NeoForgePacketHandlerRegistry<Se
 ) {
     override fun createPayloadContext(context: IPayloadContext): ServerGamePacketContext {
         // this is so hacky oml
-        return ServerGamePacketContext(context.player() as ServerPlayer, (context.player() as ServerPlayer).server)
+        val player = context.player()
+            //? if <= 1.20.4
+            .orElseThrow()
+        return ServerGamePacketContext(player as ServerPlayer, player.server)
     }
 
     override fun <T : NetworkPacket> send(receiver: ServerPlayer, packet: T) {

@@ -12,7 +12,7 @@ plugins {
     id("multiplatform")
 }
 
-stonecutter active "1.20.1"
+stonecutter active "1.18.2"
 
 allprojects {
     repositories {
