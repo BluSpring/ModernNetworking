@@ -17,4 +17,12 @@ interface PacketRegistry {
      * If you've created a [PacketDefinition] directly, you may use this to register to the packet registry.
      */
     fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>): PacketDefinition<B, T>
+
+    /**
+     * Creates a namespaced variant of this [PacketRegistry] to allow registering all [PacketDefinition]s under the same namespace
+     * without specifying it.
+     */
+    fun namespaced(namespace: String): NamespacedPacketRegistry {
+        return NamespacedPacketRegistry(this, namespace)
+    }
 }
