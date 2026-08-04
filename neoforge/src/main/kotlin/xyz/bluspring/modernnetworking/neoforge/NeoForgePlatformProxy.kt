@@ -9,6 +9,7 @@ import xyz.bluspring.modernnetworking.neoforge.packet.client.NeoForgeClientConfi
 //? }
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
+import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
@@ -35,7 +36,7 @@ class NeoForgePlatformProxy : PlatformProxy {
     //? if >= 1.20.2 {
     override fun createServerConfigRegistry(): MinecraftPacketRegistry = NeoForgePacketRegistry()
     override fun createClientConfigRegistry(): MinecraftPacketRegistry = NeoForgePacketRegistry()
-    override fun createServerConfigHandlerRegistry(): PacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> = NeoForgeServerConfigurationPacketHandlerRegistry()
+    override fun createServerConfigHandlerRegistry(): MinecraftConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> = NeoForgeServerConfigurationPacketHandlerRegistry()
     override fun createClientConfigHandlerRegistry(): SingleReceiverPacketHandlerRegistry<ClientConfigurationPacketContext> = NeoForgeClientConfigurationPacketHandlerRegistry()
     //? }
 
