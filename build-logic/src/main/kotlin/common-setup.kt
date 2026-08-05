@@ -138,7 +138,9 @@ fun Project.setupCommon(module: String) {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
             from(zipTree(apiProj.tasks.named<Jar>("jar").get().archiveFile))
             from(zipTree(commonProj.tasks.named<Jar>("jar").get().archiveFile))
-            archiveClassifier = "dev"
+
+            if (module != "forge") // ??????
+                archiveClassifier = "dev"
         }
 
         tasks.named<Jar>("sourcesJar") {

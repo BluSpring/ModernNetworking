@@ -58,7 +58,8 @@ subprojects {
     }
 
     tasks.named<Jar>("jar") {
-        archiveClassifier = "dev"
+        if (!project.path.contains(":forge")) // Legacy MDG what the fuck
+            archiveClassifier = "dev"
     }
 }
 
