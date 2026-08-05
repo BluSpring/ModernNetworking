@@ -5,8 +5,8 @@ import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.PacketFlow
 import net.neoforged.neoforge.network.handling.IPayloadContext
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.context.ClientGamePacketContext
 
 class NeoForgeClientGamePacketHandlerRegistry : NeoForgeClientPacketHandlerRegistry<ClientGamePacketContext>(
     MinecraftPacketRegistries.CLIENT_PLAY, MinecraftPacketRegistries.SERVER_PLAY, PacketFlow.CLIENTBOUND, ConnectionProtocol.PLAY

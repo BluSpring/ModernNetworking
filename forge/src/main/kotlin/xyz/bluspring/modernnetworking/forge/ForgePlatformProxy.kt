@@ -2,13 +2,13 @@ package xyz.bluspring.modernnetworking.forge
 
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.ClientLoginPacketHandlerRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientLoginPacketContext
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.ServerLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.ClientLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.context.ClientGamePacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.context.ClientLoginPacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ServerGamePacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ServerLoginPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.DefaultedDualPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.DualPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry

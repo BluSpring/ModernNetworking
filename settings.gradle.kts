@@ -41,6 +41,7 @@ stonecutter {
 
 include("api")
 include("bukkit")
+include("velocity")
 
 includeBuild("build-logic")
 

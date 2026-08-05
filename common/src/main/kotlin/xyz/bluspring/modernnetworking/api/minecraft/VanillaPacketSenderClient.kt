@@ -2,7 +2,7 @@
 package xyz.bluspring.modernnetworking.api.minecraft
 
 import xyz.bluspring.modernnetworking.api.NetworkPacket
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.MinecraftClientPacketHandlers
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.MinecraftClientPacketHandlers
 import xyz.bluspring.modernnetworking.internal.WrappedV1AsV2NetworkPacket
 
 @Deprecated(level = DeprecationLevel.HIDDEN, message = "Refactored to provide access to more phases i.e. login and configuration phases.")

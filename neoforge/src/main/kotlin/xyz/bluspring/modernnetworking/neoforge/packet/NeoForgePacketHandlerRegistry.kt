@@ -9,11 +9,11 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 //? } else {
 /*import net.minecraft.network.FriendlyByteBuf
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent
-import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
+import xyz.bluspring.modernnetworking.minecraft.api.v2.PacketDefinitionHelpers.identifier
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 *///? }
 import net.neoforged.neoforge.network.handling.IPayloadContext
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry

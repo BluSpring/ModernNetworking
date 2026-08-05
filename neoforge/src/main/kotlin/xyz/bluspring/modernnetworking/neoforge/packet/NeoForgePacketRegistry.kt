@@ -1,6 +1,6 @@
 package xyz.bluspring.modernnetworking.neoforge.packet
 
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistry
 
 //? if >= 1.20.5 {
 import io.netty.buffer.ByteBuf

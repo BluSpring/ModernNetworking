@@ -13,7 +13,7 @@ import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.item.ItemStack
 import xyz.bluspring.modernnetworking.api.NetworkCodec
 
-@Deprecated(level = DeprecationLevel.HIDDEN, message = "Refactored to properly match MC 1.20.6.", replaceWith = ReplaceWith("MinecraftNetworkCodecs", "xyz.bluspring.modernnetworking.api.minecraft.v2.codec.MinecraftNetworkCodecs"))
+@Deprecated(level = DeprecationLevel.HIDDEN, message = "Refactored to properly match MC 1.20.6.", replaceWith = ReplaceWith("MinecraftNetworkCodecs", "xyz.bluspring.modernnetworking.minecraft.api.codec.v2.MinecraftNetworkCodecs"))
 object VanillaCodecs {
     @JvmField
     val ITEM_STACK = //? if >= 1.20.6 {

@@ -13,9 +13,9 @@ import java.util.UUID
 //? }
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlers
+import xyz.bluspring.modernnetworking.minecraft.api.v2.PacketDefinitionHelpers.identifier
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftServerPacketHandlers
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestClientLoginPacket
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestClientPlayPacket
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestServerLoginPacket

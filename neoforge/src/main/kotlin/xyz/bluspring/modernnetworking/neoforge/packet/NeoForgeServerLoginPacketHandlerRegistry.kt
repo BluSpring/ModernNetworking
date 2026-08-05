@@ -6,13 +6,13 @@ import net.minecraft.server.network.ServerLoginPacketListenerImpl
 import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.PacketFlow
 import net.neoforged.neoforge.network.handling.MainThreadPayloadHandler
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistry
 import net.neoforged.neoforge.network.registration.NetworkRegistry
 import net.neoforged.neoforge.server.ServerLifecycleHooks
 import java.util.Optional
 //? }
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.ServerLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ServerLoginPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry

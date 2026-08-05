@@ -4,8 +4,8 @@ import net.minecraft.network.ConnectionProtocol
 import net.minecraft.network.protocol.PacketFlow
 import net.minecraft.server.level.ServerPlayer
 import net.neoforged.neoforge.network.handling.IPayloadContext
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerGamePacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ServerGamePacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 

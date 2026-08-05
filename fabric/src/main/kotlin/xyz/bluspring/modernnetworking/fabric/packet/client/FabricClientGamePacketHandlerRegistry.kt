@@ -4,13 +4,13 @@ package xyz.bluspring.modernnetworking.fabric.packet.client
 /*import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 *///? } else {
 import net.minecraft.network.FriendlyByteBuf
-import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
+import xyz.bluspring.modernnetworking.minecraft.api.v2.PacketDefinitionHelpers.identifier
 //? }
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.Unpooled
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientGamePacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.context.ClientGamePacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry

@@ -1,5 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import me.modmuss50.mpp.ReleaseType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin)
@@ -58,7 +59,7 @@ tasks {
         configurations = listOf(shadedDep)
         archiveClassifier = null
 
-        val shadePkg = "xyz.bluspring.modernnetworking.bukkit.shaded"
+        val shadePkg = "xyz.bluspring.modernnetworking.velocity.shaded"
         relocate("kotlin", "$shadePkg.kotlin")
         relocate("kotlinx", "$shadePkg.kotlinx")
         relocate("org.jetbrains", "$shadePkg.jetbrains")
@@ -67,7 +68,11 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(17)
+
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_1_8)
+    }
 }
 
 publishMods {

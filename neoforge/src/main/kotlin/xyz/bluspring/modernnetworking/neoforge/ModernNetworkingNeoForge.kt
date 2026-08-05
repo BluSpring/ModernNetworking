@@ -8,7 +8,7 @@ import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
 /*import net.neoforged.neoforge.network.event.OnGameConfigurationEvent as RegisterConfigurationTasksEvent
 *///? }
 import xyz.bluspring.modernnetworking.ModernNetworking
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlers
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftServerPacketHandlers
 import xyz.bluspring.modernnetworking.neoforge.packet.NeoForgeServerConfigurationPacketHandlerRegistry
 
 @Mod(ModernNetworking.MOD_ID)

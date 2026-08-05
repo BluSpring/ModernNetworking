@@ -17,10 +17,10 @@ import net.neoforged.neoforge.network.configuration.ICustomConfigurationTask
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import net.neoforged.neoforge.server.ServerLifecycleHooks
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ConfigurationContext
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerConfigurationPacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.ConfigurationPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ConfigurationContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ServerConfigurationPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import java.util.function.Consumer
 

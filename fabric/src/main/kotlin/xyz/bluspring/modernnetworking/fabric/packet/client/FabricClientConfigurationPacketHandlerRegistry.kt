@@ -11,12 +11,12 @@ import net.minecraft.network.Connection
 //? if <= 1.20.4 {
 import io.netty.buffer.Unpooled
 import net.minecraft.network.FriendlyByteBuf
-import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
+import xyz.bluspring.modernnetworking.minecraft.api.v2.PacketDefinitionHelpers.identifier
 //? } else {
 /*import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 *///? }
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.context.ClientConfigurationPacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.context.ClientConfigurationPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry

@@ -6,7 +6,7 @@ import net.fabricmc.api.ClientModInitializer
 *///? } else {
 import net.minecraft.network.chat.TextComponent
 //? }
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.MinecraftClientPacketHandlers
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.MinecraftClientPacketHandlers
 import xyz.bluspring.modernnetworking.fabric.test.ModernNetworkingFabricTest
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestServerLoginPacket
 import xyz.bluspring.modernnetworking.fabric.test.packet.TestServerPlayPacket

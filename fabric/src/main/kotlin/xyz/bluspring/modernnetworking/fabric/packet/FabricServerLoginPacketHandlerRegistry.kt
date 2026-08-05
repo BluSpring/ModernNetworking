@@ -4,9 +4,9 @@ import io.netty.buffer.ByteBuf
 import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.network.ServerLoginPacketListenerImpl
-import xyz.bluspring.modernnetworking.api.minecraft.v2.PacketDefinitionHelpers.identifier
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ServerLoginPacketHandlerRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.context.ServerLoginPacketContext
+import xyz.bluspring.modernnetworking.minecraft.api.v2.PacketDefinitionHelpers.identifier
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.ServerLoginPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ServerLoginPacketContext
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.handler.PacketHandlerRegistry

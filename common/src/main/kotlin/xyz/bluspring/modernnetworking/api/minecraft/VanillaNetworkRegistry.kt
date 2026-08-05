@@ -6,9 +6,9 @@ import xyz.bluspring.modernnetworking.api.NetworkPacket
 import xyz.bluspring.modernnetworking.api.PacketDefinition
 import org.jetbrains.annotations.ApiStatus
 import xyz.bluspring.modernnetworking.api.AbstractNetworkRegistry
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftServerPacketHandlers
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.MinecraftPacketRegistries
-import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.client.MinecraftClientPacketHandlers
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftServerPacketHandlers
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.MinecraftClientPacketHandlers
 
 @Deprecated(level = DeprecationLevel.HIDDEN, message = "Refactored to provide access to more phases i.e. login and configuration phases.")
 class VanillaNetworkRegistry private constructor(namespace: String) : AbstractNetworkRegistry<VanillaClientContext, VanillaServerContext>(namespace) {
