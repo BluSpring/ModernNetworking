@@ -7,9 +7,14 @@ of Minecraft, however you will have to provide some of the backing implementatio
 This API is very heavily engineered towards Netty. You can make a fork of this codebase to adapt it
 outside of Netty if you need it.
 
+Despite this project being written primarily in and for Kotlin, it is also designed to be
+rather Java-friendly too.
+
 ## Migrating API from v1 to v2
 I've taken great care in trying to maintain binary compatibility with the original v1 API, so any projects
 still using Modern Networking v1's API will not have to worry about broken API compatibility.
+
+If there are broken API compatibility changes between v1 and v2, please make a bug report!
 
 The main changes:
 - Switched the generics for NetworkCodec
