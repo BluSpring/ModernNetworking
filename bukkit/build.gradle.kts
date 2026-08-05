@@ -51,11 +51,7 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(21)
-
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_1_8)
-    }
+    jvmToolchain(8)
 }
 
 publishMods {
@@ -84,19 +80,5 @@ publishMods {
         projectId = rootProject.property("publishing.modrinth").toString()
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersions.addAll(supportedVersions)
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            artifact(project.tasks.getByName("shadowJar")) {
-                builtBy(project.tasks.getByName("shadowJar"))
-            }
-
-            artifact(project.tasks.getByName("kotlinSourcesJar")) {
-                builtBy(project.tasks.getByName("kotlinSourcesJar"))
-            }
-        }
     }
 }

@@ -2,7 +2,7 @@ package xyz.bluspring.modernnetworking.minecraft
 
 //? if >= 1.20.5 {
 /*import net.minecraft.network.protocol.common.custom.CustomPacketPayload
-import xyz.bluspring.modernnetworking.minecraft.api.packet.v2.MinecraftPacketRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 
 class CustomPayloadWrapper<T : NetworkPacket>(val registry: MinecraftPacketRegistry, val packet: T) : CustomPacketPayload {
@@ -15,7 +15,7 @@ class CustomPayloadWrapper<T : NetworkPacket>(val registry: MinecraftPacketRegis
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.resources.ResourceLocation
 import xyz.bluspring.modernnetworking.minecraft.api.v2.PacketDefinitionHelpers.identifier
-import xyz.bluspring.modernnetworking.minecraft.api.packet.v2.MinecraftPacketRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistry
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 
 class CustomPayloadWrapper<T : NetworkPacket>(val registry: MinecraftPacketRegistry, val packet: T) : CustomPacketPayload {

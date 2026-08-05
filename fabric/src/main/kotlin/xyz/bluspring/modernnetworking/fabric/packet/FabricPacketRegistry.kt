@@ -1,5 +1,9 @@
 package xyz.bluspring.modernnetworking.fabric.packet
 
+//? if >= 1.20.2 {
+/*import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistry
+*///? }
+
 //? if >= 1.20.5 {
 /*import io.netty.buffer.ByteBuf
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry

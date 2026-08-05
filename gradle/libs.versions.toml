@@ -29,7 +29,7 @@ kotlinlangforge = "2.12.1-k2.4.0"
 
 netty = "4.1.97.Final"
 
-paper-api = "1.21.1-R0.1-SNAPSHOT"
+paper-api = "1.16.5-R0.1-SNAPSHOT"
 velocity-api = "3.4.0-SNAPSHOT"
 
 [libraries]
@@ -43,7 +43,7 @@ mixinextras-forge = { module = "io.github.llamalad7:mixinextras-forge", version.
 
 netty-buffer = { module = "io.netty:netty-buffer", version.ref = "netty" }
 
-paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper-api" }
+paper-api = { module = "com.destroystokyo.paper:paper-api", version.ref = "paper-api" }
 velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "velocity-api" }
 
 [plugins]

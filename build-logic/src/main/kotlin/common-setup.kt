@@ -9,6 +9,8 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.plugins.BasePluginExtension
+import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.jvm.tasks.Jar
@@ -20,7 +22,25 @@ fun Project.setupCommonUnmodded(module: String) {
     version = "${mod.version}"
 
     project.extensions.configure<BasePluginExtension>("base") {
-        archivesName.set("${mod.name}-$module")
+        archivesName.set("${mod.id}-$module")
+    }
+
+    project.extensions.configure<PublishingExtension>("publishing") {
+        repositories {
+            maven("https://mvn.devos.one/releases") {
+                credentials {
+                    username = System.getenv()["MAVEN_USER"]
+                    password = System.getenv()["MAVEN_PASS"]
+                }
+            }
+        }
+
+        publications {
+            register<MavenPublication>("maven") {
+                artifactId = "${mod.id}-$module"
+                from(components.getByName("java"))
+            }
+        }
     }
 }
 

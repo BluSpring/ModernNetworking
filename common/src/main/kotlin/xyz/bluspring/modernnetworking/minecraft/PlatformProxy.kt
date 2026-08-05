@@ -2,7 +2,7 @@ package xyz.bluspring.modernnetworking.minecraft
 
 //? if >= 1.20.2 {
 /*import net.minecraft.server.network.ServerConfigurationPacketListenerImpl
-import xyz.bluspring.modernnetworking.minecraft.api.packet.v2.ConfigurationPacketHandlerRegistry
+import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.ConfigurationPacketHandlerRegistry
 import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.client.context.ClientConfigurationPacketContext
 import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.context.ServerConfigurationPacketContext
 *///? }

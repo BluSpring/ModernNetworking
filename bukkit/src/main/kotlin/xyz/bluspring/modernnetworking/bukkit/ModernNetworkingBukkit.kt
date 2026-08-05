@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION_ERROR")
 package xyz.bluspring.modernnetworking.bukkit
 
 import org.bukkit.plugin.java.JavaPlugin
