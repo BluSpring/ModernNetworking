@@ -16,7 +16,7 @@ plugins {
     id("dev.kikugie.stonecutter") version "0.9.+" // https://stonecutter.kikugie.dev/
 }
 
-val versions = listOf("1.18.2", "1.20.4", /*"1.20.6",*/ "1.21.1", "1.21.4", "1.21.8", "26.1.2", "26.2")
+val versions = listOf("1.18.2", "1.20.4", "1.20.6", "1.21.1", "1.21.8", "1.21.10", "1.21.11", "26.1.2")
 
 stonecutter {
     centralScript = "build.gradle.kts"

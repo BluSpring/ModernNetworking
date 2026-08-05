@@ -6,11 +6,14 @@ import net.minecraft.network.FriendlyByteBuf
 //? if >= 1.20.5 {
 /*import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.network.codec.StreamCodec
-import io.netty.buffer.ByteBuf
 *///? } else {
 import net.minecraft.network.chat.Component
 //? }
+//? if >= 1.21.11 {
+/*import net.minecraft.resources.Identifier as ResourceLocation
+*///? } else {
 import net.minecraft.resources.ResourceLocation
+//? }
 import net.minecraft.world.item.ItemStack
 import xyz.bluspring.modernnetworking.api.v2.codec.NetworkCodec
 import xyz.bluspring.modernnetworking.api.v2.codec.NetworkCodecs
@@ -36,7 +39,7 @@ object MinecraftNetworkCodecs {
         //? if <= 1.20.4 {
         ::ResourceLocation
         //? } else {
-        /*ResourceLocation::parse
+        /*{ ResourceLocation.tryParse(it)!! }
         *///? }
         , ResourceLocation::toString)
 

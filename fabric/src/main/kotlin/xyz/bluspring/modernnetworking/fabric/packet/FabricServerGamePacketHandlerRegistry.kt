@@ -22,7 +22,13 @@ class FabricServerGamePacketHandlerRegistry : MinecraftPacketHandlerRegistry<Ser
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ServerGamePacketContext>) {
         //? if >= 1.20.5 {
         /*val type = this.opposingPacketRegistry.getOrCreateType(definition)
-        PayloadTypeRegistry.playC2S().register(type.type, type.codec)
+        PayloadTypeRegistry
+            //? if >= 26.1 {
+            /*.serverboundPlay()
+            *///? } else {
+            .playC2S()
+            //? }
+            .register(type.type, type.codec)
         *///? } else {
         ServerPlayNetworking.registerGlobalReceiver(definition.identifier) { server, player, listener, buf, sender ->
             val packet = definition.codec.cast<FriendlyByteBuf, T>().decode(buf)

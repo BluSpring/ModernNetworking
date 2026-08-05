@@ -12,26 +12,19 @@ minecraft_version_range_fabric = ">=1.20.2 <=1.20.4"
 minecraft_version_range_forge = "[1.20.2,1.20.4]"
 fabric_api = "0.97.3+1.20.4"
 
+["1.20.6"]
+neoforge = "20.6.139"
+supported_versions = "1.20.5,1.20.6"
+minecraft_version_range_fabric = ">=1.20.5 <=1.20.6"
+minecraft_version_range_forge = "[1.20.5,1.20.6]"
+fabric_api = "0.100.8+1.20.6"
+
 ["1.21.1"]
 neoforge = "21.1.234"
-supported_versions = "1.21,1.21.1"
-minecraft_version_range_fabric = ">=1.21 <=1.21.1"
-minecraft_version_range_forge = "[1.21,1.21.1]"
+supported_versions = "1.21,1.21.1,1.21.2,1.21.3,1.21.4,1.21.5"
+minecraft_version_range_fabric = ">=1.21 <=1.21.5"
+minecraft_version_range_forge = "[1.21,1.21.5]"
 fabric_api = "0.116.12+1.21.1"
-
-["1.21.4"]
-neoforge = "21.4.157"
-supported_versions = "1.21.3,1.21.4"
-minecraft_version_range_fabric = ">=1.21.3 <=1.21.4"
-minecraft_version_range_forge = "[1.21.3,1.21.4]"
-fabric_api = "0.119.4+1.21.4"
-
-["1.21.5"]
-neoforge = "21.5.97"
-supported_versions = "1.21.5"
-minecraft_version_range_fabric = "1.21.5"
-minecraft_version_range_forge = "[1.21.5,1.21.6)"
-fabric_api = "0.128.2+1.21.5"
 
 ["1.21.8"]
 neoforge = "21.8.53"
@@ -56,14 +49,7 @@ fabric_api = "0.141.4+1.21.11"
 
 ["26.1.2"]
 neoforge = "26.1.2.76"
-supported_versions = "26.1,26.1.1,26.1.2"
-minecraft_version_range_fabric = "~26.1"
-minecraft_version_range_forge = "[26.1,26.2)"
+supported_versions = "26.1,26.1.1,26.1.2,26.2"
+minecraft_version_range_fabric = ">=26.1"
+minecraft_version_range_forge = "[26.1,)"
 fabric_api = "0.153.0+26.1.2"
-
-["26.2"]
-neoforge = "26.2.0.7-beta"
-supported_versions = "26.2"
-minecraft_version_range_fabric = "~26.2"
-minecraft_version_range_forge = "[26.2,26.3)"
-fabric_api = "0.153.0+26.2"

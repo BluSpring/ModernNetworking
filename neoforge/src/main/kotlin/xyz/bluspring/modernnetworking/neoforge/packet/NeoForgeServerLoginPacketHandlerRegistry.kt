@@ -40,9 +40,14 @@ class NeoForgeServerLoginPacketHandlerRegistry : ServerLoginPacketHandlerRegistr
                     ctx.handle(packet)
                 }, true)
             { future ->
-                TODO("Not yet implemented. Blame NeoForge.")
+                ctx.enqueueWork {
+                    future.get()
+                }
             })
-        }, listOf(ConnectionProtocol.LOGIN), Optional.of(PacketFlow.SERVERBOUND), "1", true)
+        },
+            //? if >= 1.21.8
+            null,
+            listOf(ConnectionProtocol.LOGIN), Optional.of(PacketFlow.SERVERBOUND), "1", true)
         //? } else {
         /*// We don't have an API for login on 1.20.2-1.20.4! what?
         TODO("Not yet implemented. Blame NeoForge.")

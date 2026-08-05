@@ -5,7 +5,11 @@ package xyz.bluspring.modernnetworking.api.minecraft.v2.packet
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+//? if >= 1.21.11 {
+/*import net.minecraft.resources.Identifier as ResourceLocation
+*///? } else {
 import net.minecraft.resources.ResourceLocation
+//? }
 import xyz.bluspring.modernnetworking.api.v2.packet.NetworkPacket
 import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 import xyz.bluspring.modernnetworking.api.v2.packet.registry.PacketRegistry
@@ -22,7 +26,13 @@ abstract class MinecraftPacketRegistry : PacketRegistry {
             return this.definitionsToTypes[definition]!! as CustomPacketPayload.TypeAndCodec<FriendlyByteBuf, CustomPayloadWrapper<T>>
         }
 
-        val type = CustomPacketPayload.Type<CustomPayloadWrapper<T>>(ResourceLocation.fromNamespaceAndPath(definition.namespace, definition.id))
+        val type = CustomPacketPayload.Type<CustomPayloadWrapper<T>>(
+            ResourceLocation
+                //? if >= 1.21 {
+                /*.fromNamespaceAndPath
+                *///? }
+                (definition.namespace, definition.id)
+        )
         val codec: StreamCodec<B, CustomPayloadWrapper<T>> = StreamCodec.of({ buf, value ->
             definition.codec.encode(buf, value.packet)
         }, { buf ->

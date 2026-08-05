@@ -83,7 +83,14 @@ class FabricServerConfigurationPacketHandlerRegistry : MinecraftPacketHandlerReg
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ServerConfigurationPacketContext>) {
         //? if >= 1.20.5 {
         /*ServerConfigurationNetworking.registerGlobalReceiver(this.opposingPacketRegistry.getOrCreateType(definition).type) { packet, ctx ->
-            handler.handle(packet.packet, ServerConfigurationPacketContext(ctx.networkHandler(), ctx.server()))
+            handler.handle(packet.packet, ServerConfigurationPacketContext(
+                //? if >= 26.1 {
+                /*ctx.packetListener()
+                *///? } else {
+                ctx.networkHandler()
+                //? }
+                , ctx.server())
+            )
         }
         *///? } else {
         ServerConfigurationNetworking.registerGlobalReceiver(definition.identifier) { server, impl, buf, sender ->

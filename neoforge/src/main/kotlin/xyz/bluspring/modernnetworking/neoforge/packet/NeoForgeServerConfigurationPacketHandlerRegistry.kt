@@ -13,8 +13,8 @@ import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent
 /*import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.neoforged.neoforge.network.event.OnGameConfigurationEvent as RegisterConfigurationTasksEvent
 import net.neoforged.neoforge.network.configuration.ICustomConfigurationTask
-import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
 *///? }
+import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket
 import net.neoforged.neoforge.network.handling.IPayloadContext
 import net.neoforged.neoforge.server.ServerLifecycleHooks
 import xyz.bluspring.modernnetworking.api.minecraft.v2.packet.ConfigurationPacketHandlerRegistry

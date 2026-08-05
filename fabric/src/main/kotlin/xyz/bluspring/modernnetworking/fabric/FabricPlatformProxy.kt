@@ -39,12 +39,22 @@ class FabricPlatformProxy : PlatformProxy {
     //? if >= 1.20.2 {
     /*override fun createServerConfigRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(
         //? if >= 1.20.5 {
-        /*PayloadTypeRegistry.configurationC2S()
+        /*PayloadTypeRegistry
+            //? if >= 26.1 {
+            /*.serverboundConfiguration()
+            *///? } else {
+            .configurationC2S()
+            //? }
         *///? }
     )
     override fun createClientConfigRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(
         //? if >= 1.20.5 {
-        /*PayloadTypeRegistry.playS2C()
+        /*PayloadTypeRegistry
+            //? if >= 26.1 {
+            /*.clientboundConfiguration()
+            *///? } else {
+            .configurationS2C()
+            //? }
         *///? }
     )
     override fun createServerConfigHandlerRegistry(): ConfigurationPacketHandlerRegistry<ServerConfigurationPacketContext, ServerConfigurationPacketListenerImpl> = FabricServerConfigurationPacketHandlerRegistry()
@@ -52,8 +62,22 @@ class FabricPlatformProxy : PlatformProxy {
     *///? }
 
     //? if >= 1.20.5 {
-    /*override fun createServerGameRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(PayloadTypeRegistry.playC2S())
-    override fun createClientGameRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(PayloadTypeRegistry.configurationS2C())
+    /*override fun createServerGameRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(
+        PayloadTypeRegistry
+            //? if >= 26.1 {
+            /*.serverboundPlay()
+            *///? } else {
+            .playC2S()
+            //? }
+    )
+    override fun createClientGameRegistry(): MinecraftPacketRegistry = FabricPacketRegistry(
+        PayloadTypeRegistry
+            //? if >= 26.1 {
+            /*.clientboundPlay()
+            *///? } else {
+            .playS2C()
+            //? }
+    )
     *///? } else {
     override fun createServerGameRegistry(): MinecraftPacketRegistry = MinecraftPacketRegistry()
     override fun createClientGameRegistry(): MinecraftPacketRegistry = MinecraftPacketRegistry()

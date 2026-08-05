@@ -14,7 +14,7 @@ import xyz.bluspring.modernnetworking.api.v2.packet.PacketDefinition
 class FabricClientLoginPacketHandlerRegistry : ClientLoginPacketHandlerRegistry<ClientLoginPacketContext>() {
     override fun <B : ByteBuf, T : NetworkPacket> registerLogin(definition: PacketDefinition<B, T>, handler: LoginPacketHandler<T, ClientLoginPacketContext>) {
         ClientLoginNetworking.registerGlobalReceiver(definition.identifier) { client, listener, buf, consumers ->
-            val packet = definition.codec.decode(buf as B)
+            val packet = definition.codec.cast<FriendlyByteBuf, T>().decode(buf)
             handler.handle(packet, ClientLoginPacketContext(listener, client))
                 .thenApply { packet ->
                     if (packet != null) {

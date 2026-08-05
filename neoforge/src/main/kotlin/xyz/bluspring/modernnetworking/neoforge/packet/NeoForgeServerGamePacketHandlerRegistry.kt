@@ -17,7 +17,13 @@ class NeoForgeServerGamePacketHandlerRegistry : NeoForgePacketHandlerRegistry<Se
         val player = context.player()
             //? if <= 1.20.4
             //.orElseThrow()
-        return ServerGamePacketContext(player as ServerPlayer, player.server)
+        return ServerGamePacketContext(player as ServerPlayer,
+            //? if <= 1.21.8 {
+            /*player.server!!
+            *///? } else {
+            player.level().server
+            //? }
+        )
     }
 
     override fun <T : NetworkPacket> send(receiver: ServerPlayer, packet: T) {
