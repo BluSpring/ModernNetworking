@@ -54,6 +54,7 @@ fun Project.setupCommonModDev(module: String) {
         if (shouldRemap() && module == "forge") {
             tasks.named<RemapJar>("reobfJar") {
                 input.set(tasks.named<ShadowJar>("shadowJar").get().archiveFile)
+                archiveClassifier.set(null) // MDG what the fuck
             }
 
             tasks.named<ShadowJar>("shadowJar") {
