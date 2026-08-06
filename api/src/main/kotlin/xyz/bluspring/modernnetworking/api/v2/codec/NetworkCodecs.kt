@@ -50,7 +50,12 @@ object NetworkCodecs {
     fun <T> unit(value: T) = NetworkCodec<ByteBuf, T>({ buf, value -> }, { value })
 
     @JvmStatic
-    fun <T, B : ByteBuf> NetworkCodec<B, T>.nullable(): NetworkCodec<B, T?> {
+    fun <T : Any, B : ByteBuf> NetworkCodec<B, T>.optional(): NetworkCodec<B, Optional<T>> {
+        return this.nullable().xmap(Optional<T>::ofNullable) { it.orElse(null) }
+    }
+
+    @JvmStatic
+    fun <T : Any, B : ByteBuf> NetworkCodec<B, T>.nullable(): NetworkCodec<B, T?> {
         return NetworkCodec({ buf, value ->
             buf.writeBoolean(value != null)
 
