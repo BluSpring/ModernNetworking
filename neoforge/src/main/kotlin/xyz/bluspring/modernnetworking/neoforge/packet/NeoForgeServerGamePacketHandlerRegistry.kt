@@ -19,10 +19,10 @@ class NeoForgeServerGamePacketHandlerRegistry : NeoForgePacketHandlerRegistry<Se
             //.orElseThrow()
         return ServerGamePacketContext(player as ServerPlayer,
             //? if <= 1.21.8 {
-            /*player.server!!
-            *///? } else {
-            player.level().server
-            //? }
+            player.server!!
+            //? } else {
+            /*player.level().server
+            *///? }
         )
     }
 

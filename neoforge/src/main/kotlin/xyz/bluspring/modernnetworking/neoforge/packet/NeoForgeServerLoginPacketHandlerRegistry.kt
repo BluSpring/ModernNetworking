@@ -46,7 +46,7 @@ class NeoForgeServerLoginPacketHandlerRegistry : ServerLoginPacketHandlerRegistr
             })
         },
             //? if >= 1.21.8
-            null,
+            //null,
             listOf(ConnectionProtocol.LOGIN), Optional.of(PacketFlow.SERVERBOUND), "1", true)
         //? } else {
         /*// We don't have an API for login on 1.20.2-1.20.4! what?

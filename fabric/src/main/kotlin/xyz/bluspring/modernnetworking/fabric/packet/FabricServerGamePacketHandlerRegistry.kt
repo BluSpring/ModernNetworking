@@ -1,14 +1,13 @@
 package xyz.bluspring.modernnetworking.fabric.packet
 
 //? if >= 1.20.5 {
-/*import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
-import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
+/*import xyz.bluspring.modernnetworking.minecraft.CustomPayloadWrapper
 *///? } else {
 import net.minecraft.network.FriendlyByteBuf
 import xyz.bluspring.modernnetworking.minecraft.api.v2.PacketDefinitionHelpers.identifier
+import io.netty.buffer.Unpooled
 //? }
 import io.netty.buffer.ByteBuf
-import io.netty.buffer.Unpooled
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.server.level.ServerPlayer
 import xyz.bluspring.modernnetworking.minecraft.api.v2.packet.MinecraftPacketRegistries
@@ -21,14 +20,11 @@ import xyz.bluspring.modernnetworking.minecraft.MinecraftPacketHandlerRegistry
 class FabricServerGamePacketHandlerRegistry : MinecraftPacketHandlerRegistry<ServerGamePacketContext, ServerPlayer>(MinecraftPacketRegistries.CLIENT_PLAY) {
     override fun <B : ByteBuf, T : NetworkPacket> register(definition: PacketDefinition<B, T>, handler: PacketHandlerRegistry.PacketHandler<T, ServerGamePacketContext>) {
         //? if >= 1.20.5 {
-        /*val type = this.opposingPacketRegistry.getOrCreateType(definition)
-        PayloadTypeRegistry
-            //? if >= 26.1 {
-            /*.serverboundPlay()
-            *///? } else {
-            .playC2S()
-            //? }
-            .register(type.type, type.codec)
+        /*ServerPlayNetworking.registerGlobalReceiver(MinecraftPacketRegistries.SERVER_PLAY.getOrCreateType(definition).type) { packet, ctx ->
+            ctx.server().execute {
+                handler.handle(packet.packet, ServerGamePacketContext(ctx.player(), ctx.server()))
+            }
+        }
         *///? } else {
         ServerPlayNetworking.registerGlobalReceiver(definition.identifier) { server, player, listener, buf, sender ->
             val packet = definition.codec.cast<FriendlyByteBuf, T>().decode(buf)
