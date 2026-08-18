@@ -1,5 +1,6 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.api.artifacts.repositories.InclusiveRepositoryContentDescriptor
 import org.gradle.kotlin.dsl.maven
 import org.gradle.language.jvm.tasks.ProcessResources
 
@@ -10,6 +11,13 @@ fun String.upperCaseFirst() = replaceFirstChar { if (it.isLowerCase()) it.upperc
 fun RepositoryHandler.strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
     forRepository { maven(url) { name = alias } }
     filter { groups.forEach(::includeGroup) }
+}
+
+fun RepositoryHandler.strictMaven(url: String, alias: String, setup: InclusiveRepositoryContentDescriptor.() -> Unit) = exclusiveContent {
+    forRepository { maven(url) { name = alias } }
+    filter {
+        setup()
+    }
 }
 
 fun ProcessResources.properties(files: Iterable<String>, vararg properties: Pair<String, Any>) {

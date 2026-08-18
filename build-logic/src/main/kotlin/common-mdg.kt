@@ -4,9 +4,11 @@ import me.modmuss50.mpp.ModPublishExtension
 import net.neoforged.moddevgradle.dsl.ModDevExtension
 import net.neoforged.moddevgradle.legacyforge.tasks.RemapJar
 import org.gradle.api.Project
+import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.maven
 import org.gradle.kotlin.dsl.named
 
 fun Project.configureModDev(extension: ModDevExtension, module: String) {
@@ -37,6 +39,28 @@ fun Project.configureModDev(extension: ModDevExtension, module: String) {
             create(mod.id) {
                 sourceSet(sourceSets.named("main").get())
             }
+        }
+    }
+
+    // because otherwise I straight up cannot compile things because they fucked up log4j imports.
+    // good job Neo.
+    repositories.removeAll { it is MavenArtifactRepository && it.url.host == "maven.neoforged.net" }
+    repositories.maven("https://maven.neoforged.net/mojang-meta") {
+        name = "NeoMaven Mojang Meta"
+        content {
+            includeModule("net.neoforged", "minecraft-dependencies")
+        }
+    }
+    repositories.maven("https://maven.neoforged.net/releases") {
+        name = "NeoMaven"
+        content {
+            includeGroupAndSubgroups("net.minecraftforge")
+            includeGroupAndSubgroups("net.neoforged")
+            includeGroupAndSubgroups("cpw.mods")
+            includeGroupAndSubgroups("de.oceanlabs.mcp")
+            includeGroupAndSubgroups("org.mcmodlauncher")
+            includeGroupAndSubgroups("org.spongepowered")
+            excludeModule("net.neoforged", "minecraft-dependencies")
         }
     }
 }
