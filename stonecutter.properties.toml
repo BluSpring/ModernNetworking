@@ -1,9 +1,16 @@
 ["1.18.2"]
 forge = "40.3.12"
-supported_versions = "1.18,1.18.1,1.18.2,1.19,1.19.1,1.19.2,1.19.3,1.19.4,1.20,1.20.1"
-minecraft_version_range_fabric = ">=1.18 <=1.20.1"
-minecraft_version_range_forge = "[1.18,1.20.1]"
+supported_versions = "1.18,1.18.1,1.18.2"
+minecraft_version_range_fabric = ">=1.18 <=1.20.1" # this is not a bug, it's just that Forge fucking sucks.
+minecraft_version_range_forge = "[1.18,1.18.2]"
 fabric_api = "0.77.0+1.18.2"
+
+["1.19.2"]
+forge = "43.5.2"
+supported_versions = "1.19,1.19.1,1.19.2,1.19.3,1.19.4,1.20,1.20.1"
+minecraft_version_range_fabric = ">=1.19 <=1.20.1"
+minecraft_version_range_forge = "[1.19,1.20.1]"
+fabric_api = "0.77.0+1.19.2"
 
 ["1.20.4"]
 neoforge = "20.4.251"
