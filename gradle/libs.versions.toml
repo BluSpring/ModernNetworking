@@ -12,7 +12,7 @@ stonecutter = "0.9.+"
 # https://github.com/GradleUp/shadow/releases
 shadow = "9.4.3"
 # https://github.com/modmuss50/mod-publish-plugin/blob/main/build.gradle.kts#L13
-mod-publish = "1.1.0"
+mod-publish = "2.2.0"
 
 # https://github.com/FabricMC/Mixin/blob/main/gradle.properties#L7
 mixin = "0.8.7"

@@ -16,10 +16,16 @@ import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.jvm.tasks.Jar
 import org.gradle.kotlin.dsl.*
 import org.gradle.language.jvm.tasks.ProcessResources
+import java.net.HttpURLConnection
 import java.net.URI
 
 fun Project.setupCommonUnmodded(module: String) {
     version = "${mod.version}"
+
+    try {
+        val stonecutter = project.extensions.getByType<StonecutterBuildExtension>()
+        version = "${mod.version}+${stonecutter.current.version}"
+    } catch (_: Throwable) {}
 
     project.extensions.configure<BasePluginExtension>("base") {
         archivesName.set("${mod.id}-$module")
@@ -28,6 +34,7 @@ fun Project.setupCommonUnmodded(module: String) {
     project.extensions.configure<PublishingExtension>("publishing") {
         repositories {
             maven("https://mvn.devos.one/releases") {
+                name = "devOS"
                 credentials {
                     username = System.getenv()["MAVEN_USER"]
                     password = System.getenv()["MAVEN_PASS"]
@@ -39,6 +46,25 @@ fun Project.setupCommonUnmodded(module: String) {
             register<MavenPublication>("maven") {
                 artifactId = "${mod.id}-$module"
                 from(components.getByName("java"))
+            }
+        }
+    }
+
+    tasks.named("publishMavenPublicationToDevOSRepository") {
+        onlyIf {
+            val group = mod.group
+            val artifactId = "${mod.id}-$module"
+            val version = project.version.toString()
+
+            try {
+                val connection = URI.create("https://mvn.devos.one/releases/${group.replace(".", "/")}/${artifactId}/${version}/${artifactId}-${version}.jar").toURL().openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.connect()
+                println("https://mvn.devos.one/releases/${group.replace(".", "/")}/${artifactId}/${version}/${artifactId}-${version}.jar")
+
+                connection.responseCode != 200
+            } catch (_: Exception) {
+                false
             }
         }
     }
@@ -118,6 +144,8 @@ fun Project.setupCommon(module: String) {
                 accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
 
                 minecraftVersions.addAll((property("supported_versions")!! as String).split(","))
+                client = true
+                server = true
 
                 if (module == "fabric") {
                     requires {
@@ -134,12 +162,30 @@ fun Project.setupCommon(module: String) {
             }
         }
 
+        tasks.named("publish") {
+            finalizedBy("publishMods")
+        }
+
+        tasks.named("publishModrinth") {
+            onlyIf {
+                try {
+                    val connection = URI.create("https://api.modrinth.com/v2/project/modernnetworking/version/${version}").toURL().openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    connection.connect()
+
+                    connection.responseCode != 200
+                } catch (_: Exception) {
+                    false
+                }
+            }
+        }
+
         tasks.named<Jar>("jar") {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
             from(zipTree(apiProj.tasks.named<Jar>("jar").get().archiveFile))
             from(zipTree(commonProj.tasks.named<Jar>("jar").get().archiveFile))
 
-            if (module != "forge") // ??????
+            if (module != "forge" && !(module == "common" && stonecutter.eval(stonecutter.current.version, "<=1.20.1"))) // ??????
                 archiveClassifier = "dev"
         }
 
@@ -234,8 +280,11 @@ fun tryFindNeoFormVersion(version: String): String? {
             }
         }
 
+        println("Could not find NeoForm version!")
         null
-    } catch (_: Throwable) {
+    } catch (e: Throwable) {
+        println("An error occurred whilst searching for NeoForm version!")
+        e.printStackTrace()
         null
     }
 }
